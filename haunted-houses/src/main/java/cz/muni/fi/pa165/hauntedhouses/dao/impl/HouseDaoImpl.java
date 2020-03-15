@@ -1,4 +1,6 @@
 package cz.muni.fi.pa165.hauntedhouses.dao.impl;
 
-public class HouseDaoImpl {
+import cz.muni.fi.pa165.hauntedhouses.dao.HouseDao;
+
+public class HouseDaoImpl implements HouseDao {
 }
