@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.hauntedhouses.model;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.time.LocalDate;
 
 /**
  * @author Petr Vitovsky
@@ -22,7 +23,7 @@ public class House {
     private String address;
 
     @Column
-    private java.time.LocalDate hauntedSince;
+    private LocalDate hauntedSince;
 
     @Column
     private String history;
