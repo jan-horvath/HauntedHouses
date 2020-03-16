@@ -60,11 +60,11 @@ public class House {
         this.history = history;
     }
 
-    public java.time.LocalDate getHauntedSince() {
+    public LocalDate getHauntedSince() {
         return this.hauntedSince;
     }
 
-    public void setHauntedSince(java.time.LocalDate hauntedSince) {
+    public void setHauntedSince(LocalDate hauntedSince) {
         this.hauntedSince = hauntedSince;
     }
 

@@ -20,20 +20,20 @@ public interface HouseDao {
      * @param id Id of a House
      * @return House with the given id
      */
-    House readId(long id);
+    House getHouseById(long id);
 
     /**
      * Searches database for a House with a specific address
      * @param address Address of a House
      * @return House with the given address
      */
-    House readAddress(String address);
+    House getHouseByAddress(String address);
 
     /**
      * Searches database for all Houses
      * @return List of all houses in database
      */
-    List<House> readAll();
+    List<House> getAllHouses();
 
     /**
      * Updates the given House in the database

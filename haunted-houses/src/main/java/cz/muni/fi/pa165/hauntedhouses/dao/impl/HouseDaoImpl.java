@@ -27,7 +27,7 @@ public class HouseDaoImpl implements HouseDao {
     }
 
     @Override
-    public House readId(long id) {
+    public House getHouseById(long id) {
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
 
@@ -39,7 +39,7 @@ public class HouseDaoImpl implements HouseDao {
     }
 
     @Override
-    public House readAddress(String address) {
+    public House getHouseByAddress(String address) {
         EntityManager em = emFactory.createEntityManager();
 
         House house;
@@ -57,7 +57,7 @@ public class HouseDaoImpl implements HouseDao {
     }
 
     @Override
-    public List<House> readAll() {
+    public List<House> getAllHouses() {
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
 
