@@ -16,7 +16,7 @@ public class HouseDaoImpl implements HouseDao {
     private static EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("default");
 
     @Override
-    public void create(House house) {
+    public void createHouse(House house) {
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
 
@@ -69,7 +69,7 @@ public class HouseDaoImpl implements HouseDao {
     }
 
     @Override
-    public void update(House house) {
+    public void updateHouse(House house) {
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
 
@@ -80,7 +80,7 @@ public class HouseDaoImpl implements HouseDao {
     }
 
     @Override
-    public void delete(House house) {
+    public void deleteHouse(House house) {
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
 

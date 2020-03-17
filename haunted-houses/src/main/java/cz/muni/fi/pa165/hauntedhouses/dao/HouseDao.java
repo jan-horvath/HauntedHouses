@@ -13,7 +13,7 @@ public interface HouseDao {
      * Adds new House to the database
      * @param house New House
      */
-    void create(House house);
+    void createHouse(House house);
 
     /**
      * Searches database for a House with a specific id
@@ -39,11 +39,11 @@ public interface HouseDao {
      * Updates the given House in the database
      * @param house House for update
      */
-    void update(House house);
+    void updateHouse(House house);
 
     /**
      * Deletes the given House from the database
      * @param house House for deletion
      */
-    void delete(House house);
+    void deleteHouse(House house);
 }
