@@ -71,13 +71,13 @@ public class House {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof House)) return false;
         House house = (House) o;
-        return address.equals(house.address);
+        return getAddress().equals(house.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address);
+        return Objects.hash(getAddress());
     }
 }
