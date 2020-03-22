@@ -2,95 +2,59 @@ package cz.muni.fi.pa165.hauntedhouses.dao.impl;
 
 import cz.muni.fi.pa165.hauntedhouses.dao.HouseDao;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author Petr Vitovsky
  */
+@Repository
+@Transactional
 public class HouseDaoImpl implements HouseDao {
-    private static EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("default");
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public void createHouse(House house) {
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
-
         em.persist(house);
-
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public House getHouseById(long id) {
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
-
-        House house = em.find(House.class, id);
-
-        em.getTransaction().commit();
-        em.close();
-        return house;
+        return em.find(House.class, id);
     }
 
     @Override
     public House getHouseByAddress(String address) {
-        EntityManager em = emFactory.createEntityManager();
-
-        House house;
         try {
-            house = em.createQuery(
+            return em.createQuery(
                     "SELECT house from House house WHERE house.address = :address", House.class).
                     setParameter("address", address).getSingleResult();
         } catch (NoResultException e) {
-            house = null;
-        } finally {
-            em.close();
+            return null;
         }
-
-        return house;
     }
 
     @Override
     public List<House> getAllHouses() {
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
-
-        List<House> result = em.createQuery("select h from House h", House.class).getResultList();
-
-        em.getTransaction().commit();
-        em.close();
-        return result;
+        return em.createQuery("select h from House h", House.class).getResultList();
     }
 
     @Override
     public void updateHouse(House house) {
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
-
         em.merge(house);
-
-        em.getTransaction().commit();
-        em.close();
     }
 
     @Override
     public void deleteHouse(House house) {
-        EntityManager em = emFactory.createEntityManager();
-        em.getTransaction().begin();
-
         if (em.contains(house)) {
             em.remove(house);
         } else {
             em.remove(em.getReference(House.class, house.getId()));
         }
-
-        em.getTransaction().commit();
-        em.close();
     }
 }
