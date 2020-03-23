@@ -38,8 +38,9 @@ public interface HouseDao {
     /**
      * Updates the given House in the database if it exists
      * @param house House for update
+     * @return House if it was updated, null otherwise
      */
-    void updateHouse(House house);
+    House updateHouse(House house);
 
     /**
      * Deletes the given House from the database

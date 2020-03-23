@@ -45,10 +45,11 @@ public class HouseDaoImpl implements HouseDao {
     }
 
     @Override
-    public void updateHouse(House house) {
+    public House updateHouse(House house) {
         if (em.find(House.class, house.getId()) != null) {
-            em.merge(house);
+            return em.merge(house);
         }
+        return null;
     }
 
     @Override
