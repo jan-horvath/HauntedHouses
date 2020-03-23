@@ -13,6 +13,8 @@ public interface PlayerDao {
     /**
      * Creates a new player in the database
      * @param player player to be created
+     * @throws org.springframework.dao.DataAccessException if given player already exists or
+     * database constraints are violated
      */
     void createPlayer(Player player);
 
@@ -39,11 +41,14 @@ public interface PlayerDao {
     /**
      * Updates the given player in the database
      * @param player player to be updated
+     * @return player which was updated or null if such player is not found
+     * @throws org.springframework.dao.DataAccessException if database constraints are violated
      */
-    void updatePlayer(Player player);
+    Player updatePlayer(Player player);
 
     /**
      * Removes given player from the database
+     * If the given player does not exist, the method does nothing
      * @param player player to be removed
      */
     void deletePlayer(Player player);
