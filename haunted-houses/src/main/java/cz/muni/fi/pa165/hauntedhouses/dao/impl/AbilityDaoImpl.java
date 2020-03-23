@@ -45,15 +45,12 @@ public class AbilityDaoImpl implements AbilityDao {
 
     @Override
     public Ability updateAbility(Ability A) {
-        return em.merge(A);
+        if(em.find(Ability.class, A.getId()) != null) return em.merge(A);
+        return null;
     }
 
     @Override
     public void deleteAbility(Ability A) {
-        if (em.contains(A)) {
-            em.remove(A);
-        } else {
-            em.remove(em.getReference(Ability.class, A.getId()));
-        }
+        em.remove(em.contains(A) ? A : em.merge(A));
     }
 }
