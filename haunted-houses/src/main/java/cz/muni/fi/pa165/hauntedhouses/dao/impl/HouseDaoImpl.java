@@ -46,7 +46,9 @@ public class HouseDaoImpl implements HouseDao {
 
     @Override
     public void updateHouse(House house) {
-        em.merge(house);
+        if (em.find(House.class, house.getId()) != null) {
+            em.merge(house);
+        }
     }
 
     @Override

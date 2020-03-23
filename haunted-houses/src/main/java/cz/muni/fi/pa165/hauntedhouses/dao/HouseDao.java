@@ -18,14 +18,14 @@ public interface HouseDao {
     /**
      * Searches database for a House with a specific id
      * @param id Id of a House
-     * @return House with the given id
+     * @return House with the given id if it exists, null otherwise
      */
     House getHouseById(long id);
 
     /**
      * Searches database for a House with a specific address
      * @param address Address of a House
-     * @return House with the given address
+     * @return House with the given address if it exists, null otherwise
      */
     House getHouseByAddress(String address);
 
@@ -36,7 +36,7 @@ public interface HouseDao {
     List<House> getAllHouses();
 
     /**
-     * Updates the given House in the database
+     * Updates the given House in the database if it exists
      * @param house House for update
      */
     void updateHouse(House house);
