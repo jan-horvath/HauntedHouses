@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.hauntedhouses.dao;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
 
 import java.util.List;
+import org.springframework.orm.jpa.JpaSystemException;
 
 /**
  * @author Petr Vitovsky
@@ -12,6 +13,7 @@ public interface HouseDao {
     /**
      * Adds new House to the database
      * @param house New House
+     * @throws JpaSystemException if the database constraints are violated or the entity already exists
      */
     void createHouse(House house);
 
@@ -39,11 +41,12 @@ public interface HouseDao {
      * Updates the given House in the database if it exists
      * @param house House for update
      * @return House if it was updated, null otherwise
+     * @throws JpaSystemException if the database constraints are violated
      */
     House updateHouse(House house);
 
     /**
-     * Deletes the given House from the database
+     * Deletes the given House from the database if it exists
      * @param house House for deletion
      */
     void deleteHouse(House house);
