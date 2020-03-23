@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.hauntedhouses.dao.impl;
 
 import cz.muni.fi.pa165.hauntedhouses.dao.HouseDao;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -19,7 +21,7 @@ public class HouseDaoImpl implements HouseDao {
     private EntityManager em;
 
     @Override
-    public void createHouse(House house) {
+    public void createHouse(House house) throws JpaSystemException {
         em.persist(house);
     }
 
@@ -45,12 +47,14 @@ public class HouseDaoImpl implements HouseDao {
     }
 
     @Override
-    public void updateHouse(House house) {
-        em.merge(house);
+    public void updateHouse(House house) throws JpaSystemException {
+        if (em.find(House.class, house.getId()) != null) {
+            em.merge(house);
+        }
     }
 
     @Override
-    public void deleteHouse(House house) {
+    public void deleteHouse(House house) throws JpaObjectRetrievalFailureException {
         if (em.contains(house)) {
             em.remove(house);
         } else {
