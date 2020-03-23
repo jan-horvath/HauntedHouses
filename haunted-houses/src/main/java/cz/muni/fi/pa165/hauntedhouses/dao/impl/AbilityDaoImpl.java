@@ -44,8 +44,8 @@ public class AbilityDaoImpl implements AbilityDao {
     }
 
     @Override
-    public void updateAbility(Ability A) {
-        em.merge(A);
+    public Ability updateAbility(Ability A) {
+        return em.merge(A);
     }
 
     @Override
