@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.hauntedhouses.dao;
 
 import cz.muni.fi.pa165.hauntedhouses.model.Player;
+import org.springframework.orm.jpa.JpaSystemException;
 
 import java.util.List;
 
@@ -13,8 +14,7 @@ public interface PlayerDao {
     /**
      * Creates a new player in the database
      * @param player player to be created
-     * @throws org.springframework.dao.DataAccessException if given player already exists or
-     * database constraints are violated
+     * @throws JpaSystemException if given player already exists or database constraints are violated
      */
     void createPlayer(Player player);
 
@@ -42,7 +42,7 @@ public interface PlayerDao {
      * Updates the given player in the database
      * @param player player to be updated
      * @return player which was updated or null if such player is not found
-     * @throws org.springframework.dao.DataAccessException if database constraints are violated
+     * @throws JpaSystemException if database constraints are violated
      */
     Player updatePlayer(Player player);
 
