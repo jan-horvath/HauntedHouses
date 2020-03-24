@@ -47,14 +47,14 @@ public class Ability {
 
     @Override
     public boolean equals(Object obj){
-        if(obj == null || this.getClass() != obj.getClass()) return false;
+        if(!(obj instanceof Ability)) return false;
         if(this == obj) return true;
         Ability ability = (Ability) obj;
-        return name.equals(ability.name);
+        return getName().equals(ability.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(getName());
     }
 }
