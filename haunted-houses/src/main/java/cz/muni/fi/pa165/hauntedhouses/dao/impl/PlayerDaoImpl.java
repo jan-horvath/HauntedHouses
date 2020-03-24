@@ -47,12 +47,15 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public void updatePlayer(Player player) {
-        entityManager.merge(player);
+    public Player updatePlayer(Player player) {
+        if (entityManager.find(Player.class, player.getId()) != null) {
+            return entityManager.merge(player);
+        }
+        return null;
     }
 
     @Override
     public void deletePlayer(Player player) {
-        entityManager.remove(player);
+        entityManager.remove(entityManager.contains(player) ? player : entityManager.merge(player));
     }
 }
