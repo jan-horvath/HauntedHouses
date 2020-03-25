@@ -16,7 +16,7 @@ import java.util.List;
 public class AbilityDaoImpl implements AbilityDao {
 
     @PersistenceContext
-    private static EntityManager em;
+    private EntityManager em;
 
     @Override
     public void createAbility(Ability A) {
