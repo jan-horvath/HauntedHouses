@@ -3,15 +3,13 @@ package cz.muni.fi.pa165.hauntedhouses;
 import cz.muni.fi.pa165.hauntedhouses.dao.PlayerDao;
 import cz.muni.fi.pa165.hauntedhouses.model.Player;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -38,7 +36,7 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     private Player p2;
     private Player p3;
 
-    @BeforeEach
+    @BeforeMethod
     public void setup() {
         p1 = new Player();
         p1.setName("testPlayer1");
@@ -132,22 +130,30 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     }
 
     @Test
+    public void updateNonexistingPlayerTest() {
+        Assert.assertNull(playerDao.updatePlayer(p1));
+    }
+
+    @Test(expectedExceptions = PersistenceException.class)
     public void createPlayerWithNullNameTest() {
         p1.setName(null);
-        assertThrows(PersistenceException.class, () -> { playerDao.createPlayer(p1); em.flush(); });
+        playerDao.createPlayer(p1);
+        em.flush();
     }
 
-    @Test
+    @Test(expectedExceptions = PersistenceException.class)
     public void createDuplicatePlayerTest() {
         playerDao.createPlayer(p1);
-        assertThrows(PersistenceException.class, () -> { playerDao.createPlayer(p3); em.flush(); });
+        playerDao.createPlayer(p3);
+        em.flush();
     }
 
-    @Test
+    @Test(expectedExceptions = PersistenceException.class)
     public void updateDuplicatePlayerTest() {
         playerDao.createPlayer(p1);
         playerDao.createPlayer(p2);
         p2.setName(p1.getName());
-        assertThrows(PersistenceException.class, () -> { playerDao.updatePlayer(p2); em.flush(); });
+        playerDao.updatePlayer(p2);
+        em.flush();
     }
 }
