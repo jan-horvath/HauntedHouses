@@ -77,12 +77,11 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         playerDao.createPlayer(p1);
         playerDao.createPlayer(p2);
 
-        List<Player> found = playerDao.getAllPlayers();
-        Assert.assertEquals(found.size(),2);
-        Assert.assertEquals(p1.getName(), found.get(0).getName());
-        Assert.assertEquals(p1.getEmail(), found.get(0).getEmail());
-        Assert.assertEquals(p2.getName(), found.get(1).getName());
-        Assert.assertEquals(p2.getEmail(), found.get(1).getEmail());
+        Assert.assertEquals(playerDao.getAllPlayers().size(),2);
+        Assert.assertEquals(p1.getName(), playerDao.getPlayerById(p1.getId()).getName());
+        Assert.assertEquals(p1.getEmail(), playerDao.getPlayerById(p1.getId()).getEmail());
+        Assert.assertEquals(p2.getName(), playerDao.getPlayerById(p2.getId()).getName());
+        Assert.assertEquals(p2.getEmail(), playerDao.getPlayerById(p2.getId()).getEmail());
     }
 
     @Test
