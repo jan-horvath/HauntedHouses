@@ -48,10 +48,10 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public Player updatePlayer(Player player) {
-        if (entityManager.find(Player.class, player.getId()) != null) {
-            return entityManager.merge(player);
+        if (player.getId() == null || entityManager.find(Player.class, player.getId()) == null) {
+            return null;
         }
-        return null;
+        return entityManager.merge(player);
     }
 
     @Override
