@@ -16,7 +16,7 @@ import java.util.List;
 public class AbilityDaoImpl implements AbilityDao {
 
     @PersistenceContext
-    private static EntityManager em;
+    private EntityManager em;
 
     @Override
     public void createAbility(Ability A) {
@@ -45,8 +45,8 @@ public class AbilityDaoImpl implements AbilityDao {
 
     @Override
     public Ability updateAbility(Ability A) {
-        if(em.find(Ability.class, A.getId()) != null) return em.merge(A);
-        return null;
+        if(A.getId() == null || em.find(Ability.class, A.getId()) == null) return null;
+        return em.merge(A);
     }
 
     @Override
