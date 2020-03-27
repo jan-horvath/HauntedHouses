@@ -10,7 +10,6 @@ import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.Assert;
@@ -18,15 +17,15 @@ import org.testng.Assert;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
+import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author David Hofman
  */
 @Transactional
-@SpringBootTest
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTests {
 
@@ -51,14 +50,14 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         s1 = new Specter();
         s1.setName("SpecterName1");
         s1.setDescription("SpecterDescription1");
-        s1.setStartOfHaunting(new Date());
-        s1.setEndOfHaunting(new Date());
+        s1.setStartOfHaunting(LocalTime.of(3,0));
+        s1.setEndOfHaunting(LocalTime.of(5,30));
 
         s2 = new Specter();
         s2.setName("SpecterName2");
         s2.setDescription("SpecterDescription2");
-        s2.setStartOfHaunting(new Date());
-        s2.setEndOfHaunting(new Date());
+        s2.setStartOfHaunting(LocalTime.of(23,40));
+        s2.setEndOfHaunting(LocalTime.of(4,15));
     }
 
     @Test
@@ -155,8 +154,8 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         ability3.setDescription("AbilityDescription3");
         abilityDao.createAbility(ability3);
 
-        s1.setAbilities(Arrays.asList(new Ability[]{ability1,ability2}));
-        s2.setAbilities(Arrays.asList(new Ability[]{ability2}));
+        s1.setAbilities(Arrays.asList(ability1,ability2));
+        s2.setAbilities(Collections.singletonList(ability2));
 
         specterDao.createSpecter(s1);
         specterDao.createSpecter(s2);
@@ -169,15 +168,18 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(0).getEndOfHaunting());
 
         foundSpecters = specterDao.getSpectersByAbility(ability2);
+        int index1 = foundSpecters.indexOf(s1);
+        int index2 = foundSpecters.indexOf(s2);
+        Assert.assertTrue(index1 != -1 && index2 != -1);
         Assert.assertEquals(foundSpecters.size(),2);
-        Assert.assertEquals(s1.getName(), foundSpecters.get(0).getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecters.get(0).getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecters.get(0).getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(0).getEndOfHaunting());
-        Assert.assertEquals(s2.getName(), foundSpecters.get(1).getName());
-        Assert.assertEquals(s2.getDescription(), foundSpecters.get(1).getDescription());
-        Assert.assertEquals(s2.getStartOfHaunting(),foundSpecters.get(1).getStartOfHaunting());
-        Assert.assertEquals(s2.getEndOfHaunting(),foundSpecters.get(1).getEndOfHaunting());
+        Assert.assertEquals(s1.getName(), foundSpecters.get(index1).getName());
+        Assert.assertEquals(s1.getDescription(), foundSpecters.get(index1).getDescription());
+        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecters.get(index1).getStartOfHaunting());
+        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(index1).getEndOfHaunting());
+        Assert.assertEquals(s2.getName(), foundSpecters.get(index2).getName());
+        Assert.assertEquals(s2.getDescription(), foundSpecters.get(index2).getDescription());
+        Assert.assertEquals(s2.getStartOfHaunting(),foundSpecters.get(index2).getStartOfHaunting());
+        Assert.assertEquals(s2.getEndOfHaunting(),foundSpecters.get(index2).getEndOfHaunting());
 
         foundSpecters = specterDao.getSpectersByAbility(ability3);
         Assert.assertEquals(foundSpecters.size(),0);
@@ -198,14 +200,18 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
 
         foundSpecters = specterDao.getAllSpecters();
         Assert.assertEquals(foundSpecters.size(),2);
-        Assert.assertEquals(s1.getName(), foundSpecters.get(0).getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecters.get(0).getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecters.get(0).getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(0).getEndOfHaunting());
-        Assert.assertEquals(s2.getName(), foundSpecters.get(1).getName());
-        Assert.assertEquals(s2.getDescription(), foundSpecters.get(1).getDescription());
-        Assert.assertEquals(s2.getStartOfHaunting(),foundSpecters.get(1).getStartOfHaunting());
-        Assert.assertEquals(s2.getEndOfHaunting(),foundSpecters.get(1).getEndOfHaunting());
+        int index1 = foundSpecters.indexOf(s1);
+        int index2 = foundSpecters.indexOf(s2);
+        Assert.assertTrue(index1 != -1 && index2 != -1);
+        Assert.assertEquals(foundSpecters.size(),2);
+        Assert.assertEquals(s1.getName(), foundSpecters.get(index1).getName());
+        Assert.assertEquals(s1.getDescription(), foundSpecters.get(index1).getDescription());
+        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecters.get(index1).getStartOfHaunting());
+        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(index1).getEndOfHaunting());
+        Assert.assertEquals(s2.getName(), foundSpecters.get(index2).getName());
+        Assert.assertEquals(s2.getDescription(), foundSpecters.get(index2).getDescription());
+        Assert.assertEquals(s2.getStartOfHaunting(),foundSpecters.get(index2).getStartOfHaunting());
+        Assert.assertEquals(s2.getEndOfHaunting(),foundSpecters.get(index2).getEndOfHaunting());
     }
 
     @Test
@@ -226,7 +232,7 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         Assert.assertEquals(s1.getDescription(), foundSpecter.getDescription());
         Assert.assertEquals(s1.getStartOfHaunting(),foundSpecter.getStartOfHaunting());
         Assert.assertEquals(s1.getEndOfHaunting(),foundSpecter.getEndOfHaunting());
-        Assert.assertTrue(foundSpecter.equals(updatedSpecter));
+        Assert.assertEquals(updatedSpecter, foundSpecter);
     }
 
     @Test
