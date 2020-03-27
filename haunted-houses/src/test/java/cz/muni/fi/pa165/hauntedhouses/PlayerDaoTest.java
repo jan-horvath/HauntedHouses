@@ -62,6 +62,14 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     }
 
     @Test
+    public void getByIdNonexistingPlayerTest() {
+        playerDao.createPlayer(p1);
+
+        Long nonexistingId = p1.getId() + 1;
+        Assert.assertNull(playerDao.getPlayerById(nonexistingId));
+    }
+
+    @Test
     public void createAndGetByNamePlayerTest() {
         playerDao.createPlayer(p1);
 
@@ -69,20 +77,21 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
+    }
+
+    @Test public void getByNameNonexistingPlayerTest() {
         Assert.assertNull(playerDao.getPlayerByName("nonexisting"));
     }
 
     @Test
     public void createAndGetAllPlayerTest() {
+        Assert.assertEquals(playerDao.getAllPlayers().size(), 0);
         playerDao.createPlayer(p1);
         playerDao.createPlayer(p2);
 
-        List<Player> found = playerDao.getAllPlayers();
-        Assert.assertEquals(found.size(),2);
-        Assert.assertEquals(p1.getName(), found.get(0).getName());
-        Assert.assertEquals(p1.getEmail(), found.get(0).getEmail());
-        Assert.assertEquals(p2.getName(), found.get(1).getName());
-        Assert.assertEquals(p2.getEmail(), found.get(1).getEmail());
+        Assert.assertEquals(playerDao.getAllPlayers().size(),2);
+        Assert.assertTrue(playerDao.getAllPlayers().contains(p1));
+        Assert.assertTrue(playerDao.getAllPlayers().contains(p2));
     }
 
     @Test
