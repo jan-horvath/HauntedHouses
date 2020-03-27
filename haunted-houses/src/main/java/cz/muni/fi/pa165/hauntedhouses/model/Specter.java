@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.hauntedhouses.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.time.LocalTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * @author Zoltan Fridrich
@@ -30,12 +28,10 @@ public class Specter {
     private String name;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIME)
-    private Date startOfHaunting;
+    private LocalTime startOfHaunting;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIME)
-    private Date endOfHaunting;
+    private LocalTime endOfHaunting;
 
     @Column(nullable = false)
     private String description;
@@ -65,19 +61,19 @@ public class Specter {
         this.name = name;
     }
 
-    public Date getStartOfHaunting() {
+    public LocalTime getStartOfHaunting() {
         return startOfHaunting;
     }
 
-    public void setStartOfHaunting(Date startOfHaunting) {
+    public void setStartOfHaunting(LocalTime startOfHaunting) {
         this.startOfHaunting = startOfHaunting;
     }
 
-    public Date getEndOfHaunting() {
+    public LocalTime getEndOfHaunting() {
         return endOfHaunting;
     }
 
-    public void setEndOfHaunting(Date endOfHaunting) {
+    public void setEndOfHaunting(LocalTime endOfHaunting) {
         this.endOfHaunting = endOfHaunting;
     }
 
