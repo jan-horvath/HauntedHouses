@@ -31,7 +31,7 @@ public class SpecterDaoImpl implements SpecterDao {
 
     @Override
     public Specter updateSpecter(Specter specter) {
-        return em.find(Specter.class, specter.getId()) != null ? em.merge(specter) : null;
+        return specter.getId() == null || em.find(Specter.class, specter.getId()) == null ? null : em.merge(specter);
     }
 
     @Override
