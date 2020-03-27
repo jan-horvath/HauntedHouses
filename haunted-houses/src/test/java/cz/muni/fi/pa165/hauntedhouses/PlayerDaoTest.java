@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.hauntedhouses.dao.PlayerDao;
 import cz.muni.fi.pa165.hauntedhouses.model.Player;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.Assert;
@@ -14,15 +13,11 @@ import org.testng.annotations.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Petr Vitovsky
  */
 @Transactional
-@SpringBootTest
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests {
 
