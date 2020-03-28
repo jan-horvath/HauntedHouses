@@ -17,15 +17,12 @@ import javax.transaction.Transactional;
 /**
  * @author Petr Vitovsky
  */
-@Transactional
+
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired
     private PlayerDao playerDao;
-
-    @Autowired
-    private EntityManager em;
 
     private Player p1;
     private Player p2;
@@ -142,14 +139,14 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     public void createPlayerWithNullNameTest() {
         p1.setName(null);
         playerDao.createPlayer(p1);
-        em.flush();
+        playerDao.getAllPlayers();
     }
 
     @Test(expectedExceptions = PersistenceException.class)
     public void createDuplicatePlayerTest() {
         playerDao.createPlayer(p1);
         playerDao.createPlayer(p3);
-        em.flush();
+        playerDao.getAllPlayers();
     }
 
     @Test(expectedExceptions = PersistenceException.class)
@@ -158,6 +155,6 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         playerDao.createPlayer(p2);
         p2.setName(p1.getName());
         playerDao.updatePlayer(p2);
-        em.flush();
+        playerDao.getAllPlayers();
     }
 }

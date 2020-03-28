@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author David Hofman
  */
-@Transactional
+
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTests {
 
@@ -37,9 +37,6 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
 
     @Autowired
     private HouseDao houseDao;
-
-    @Autowired
-    private EntityManager em;
 
     private Specter s1;
     private Specter s2;
@@ -298,7 +295,7 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
     public void createSpecterWithNullNameTest() {
         s1.setName(null);
         specterDao.createSpecter(s1);
-        em.flush();
+        specterDao.getAllSpecters();
     }
 
     @Test(expectedExceptions = PersistenceException.class)
@@ -311,7 +308,7 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
 
         specterDao.createSpecter(s1);
         specterDao.createSpecter(s3);
-        em.flush();
+        specterDao.getAllSpecters();
     }
 
     @Test(expectedExceptions = PersistenceException.class)
@@ -320,6 +317,6 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         specterDao.createSpecter(s2);
         s2.setName(s1.getName());
         specterDao.updateSpecter(s2);
-        em.flush();
+        specterDao.getAllSpecters();
     }
 }
