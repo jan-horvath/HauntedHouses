@@ -20,15 +20,12 @@ import org.testng.annotations.Test;
 /**
  * @author Zoltan Fridrich
  */
-@Transactional
+
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Autowired
     private HouseDao houseDao;
-
-    @Autowired
-    private EntityManager em;
 
     private House h1;
     private House h2;
@@ -161,14 +158,14 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
     public void createHouseWithNullAddressTest() {
         h1.setAddress(null);
         houseDao.createHouse(h1);
-        em.flush();
+        houseDao.getAllHouses();
     }
 
     @Test(expectedExceptions = PersistenceException.class)
     public void createDuplicateHouseTest() {
         houseDao.createHouse(h1);
         houseDao.createHouse(h3);
-        em.flush();
+        houseDao.getAllHouses();
     }
 
     @Test(expectedExceptions = PersistenceException.class)
@@ -177,6 +174,6 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
         houseDao.createHouse(h2);
         h2.setAddress(h1.getAddress());
         houseDao.updateHouse(h2);
-        em.flush();
+        houseDao.getAllHouses();
     }
 }
