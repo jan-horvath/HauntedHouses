@@ -14,9 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.Assert;
 
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
-import javax.transaction.Transactional;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
