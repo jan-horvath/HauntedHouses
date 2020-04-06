@@ -10,9 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
-import javax.transaction.Transactional;
 
 /**
  * @author Petr Vitovsky

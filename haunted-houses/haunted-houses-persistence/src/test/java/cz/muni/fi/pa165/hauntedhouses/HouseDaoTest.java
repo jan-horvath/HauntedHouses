@@ -5,9 +5,7 @@ import cz.muni.fi.pa165.hauntedhouses.model.House;
 
 import java.time.LocalDate;
 
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
