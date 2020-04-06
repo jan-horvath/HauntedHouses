@@ -14,12 +14,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>cz.muni.fi.pa165</groupId>
-            <artifactId>haunted-houses-parent</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
