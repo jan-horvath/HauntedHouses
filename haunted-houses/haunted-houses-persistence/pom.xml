@@ -4,13 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cz.muni.fi.pa165</groupId>
-        <artifactId>haunted-houses-parent</artifactId>
+        <artifactId>haunted-houses</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>cz.muni.fi.pa165</groupId>
-    <artifactId>haunted-houses</artifactId>
-    <name>haunted-houses persistence</name>
+    <artifactId>haunted-houses-persistence</artifactId>
 
     <dependencies>
         <dependency>
