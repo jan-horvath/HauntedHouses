@@ -26,11 +26,11 @@ public interface PlayerDao {
     Player getPlayerById(Long id);
 
     /**
-     * Searches database for a player with a specific name
-     * @param name name of a player
-     * @return player with the given name or null if such player is not found.
+     * Searches database for a player associated with a specific email
+     * @param email of a player
+     * @return player associated with the given email or null if such player is not found.
      */
-    Player getPlayerByName(String name);
+    Player getPlayerByEmail(String email);
 
     /**
      * Searches database for all players
