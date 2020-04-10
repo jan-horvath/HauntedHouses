@@ -32,10 +32,10 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public Player getPlayerByName(String name) {
+    public Player getPlayerByEmail(String email) {
         try {
-            return entityManager.createQuery("select p from Player p where name=:name",
-                    Player.class).setParameter("name", name).getSingleResult();
+            return entityManager.createQuery("select p from Player p where email=:email",
+                    Player.class).setParameter("email", email).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }

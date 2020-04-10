@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.persistence.PersistenceException;
+import javax.transaction.Transactional;
 
 /**
  * @author Petr Vitovsky
@@ -63,14 +64,14 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     public void createAndGetByNamePlayerTest() {
         playerDao.createPlayer(p1);
 
-        Player found = playerDao.getPlayerByName(p1.getName());
+        Player found = playerDao.getPlayerByEmail(p1.getEmail());
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
     }
 
-    @Test public void getByNameNonexistingPlayerTest() {
-        Assert.assertNull(playerDao.getPlayerByName("nonexisting"));
+    @Test public void getByEmailNonexistingPlayerTest() {
+        Assert.assertNull(playerDao.getPlayerByEmail("nonexisting"));
     }
 
     @Test
@@ -85,13 +86,13 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     }
 
     @Test
-    public void createUpdateAndGetByNamePlayerTest() {
+    public void createUpdateAndGetByEmailPlayerTest() {
         playerDao.createPlayer(p1);
 
         p1.setName("updatedName");
         playerDao.updatePlayer(p1);
 
-        Player found = playerDao.getPlayerByName(p1.getName());
+        Player found = playerDao.getPlayerByEmail(p1.getEmail());
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
@@ -101,13 +102,13 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     public void createAndDeletePlayerTest() {
         playerDao.createPlayer(p1);
 
-        Player found = playerDao.getPlayerByName(p1.getName());
+        Player found = playerDao.getPlayerByEmail(p1.getEmail());
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
 
         playerDao.deletePlayer(p1);
-        found = playerDao.getPlayerByName(p1.getName());
+        found = playerDao.getPlayerByEmail(p1.getEmail());
         Assert.assertNull(found);
     }
 
@@ -115,7 +116,7 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     public void createUpdateAndDeletePlayerTest() {
         playerDao.createPlayer(p1);
 
-        Player found = playerDao.getPlayerByName(p1.getName());
+        Player found = playerDao.getPlayerByEmail(p1.getEmail());
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
@@ -124,7 +125,7 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         playerDao.updatePlayer(p1);
 
         playerDao.deletePlayer(p1);
-        found = playerDao.getPlayerByName(p1.getName());
+        found = playerDao.getPlayerByEmail(p1.getEmail());
         Assert.assertNull(found);
     }
 
@@ -141,6 +142,13 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     }
 
     @Test(expectedExceptions = PersistenceException.class)
+    public void createPlayerWithNullEmailTest() {
+        p1.setEmail(null);
+        playerDao.createPlayer(p1);
+        playerDao.getAllPlayers();
+    }
+
+    @Test(expectedExceptions = PersistenceException.class)
     public void createDuplicatePlayerTest() {
         playerDao.createPlayer(p1);
         playerDao.createPlayer(p3);
@@ -151,7 +159,7 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
     public void updateDuplicatePlayerTest() {
         playerDao.createPlayer(p1);
         playerDao.createPlayer(p2);
-        p2.setName(p1.getName());
+        p2.setEmail(p1.getEmail());
         playerDao.updatePlayer(p2);
         playerDao.getAllPlayers();
     }

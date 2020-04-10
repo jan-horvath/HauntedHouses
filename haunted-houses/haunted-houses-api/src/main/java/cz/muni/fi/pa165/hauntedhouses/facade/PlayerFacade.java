@@ -11,7 +11,7 @@ public interface PlayerFacade {
 
     PlayerDTO findPlayerById(Long id);
 
-    PlayerDTO findPlayerByName(String name);
+    PlayerDTO findPlayerByEmail(String email);
 
     void registerPlayer(PlayerDTO player, String unencryptedPassword);
 
