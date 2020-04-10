@@ -1,43 +1,23 @@
-package cz.muni.fi.pa165.hauntedhouses.model;
+package cz.muni.fi.pa165.hauntedhouses.dto;
 
-
-import javax.persistence.*;
-import java.util.Objects;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
-/**
- * @author Petr Vitovsky
- */
+public class HouseCreateDTO {
 
-@Entity
-public class House {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-
-    @Column(nullable = false)
+    @NotNull
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @NotNull
     private String address;
 
-    @Column
     private LocalDate hauntedSince;
 
-    @Column
     private String history;
 
-    @Column(nullable = false)
+    @NotNull
     private String hint;
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return this.name;
@@ -82,8 +62,8 @@ public class House {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof House)) return false;
-        House house = (House) o;
+        if (!(o instanceof HouseCreateDTO)) return false;
+        HouseCreateDTO house = (HouseCreateDTO) o;
         return getAddress().equals(house.getAddress());
     }
 
