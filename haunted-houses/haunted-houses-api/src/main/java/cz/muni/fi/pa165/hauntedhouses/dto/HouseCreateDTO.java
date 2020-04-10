@@ -62,8 +62,8 @@ public class HouseCreateDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof HouseDTO)) return false;
-        HouseDTO house = (HouseDTO) o;
+        if (!(o instanceof HouseCreateDTO)) return false;
+        HouseCreateDTO house = (HouseCreateDTO) o;
         return getAddress().equals(house.getAddress());
     }
 
