@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.hauntedhouses.dao;
 
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.Player;
+import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import org.springframework.orm.jpa.JpaSystemException;
 
 import java.util.List;
@@ -31,6 +32,13 @@ public interface GameInstanceDao {
      * @return GameInstance of given Player, null if it doesn't exist
      */
     GameInstance getGameInstanceByPlayer(Player player);
+
+    /**
+     * Searches the database for a GameInstance with given Specter
+     * @param specter the Specter whose GameInstance is to be searched for
+     * @return GameInstance of given Specter, null if it doesn't exist
+     */
+    GameInstance getGameInstanceBySpecter(Specter specter);
 
     /**
      * Searches the database for all the GameInstances
