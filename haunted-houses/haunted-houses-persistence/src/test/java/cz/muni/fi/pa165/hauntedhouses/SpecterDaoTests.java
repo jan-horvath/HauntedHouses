@@ -1,11 +1,7 @@
 package cz.muni.fi.pa165.hauntedhouses;
 
-import cz.muni.fi.pa165.hauntedhouses.dao.AbilityDao;
-import cz.muni.fi.pa165.hauntedhouses.dao.HouseDao;
-import cz.muni.fi.pa165.hauntedhouses.dao.SpecterDao;
-import cz.muni.fi.pa165.hauntedhouses.model.Ability;
-import cz.muni.fi.pa165.hauntedhouses.model.House;
-import cz.muni.fi.pa165.hauntedhouses.model.Specter;
+import cz.muni.fi.pa165.hauntedhouses.dao.*;
+import cz.muni.fi.pa165.hauntedhouses.model.*;
 
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
@@ -36,19 +32,79 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
     @Autowired
     private HouseDao houseDao;
 
+    @Autowired
+    private GameInstanceDao gameInstanceDao;
+
+    @Autowired
+    private PlayerDao playerDao;
+
     private Specter s1;
     private Specter s2;
 
+    private void createSpecterUpdateGameInstance(Specter specter) {
+        specterDao.createSpecter(specter);
+        specter.getGameInstance().setSpecter(specter);
+        gameInstanceDao.updateGameInstance(specter.getGameInstance());
+    }
+
+    private void safelyDeleteSpecter(Specter specter)
+    {
+        specterDao.deleteSpecter(specter);
+        gameInstanceDao.deleteGameInstance(specter.getGameInstance());
+        specter.getGameInstance().getPlayer().setGameInstance(null);
+        playerDao.updatePlayer(specter.getGameInstance().getPlayer());
+    }
+
+    private void compareAllSpecterAttributes(Specter originalSpecter, Specter foundSpecter)
+    {
+        Assert.assertNotNull(foundSpecter);
+        Assert.assertEquals(originalSpecter.getName(), foundSpecter.getName());
+        Assert.assertEquals(originalSpecter.getDescription(), foundSpecter.getDescription());
+        Assert.assertEquals(originalSpecter.getStartOfHaunting(), foundSpecter.getStartOfHaunting());
+        Assert.assertEquals(originalSpecter.getEndOfHaunting(), foundSpecter.getEndOfHaunting());
+        Assert.assertEquals(originalSpecter.getGameInstance(), foundSpecter.getGameInstance());
+        Assert.assertEquals(originalSpecter.getHouse(), foundSpecter.getHouse());
+        Assert.assertEquals(originalSpecter.getAbilities(), foundSpecter.getAbilities());
+    }
+
     @BeforeMethod
     public void setup() {
+        Player p1 = new Player();
+        p1.setName("playerName1");
+        p1.setEmail("playerEmail1");
+        playerDao.createPlayer(p1);
+
+        Player p2 = new Player();
+        p2.setName("playerName2");
+        p2.setEmail("playerEmail2");
+        playerDao.createPlayer(p2);
+
+        GameInstance g1 = new GameInstance();
+        g1.setPlayer(p1);
+        g1.setBanishesRequired(2);
+        g1.setBanishesAttempted(1);
+        gameInstanceDao.createGameInstance(g1);
+
+        GameInstance g2 = new GameInstance();
+        g2.setPlayer(p2);
+        g2.setBanishesRequired(5);
+        g2.setBanishesAttempted(3);
+        gameInstanceDao.createGameInstance(g2);
+
+        p1.setGameInstance(g1);
+        p2.setGameInstance(g2);
+        playerDao.updatePlayer(p2);
+        playerDao.updatePlayer(p1);
 
         s1 = new Specter();
+        s1.setGameInstance(g1);
         s1.setName("SpecterName1");
         s1.setDescription("SpecterDescription1");
         s1.setStartOfHaunting(LocalTime.of(3,0));
         s1.setEndOfHaunting(LocalTime.of(5,30));
 
         s2 = new Specter();
+        s2.setGameInstance(g2);
         s2.setName("SpecterName2");
         s2.setDescription("SpecterDescription2");
         s2.setStartOfHaunting(LocalTime.of(23,40));
@@ -62,71 +118,73 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
 
     @Test
     public void createAndGetByIdSpecterTest() {
-        specterDao.createSpecter(s1);
-
+        createSpecterUpdateGameInstance(s1);
         Specter foundSpecter = specterDao.getSpecterById(s1.getId());
-        Assert.assertNotNull(foundSpecter);
-        Assert.assertEquals(s1.getName(), foundSpecter.getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecter.getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecter.getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecter.getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecter);
     }
 
+    /*
+    @Test
+    public void getByGameInstanceNonexistingSpecter() {
+        Assert.assertNull(specterDao.getSpecterByGameInstance(s1.getGameInstance()));
+    }
+    */
+
+    /*
+    @Test
+    public void createAndGetByGameInstanceSpecterTest() {
+        createSpecterUpdateGameInstance(s1);
+        Specter foundSpecter = specterDao.getSpecterByGameInstance(s1.getSpecterByGameInstance());
+        compareAllSpecterAttributes(s1,foundSpecter);
+    }
+    */
+
+    /*
     @Test
     public void getByNameNonexistentSpecter() {
         Assert.assertNull(specterDao.getSpecterByName("Non-existing Specter"));
     }
+    */
 
+    /*
     @Test
     public void createAndGetByNameSpecterTest() {
-        specterDao.createSpecter(s1);
-
+        createSpecterUpdateGameInstance(s1);
         Specter foundSpecter = specterDao.getSpecterByName(s1.getName());
-        Assert.assertNotNull(foundSpecter);
-        Assert.assertEquals(s1.getName(), foundSpecter.getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecter.getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecter.getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecter.getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecter);
     }
+    */
 
     @Test
     public void createAndGetByHouseSpecterTest() {
-
         House house1 = new House();
-        house1.setAddress("HouseAdress1");
+        house1.setAddress("HouseAddress1");
         house1.setName("HouseName1");
         houseDao.createHouse(house1);
 
         House house2 = new House();
-        house2.setAddress("HouseAdress2");
+        house2.setAddress("HouseAddress2");
         house2.setName("HouseName2");
         houseDao.createHouse(house2);
 
         House house3 = new House();
-        house3.setAddress("HouseAdress3");
+        house3.setAddress("HouseAddress3");
         house3.setName("HouseName3");
         houseDao.createHouse(house3);
 
         s1.setHouse(house1);
         s2.setHouse(house2);
 
-        specterDao.createSpecter(s1);
-        specterDao.createSpecter(s2);
-
+        createSpecterUpdateGameInstance(s1);
+        createSpecterUpdateGameInstance(s2);
 
         List<Specter> foundSpecters = specterDao.getSpectersByHouse(house1);
         Assert.assertEquals(foundSpecters.size(),1);
-        Assert.assertEquals(s1.getName(), foundSpecters.get(0).getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecters.get(0).getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecters.get(0).getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(0).getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecters.get(0));
 
         foundSpecters = specterDao.getSpectersByHouse(house2);
         Assert.assertEquals(foundSpecters.size(),1);
-        Assert.assertEquals(s2.getName(), foundSpecters.get(0).getName());
-        Assert.assertEquals(s2.getDescription(), foundSpecters.get(0).getDescription());
-        Assert.assertEquals(s2.getStartOfHaunting(),foundSpecters.get(0).getStartOfHaunting());
-        Assert.assertEquals(s2.getEndOfHaunting(),foundSpecters.get(0).getEndOfHaunting());
+        compareAllSpecterAttributes(s2,foundSpecters.get(0));
 
         foundSpecters = specterDao.getSpectersByHouse(house3);
         Assert.assertEquals(foundSpecters.size(),0);
@@ -152,29 +210,20 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         s1.setAbilities(Arrays.asList(ability1,ability2));
         s2.setAbilities(Collections.singletonList(ability2));
 
-        specterDao.createSpecter(s1);
-        specterDao.createSpecter(s2);
+        createSpecterUpdateGameInstance(s1);
+        createSpecterUpdateGameInstance(s2);
 
         List<Specter> foundSpecters = specterDao.getSpectersByAbility(ability1);
         Assert.assertEquals(foundSpecters.size(),1);
-        Assert.assertEquals(s1.getName(), foundSpecters.get(0).getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecters.get(0).getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecters.get(0).getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(0).getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecters.get(0));
 
         foundSpecters = specterDao.getSpectersByAbility(ability2);
         int index1 = foundSpecters.indexOf(s1);
         int index2 = foundSpecters.indexOf(s2);
         Assert.assertTrue(index1 != -1 && index2 != -1);
         Assert.assertEquals(foundSpecters.size(),2);
-        Assert.assertEquals(s1.getName(), foundSpecters.get(index1).getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecters.get(index1).getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecters.get(index1).getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(index1).getEndOfHaunting());
-        Assert.assertEquals(s2.getName(), foundSpecters.get(index2).getName());
-        Assert.assertEquals(s2.getDescription(), foundSpecters.get(index2).getDescription());
-        Assert.assertEquals(s2.getStartOfHaunting(),foundSpecters.get(index2).getStartOfHaunting());
-        Assert.assertEquals(s2.getEndOfHaunting(),foundSpecters.get(index2).getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecters.get(index1));
+        compareAllSpecterAttributes(s2,foundSpecters.get(index2));
 
         foundSpecters = specterDao.getSpectersByAbility(ability3);
         Assert.assertEquals(foundSpecters.size(),0);
@@ -182,31 +231,21 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
 
     @Test
     public void createAndGetAllSpecterTest() {
-        specterDao.createSpecter(s1);
+        createSpecterUpdateGameInstance(s1);
 
         List<Specter> foundSpecters = specterDao.getAllSpecters();
         Assert.assertEquals(foundSpecters.size(),1);
-        Assert.assertEquals(s1.getName(), foundSpecters.get(0).getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecters.get(0).getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecters.get(0).getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(0).getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecters.get(0));
 
-        specterDao.createSpecter(s2);
+        createSpecterUpdateGameInstance(s2);
 
         foundSpecters = specterDao.getAllSpecters();
         Assert.assertEquals(foundSpecters.size(),2);
         int index1 = foundSpecters.indexOf(s1);
         int index2 = foundSpecters.indexOf(s2);
         Assert.assertTrue(index1 != -1 && index2 != -1);
-        Assert.assertEquals(foundSpecters.size(),2);
-        Assert.assertEquals(s1.getName(), foundSpecters.get(index1).getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecters.get(index1).getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecters.get(index1).getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecters.get(index1).getEndOfHaunting());
-        Assert.assertEquals(s2.getName(), foundSpecters.get(index2).getName());
-        Assert.assertEquals(s2.getDescription(), foundSpecters.get(index2).getDescription());
-        Assert.assertEquals(s2.getStartOfHaunting(),foundSpecters.get(index2).getStartOfHaunting());
-        Assert.assertEquals(s2.getEndOfHaunting(),foundSpecters.get(index2).getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecters.get(index1));
+        compareAllSpecterAttributes(s2,foundSpecters.get(index2));
     }
 
     @Test
@@ -215,18 +254,15 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
     }
 
     @Test
-    public void createUpdateAndGetByNameSpecterTest() {
-        specterDao.createSpecter(s1);
+    public void createUpdateAndGetByIdSpecterTest() {
+        createSpecterUpdateGameInstance(s1);
         s1.setName("UpdatedSpecterName1");
 
         Specter updatedSpecter = specterDao.updateSpecter(s1);
-        Specter foundSpecter = specterDao.getSpecterByName(s1.getName());
+        Specter foundSpecter = specterDao.getSpecterById(s1.getId());
 
         Assert.assertNotNull(foundSpecter);
-        Assert.assertEquals(s1.getName(), foundSpecter.getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecter.getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecter.getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecter.getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecter);
         Assert.assertEquals(updatedSpecter, foundSpecter);
     }
 
@@ -237,53 +273,40 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
 
     @Test
     public void createDeleteAndGetByIdSpecterTest() {
-        specterDao.createSpecter(s1);
+        createSpecterUpdateGameInstance(s1);
 
         Specter foundSpecter = specterDao.getSpecterById(s1.getId());
         Assert.assertNotNull(foundSpecter);
-        Assert.assertEquals(s1.getName(), foundSpecter.getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecter.getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecter.getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecter.getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecter);
 
-        specterDao.deleteSpecter(s1);
+        safelyDeleteSpecter(s1);
         foundSpecter = specterDao.getSpecterById(s1.getId());
         Assert.assertNull(foundSpecter);
     }
 
     @Test
-    public void createDeleteMultipleAndGetByNameSpecterTest() {
-        specterDao.createSpecter(s1);
-        specterDao.createSpecter(s2);
+    public void createDeleteMultipleAndGetByIdSpecterTest() {
+        createSpecterUpdateGameInstance(s1);
+        createSpecterUpdateGameInstance(s2);
 
-        Specter foundSpecter = specterDao.getSpecterByName(s1.getName());
+        Specter foundSpecter = specterDao.getSpecterById(s1.getId());
         Assert.assertNotNull(foundSpecter);
-        Assert.assertEquals(s1.getName(), foundSpecter.getName());
-        Assert.assertEquals(s1.getDescription(), foundSpecter.getDescription());
-        Assert.assertEquals(s1.getStartOfHaunting(),foundSpecter.getStartOfHaunting());
-        Assert.assertEquals(s1.getEndOfHaunting(),foundSpecter.getEndOfHaunting());
+        compareAllSpecterAttributes(s1,foundSpecter);
 
-        foundSpecter = specterDao.getSpecterByName(s2.getName());
+        foundSpecter = specterDao.getSpecterById(s2.getId());
         Assert.assertNotNull(foundSpecter);
-        Assert.assertEquals(s2.getName(), foundSpecter.getName());
-        Assert.assertEquals(s2.getDescription(), foundSpecter.getDescription());
-        Assert.assertEquals(s2.getStartOfHaunting(),foundSpecter.getStartOfHaunting());
-        Assert.assertEquals(s2.getEndOfHaunting(),foundSpecter.getEndOfHaunting());
+        compareAllSpecterAttributes(s2,foundSpecter);
 
-        specterDao.deleteSpecter(s1);
-
-        foundSpecter = specterDao.getSpecterByName(s1.getName());
+        safelyDeleteSpecter(s1);
+        foundSpecter = specterDao.getSpecterById(s1.getId());
         Assert.assertNull(foundSpecter);
 
-        foundSpecter = specterDao.getSpecterByName(s2.getName());
+        foundSpecter = specterDao.getSpecterById(s2.getId());
         Assert.assertNotNull(foundSpecter);
-        Assert.assertEquals(s2.getName(), foundSpecter.getName());
-        Assert.assertEquals(s2.getDescription(), foundSpecter.getDescription());
-        Assert.assertEquals(s2.getStartOfHaunting(),foundSpecter.getStartOfHaunting());
-        Assert.assertEquals(s2.getEndOfHaunting(),foundSpecter.getEndOfHaunting());
+        compareAllSpecterAttributes(s2,foundSpecter);
 
-        specterDao.deleteSpecter(s2);
-        foundSpecter = specterDao.getSpecterByName(s2.getName());
+        safelyDeleteSpecter(s2);
+        foundSpecter = specterDao.getSpecterById(s2.getId());
         Assert.assertNull(foundSpecter);
 
         Assert.assertEquals(specterDao.getAllSpecters().size(),0);
@@ -292,7 +315,7 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
     @Test(expectedExceptions = PersistenceException.class)
     public void createSpecterWithNullNameTest() {
         s1.setName(null);
-        specterDao.createSpecter(s1);
+        createSpecterUpdateGameInstance(s1);
         specterDao.getAllSpecters();
     }
 
@@ -303,17 +326,19 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         s3.setDescription(s1.getDescription());
         s3.setStartOfHaunting(s1.getStartOfHaunting());
         s3.setEndOfHaunting(s1.getEndOfHaunting());
+        s3.setGameInstance(s1.getGameInstance());
 
-        specterDao.createSpecter(s1);
-        specterDao.createSpecter(s3);
+        createSpecterUpdateGameInstance(s1);
+        createSpecterUpdateGameInstance(s3);
         specterDao.getAllSpecters();
     }
 
     @Test(expectedExceptions = PersistenceException.class)
     public void updateDuplicateSpecterTest() {
-        specterDao.createSpecter(s1);
+        createSpecterUpdateGameInstance(s1);
+
         specterDao.createSpecter(s2);
-        s2.setName(s1.getName());
+        s2.setGameInstance(s1.getGameInstance());
         specterDao.updateSpecter(s2);
         specterDao.getAllSpecters();
     }
