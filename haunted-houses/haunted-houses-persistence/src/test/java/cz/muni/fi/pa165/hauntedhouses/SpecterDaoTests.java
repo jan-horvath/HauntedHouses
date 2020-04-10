@@ -95,16 +95,19 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         House house1 = new House();
         house1.setAddress("HouseAdress1");
         house1.setName("HouseName1");
+        house1.setHint("Hint1");
         houseDao.createHouse(house1);
 
         House house2 = new House();
         house2.setAddress("HouseAdress2");
         house2.setName("HouseName2");
+        house2.setHint("Hint2");
         houseDao.createHouse(house2);
 
         House house3 = new House();
         house3.setAddress("HouseAdress3");
         house3.setName("HouseName3");
+        house3.setHint("Hint3");
         houseDao.createHouse(house3);
 
         s1.setHouse(house1);

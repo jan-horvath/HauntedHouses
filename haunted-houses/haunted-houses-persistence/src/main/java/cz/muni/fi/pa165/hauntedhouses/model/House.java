@@ -28,6 +28,9 @@ public class House {
     @Column
     private String history;
 
+    @Column(nullable = false)
+    private String hint;
+
     public Long getId() {
         return this.id;
     }
@@ -66,6 +69,14 @@ public class House {
 
     public void setHauntedSince(LocalDate hauntedSince) {
         this.hauntedSince = hauntedSince;
+    }
+
+    public String getHint() {
+        return this.hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
     }
 
     @Override
