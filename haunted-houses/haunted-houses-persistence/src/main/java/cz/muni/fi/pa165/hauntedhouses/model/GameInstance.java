@@ -19,8 +19,12 @@ public class GameInstance {
     private int banishesRequired;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private Player player;
+
+    @OneToOne
+    @JoinColumn
+    private Specter specter;
 
     public GameInstance() { }
 
@@ -54,6 +58,14 @@ public class GameInstance {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public Specter getSpecter() {
+        return specter;
+    }
+
+    public void setSpecter(Specter specter) {
+        this.specter = specter;
     }
 
     @Override
