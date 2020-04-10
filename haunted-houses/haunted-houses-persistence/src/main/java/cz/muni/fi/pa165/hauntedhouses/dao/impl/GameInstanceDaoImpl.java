@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.hauntedhouses.dao.impl;
 import cz.muni.fi.pa165.hauntedhouses.dao.GameInstanceDao;
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.Player;
+import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -36,6 +37,16 @@ public class GameInstanceDaoImpl implements GameInstanceDao {
         try {
             return em.createQuery("SELECT g FROM GameInstance g WHERE g.player = :player", GameInstance.class)
                     .setParameter("player",player).getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public GameInstance getGameInstanceBySpecter(Specter specter) {
+        try {
+            return em.createQuery("SELECT g FROM GameInstance g WHERE g.specter = :specter", GameInstance.class)
+                    .setParameter("specter",specter).getSingleResult();
         } catch(NoResultException e) {
             return null;
         }
