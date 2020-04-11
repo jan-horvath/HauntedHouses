@@ -19,7 +19,7 @@ public class GameInstance {
     private int banishesRequired;
 
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(unique = true, nullable = false)
     private Player player;
 
     @OneToOne
