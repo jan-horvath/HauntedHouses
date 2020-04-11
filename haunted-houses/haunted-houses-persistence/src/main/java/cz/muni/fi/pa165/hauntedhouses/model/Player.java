@@ -20,6 +20,10 @@ public class Player {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @OneToOne
+    @JoinColumn
+    private GameInstance gameInstance;
+
     public Player() {
     }
 
@@ -49,6 +53,14 @@ public class Player {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public GameInstance getGameInstance() {
+        return gameInstance;
+    }
+
+    public void setGameInstance(GameInstance gameInstance) {
+        this.gameInstance = gameInstance;
     }
 
     @Override

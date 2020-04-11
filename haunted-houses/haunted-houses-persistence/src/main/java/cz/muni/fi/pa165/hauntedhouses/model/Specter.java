@@ -5,14 +5,7 @@ import java.util.List;
 import java.time.LocalTime;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * @author Zoltan Fridrich
@@ -24,7 +17,7 @@ public class Specter {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -39,6 +32,10 @@ public class Specter {
     @ManyToOne
     @JoinColumn
     private House house;
+
+    @OneToOne
+    @JoinColumn(unique = true, nullable = false)
+    private GameInstance gameInstance;
 
     @ManyToMany
     private List<Ability> abilities = new ArrayList<>();
@@ -93,6 +90,14 @@ public class Specter {
         this.house = house;
     }
 
+    public GameInstance getGameInstance() {
+        return gameInstance;
+    }
+
+    public void setGameInstance(GameInstance gameInstance) {
+        this.gameInstance = gameInstance;
+    }
+
     public List<Ability> getAbilities() {
         return abilities;
     }
@@ -118,11 +123,11 @@ public class Specter {
         if (this == o) return true;
         if (!(o instanceof Specter)) return false;
         Specter specter = (Specter) o;
-        return getName().equals(specter.getName());
+        return getGameInstance().equals(specter.getGameInstance());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName());
+        return Objects.hash(getGameInstance());
     }
 }
