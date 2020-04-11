@@ -34,7 +34,7 @@ public class Specter {
     private House house;
 
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(unique = true, nullable = false)
     private GameInstance gameInstance;
 
     @ManyToMany
