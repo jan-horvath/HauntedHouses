@@ -50,9 +50,8 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
     private void safelyDeleteSpecter(Specter specter)
     {
         specterDao.deleteSpecter(specter);
-        gameInstanceDao.deleteGameInstance(specter.getGameInstance());
-        specter.getGameInstance().getPlayer().setGameInstance(null);
-        playerDao.updatePlayer(specter.getGameInstance().getPlayer());
+        specter.getGameInstance().setSpecter(null);
+        gameInstanceDao.updateGameInstance(specter.getGameInstance());
     }
 
     private void compareAllSpecterAttributes(Specter originalSpecter, Specter foundSpecter)
