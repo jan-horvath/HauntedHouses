@@ -59,7 +59,9 @@ public class GameInstanceDaoImpl implements GameInstanceDao {
 
     @Override
     public GameInstance updateGameInstance(GameInstance gameInstance) {
-        if(gameInstance.getId() == null || em.find(GameInstance.class, gameInstance.getId()) == null) return null;
+        if (gameInstance.getId() == null || em.find(GameInstance.class, gameInstance.getId()) == null) {
+            return null;
+        }
         return em.merge(gameInstance);
     }
 
