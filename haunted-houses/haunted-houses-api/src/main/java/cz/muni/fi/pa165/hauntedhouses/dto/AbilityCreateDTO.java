@@ -1,25 +1,18 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * @author Zoltan Fridrich
  */
-public class AbilityDTO {
+public class AbilityCreateDTO {
 
-    private Long id;
-
+    @NotNull
     private String name;
 
+    @NotNull
     private String description;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -40,8 +33,8 @@ public class AbilityDTO {
     @Override
     public boolean equals(Object obj){
         if(this == obj) return true;
-        if(!(obj instanceof AbilityDTO)) return false;
-        AbilityDTO ability = (AbilityDTO) obj;
+        if(!(obj instanceof AbilityCreateDTO)) return false;
+        AbilityCreateDTO ability = (AbilityCreateDTO) obj;
         return getName().equals(ability.getName());
     }
 
