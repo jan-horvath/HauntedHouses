@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalTime;
@@ -8,31 +9,26 @@ import java.util.Objects;
 /**
  * @author Zoltan Fridrich
  */
-public class SpecterDTO {
+public class SpecterCreateDTO {
 
-    private Long id;
-
+    @NotNull
     private String name;
 
+    @NotNull
     private LocalTime startOfHaunting;
 
+    @NotNull
     private LocalTime endOfHaunting;
 
+    @NotNull
     private String description;
 
     private HouseDTO house;
 
+    @NotNull
     private GameInstanceDTO gameInstance;
 
     private List<AbilityDTO> abilities = new ArrayList<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -93,8 +89,8 @@ public class SpecterDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SpecterDTO)) return false;
-        SpecterDTO specter = (SpecterDTO) o;
+        if (!(o instanceof SpecterCreateDTO)) return false;
+        SpecterCreateDTO specter = (SpecterCreateDTO) o;
         return getGameInstance().equals(specter.getGameInstance());
     }
 
