@@ -8,7 +8,7 @@ import cz.muni.fi.pa165.hauntedhouses.dto.GameInstanceDTO;
  */
 public interface GameInstanceFacade {
 
-    GameInstanceDTO findGameInstanceByPlayerID(Long playerID);
+    GameInstanceDTO findGameInstanceByPlayerId(Long playerId);
 
     void createGameInstance(GameInstanceCreateDTO gameInstance);
 
