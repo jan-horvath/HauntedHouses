@@ -8,6 +8,8 @@ import cz.muni.fi.pa165.hauntedhouses.dto.AbilityDTO;
  */
 public interface AbilityFacade {
 
+    AbilityDTO findAbilityById(Long id);
+
     AbilityDTO findAbilityByName(String name);
 
     void createAbility(AbilityCreateDTO ability);

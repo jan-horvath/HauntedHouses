@@ -8,7 +8,7 @@ import cz.muni.fi.pa165.hauntedhouses.dto.SpecterDTO;
  */
 public interface SpecterFacade {
 
-    SpecterDTO findSpecterByGameInstanceID(Long id);
+    SpecterDTO findSpecterByGameInstanceId(Long gameInstanceId);
 
     void createSpecter(SpecterCreateDTO specter);
 
