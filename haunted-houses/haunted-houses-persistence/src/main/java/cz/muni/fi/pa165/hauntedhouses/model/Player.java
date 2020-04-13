@@ -20,8 +20,7 @@ public class Player {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "player")
     private GameInstance gameInstance;
 
     public Player() {

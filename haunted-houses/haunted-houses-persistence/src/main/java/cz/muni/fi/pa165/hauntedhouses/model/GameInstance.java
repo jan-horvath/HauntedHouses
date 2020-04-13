@@ -22,8 +22,7 @@ public class GameInstance {
     @JoinColumn(unique = true, nullable = false)
     private Player player;
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "gameInstance")
     private Specter specter;
 
     public GameInstance() { }
