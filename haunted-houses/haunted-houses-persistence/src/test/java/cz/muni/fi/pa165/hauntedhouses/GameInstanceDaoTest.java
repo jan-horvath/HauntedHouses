@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.persistence.PersistenceException;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -147,6 +148,24 @@ public class GameInstanceDaoTest extends AbstractTransactionalTestNGSpringContex
         Assert.assertEquals(foundGameInstance, gameInstance2);
     }
 
+    @Test(expectedExceptions = PersistenceException.class)
+    public void createTheSameGameInstanceTwiceTest() {
+        gameInstance1.setPlayer(player1);
+        gameInstance2.setPlayer(player1);
+
+        gameInstanceDao.createGameInstance(gameInstance1);
+        gameInstanceDao.createGameInstance(gameInstance2);
+        gameInstanceDao.getAllGameInstances();
+    }
+
+    @Test
+    public void getNonExistingGameInstanceTest() {
+        gameInstanceDao.createGameInstance(gameInstance1);
+
+        Assert.assertNull(gameInstanceDao.getGameInstanceById(gameInstance1.getId() + 1));
+        Assert.assertNull(gameInstanceDao.getGameInstanceByPlayer(player2));
+    }
+
     //------------------------------------------------- Update tests ---------------------------------------------------
 
     @Test
@@ -171,6 +190,27 @@ public class GameInstanceDaoTest extends AbstractTransactionalTestNGSpringContex
 
         updatedGameInstance = gameInstanceDao.getGameInstanceById(gameInstance1.getId());
         Assert.assertEquals(updatedGameInstance.getSpecter(), specter2);
+    }
+
+    @Test
+    public void updateNonexistingAndDeletedGameInstancesTest() {
+        gameInstanceDao.createGameInstance(gameInstance1);
+        gameInstanceDao.deleteGameInstance(gameInstance1);
+        gameInstance1.setBanishesRequired(100);
+
+        Assert.assertNull(gameInstanceDao.updateGameInstance(gameInstance2));
+        Assert.assertNotNull(gameInstance1.getId());
+        Assert.assertNull(gameInstanceDao.updateGameInstance(gameInstance1));
+    }
+
+    @Test(expectedExceptions = PersistenceException.class)
+    public void updateGameInstanceToSharePlayerWithOtherInstanceTest() {
+        gameInstanceDao.createGameInstance(gameInstance1);
+        gameInstanceDao.createGameInstance(gameInstance2);
+
+        gameInstance2.setPlayer(player1);
+        gameInstanceDao.updateGameInstance(gameInstance2);
+        gameInstanceDao.getAllGameInstances();
     }
 
     //------------------------------------------------- Delete tests ---------------------------------------------------
@@ -207,6 +247,17 @@ public class GameInstanceDaoTest extends AbstractTransactionalTestNGSpringContex
         Assert.assertEquals(gameInstanceDao.getAllGameInstances().size(), 0);
         Assert.assertEquals(specterDao.getAllSpecters().size(), 0);
         Assert.assertEquals(playerDao.getAllPlayers().size(), 2);
+    }
+
+    @Test
+    public void deleteNonexistingAndDeletedGameInstancesTest() {
+        gameInstanceDao.createGameInstance(gameInstance1);
+
+        gameInstanceDao.deleteGameInstance(gameInstance1);
+        gameInstanceDao.getAllGameInstances();
+        gameInstanceDao.deleteGameInstance(gameInstance1);
+
+        gameInstanceDao.deleteGameInstance(gameInstance2);
     }
 
 }
