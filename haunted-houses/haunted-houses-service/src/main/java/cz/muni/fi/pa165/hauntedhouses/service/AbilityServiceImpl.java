@@ -5,6 +5,8 @@ import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Petr Vitovsky
  */
@@ -22,6 +24,11 @@ public class AbilityServiceImpl implements AbilityService {
     @Override
     public Ability getAbilityByName(String name) {
         return abilityDao.getAbilityByName(name);
+    }
+
+    @Override
+    public List<Ability> getAllAbilities() {
+        return abilityDao.getAllAbilities();
     }
 
     @Override
