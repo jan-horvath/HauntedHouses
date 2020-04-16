@@ -2,9 +2,8 @@ package cz.muni.fi.pa165.hauntedhouses.service;
 
 import cz.muni.fi.pa165.hauntedhouses.dao.HouseDao;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @Service
 public class HouseServiceImpl implements HouseService {
 
-    @Inject
+    @Autowired
     private HouseDao houseDao;
 
     @Override

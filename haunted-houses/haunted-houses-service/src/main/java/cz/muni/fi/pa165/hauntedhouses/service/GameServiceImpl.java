@@ -2,9 +2,9 @@ package cz.muni.fi.pa165.hauntedhouses.service;
 
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +14,7 @@ import java.util.Random;
 @Service
 public class GameServiceImpl implements GameService {
 
-    @Inject
+    @Autowired
     private HouseService houseService;
 
     @Override

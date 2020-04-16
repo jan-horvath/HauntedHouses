@@ -2,9 +2,8 @@ package cz.muni.fi.pa165.hauntedhouses.service;
 
 import cz.muni.fi.pa165.hauntedhouses.dao.AbilityDao;
 import cz.muni.fi.pa165.hauntedhouses.model.Ability;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 /**
  * @author Petr Vitovsky
@@ -12,7 +11,7 @@ import javax.inject.Inject;
 @Service
 public class AbilityServiceImpl implements AbilityService {
 
-    @Inject
+    @Autowired
     private AbilityDao abilityDao;
 
     @Override
