@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.hauntedhouses.dao;
 
 import cz.muni.fi.pa165.hauntedhouses.model.Ability;
+import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
 import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 
@@ -47,6 +48,13 @@ public interface SpecterDao {
      * @return Specter with given name if it exists, null otherwise.
      */
     Specter getSpecterByName(String name);
+
+    /**
+     * Searches database for a specter associated with given game instance
+     * @param gameInstance
+     * @return Specter associated with given game instance, if it exists
+     */
+    Specter getSpecterByGameInstance(GameInstance gameInstance);
 
     /**
      * Searches database for all specters with given house.

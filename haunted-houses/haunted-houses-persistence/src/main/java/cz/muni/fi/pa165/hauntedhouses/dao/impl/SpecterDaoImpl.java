@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.hauntedhouses.dao.impl;
 
 import cz.muni.fi.pa165.hauntedhouses.dao.SpecterDao;
 import cz.muni.fi.pa165.hauntedhouses.model.Ability;
+import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
 import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 
@@ -49,6 +50,17 @@ public class SpecterDaoImpl implements SpecterDao {
         try {
             return em.createQuery("SELECT specter FROM Specter specter WHERE :name = specter.name", Specter.class)
                     .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Specter getSpecterByGameInstance(GameInstance gameInstance) {
+        try {
+            return em.createQuery("SELECT specter FROM Specter specter WHERE :gameInstance = specter.gameInstance", Specter.class)
+                    .setParameter("gameInstance", gameInstance)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;
