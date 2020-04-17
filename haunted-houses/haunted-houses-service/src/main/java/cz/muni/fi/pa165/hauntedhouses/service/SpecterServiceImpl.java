@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 import cz.muni.fi.pa165.hauntedhouses.dao.SpecterDao;
 import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import cz.muni.fi.pa165.hauntedhouses.model.Specter;
-import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalTime;
@@ -16,6 +15,9 @@ public class SpecterServiceImpl implements SpecterService {
 
     @Autowired
     AbilityService abilityService;
+
+    @Autowired
+    GameInstanceService gameInstanceService;
 
     @Autowired
     SpecterDao specterDao;
@@ -43,7 +45,6 @@ public class SpecterServiceImpl implements SpecterService {
 
     @Override
     public Specter getByGameInstanceId(Long gameInstanceId) {
-        //return specterDao.getSpecterByGameInstance(gameInstanceService.getGameInstanceById(gameInstanceId));
-        throw new NotYetImplementedException();
+        return specterDao.getSpecterByGameInstance(gameInstanceService.getGameInstanceById(gameInstanceId));
     }
 }
