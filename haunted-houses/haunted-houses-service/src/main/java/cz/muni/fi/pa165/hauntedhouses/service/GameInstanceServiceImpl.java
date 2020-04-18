@@ -4,10 +4,13 @@ import cz.muni.fi.pa165.hauntedhouses.dao.GameInstanceDao;
 import cz.muni.fi.pa165.hauntedhouses.dao.PlayerDao;
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author David Hofman
  */
+
+@Service
 public class GameInstanceServiceImpl implements GameInstanceService {
 
     @Autowired
