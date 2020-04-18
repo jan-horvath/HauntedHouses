@@ -7,7 +7,12 @@ import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import cz.muni.fi.pa165.hauntedhouses.service.AbilityService;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
+@Transactional
+@Service
 public class AbilityFacadeImpl implements AbilityFacade {
 
     @Autowired
