@@ -15,7 +15,7 @@ public interface HouseFacade {
 
     List<HouseDTO> findAllHouses();
 
-    void createHouse(HouseCreateDTO house);
+    Long createHouse(HouseCreateDTO house);
 
     void deleteHouse(Long id);
 

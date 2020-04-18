@@ -12,6 +12,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * @author Jan Horvath
+ */
+
 @Service
 public class SpecterServiceImpl implements SpecterService {
 

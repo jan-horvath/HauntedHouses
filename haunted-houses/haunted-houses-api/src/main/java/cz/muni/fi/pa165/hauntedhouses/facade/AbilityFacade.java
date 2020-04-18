@@ -12,7 +12,7 @@ public interface AbilityFacade {
 
     AbilityDTO findAbilityByName(String name);
 
-    void createAbility(AbilityCreateDTO ability);
+    Long createAbility(AbilityCreateDTO ability);
 
     void deleteAbility(Long id);
 }
