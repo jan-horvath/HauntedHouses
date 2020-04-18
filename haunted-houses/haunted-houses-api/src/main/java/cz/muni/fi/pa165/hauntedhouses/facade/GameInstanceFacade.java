@@ -10,7 +10,7 @@ public interface GameInstanceFacade {
 
     GameInstanceDTO findGameInstanceByPlayerId(Long playerId);
 
-    void createGameInstance(GameInstanceCreateDTO gameInstance);
+    Long createGameInstance(GameInstanceCreateDTO gameInstance);
 
     void deleteGameInstance(Long id);
 }
