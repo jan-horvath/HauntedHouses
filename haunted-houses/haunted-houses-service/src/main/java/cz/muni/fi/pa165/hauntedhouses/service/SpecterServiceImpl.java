@@ -5,12 +5,14 @@ import cz.muni.fi.pa165.hauntedhouses.dao.SpecterDao;
 import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+@Service
 public class SpecterServiceImpl implements SpecterService {
 
     @Autowired
