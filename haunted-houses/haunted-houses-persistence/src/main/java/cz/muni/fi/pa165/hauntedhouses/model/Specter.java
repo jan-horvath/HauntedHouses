@@ -130,4 +130,15 @@ public class Specter {
     public int hashCode() {
         return Objects.hash(getGameInstance());
     }
+
+    @Override
+    public String toString() {
+        return "Specter{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startOfHaunting=" + startOfHaunting +
+                ", endOfHaunting=" + endOfHaunting +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

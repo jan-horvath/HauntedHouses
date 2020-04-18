@@ -77,4 +77,16 @@ public class HouseDTO {
     public int hashCode() {
         return Objects.hash(getAddress());
     }
+
+    @Override
+    public String toString() {
+        return "HouseDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", hauntedSince=" + hauntedSince +
+                ", history='" + history + '\'' +
+                ", hint='" + hint + '\'' +
+                '}';
+    }
 }

@@ -71,4 +71,15 @@ public class HouseCreateDTO {
     public int hashCode() {
         return Objects.hash(getAddress());
     }
+
+    @Override
+    public String toString() {
+        return "HouseCreateDTO{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", hauntedSince=" + hauntedSince +
+                ", history='" + history + '\'' +
+                ", hint='" + hint + '\'' +
+                '}';
+    }
 }

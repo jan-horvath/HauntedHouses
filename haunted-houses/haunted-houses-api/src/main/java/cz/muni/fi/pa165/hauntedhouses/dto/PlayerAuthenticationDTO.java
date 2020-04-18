@@ -1,5 +1,9 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
+/**
+ * @author Jan Horvath
+ */
+
 public class PlayerAuthenticationDTO {
 
     private Long playerId;
@@ -19,5 +23,13 @@ public class PlayerAuthenticationDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerAuthenticationDTO{" +
+                "playerId=" + playerId +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
