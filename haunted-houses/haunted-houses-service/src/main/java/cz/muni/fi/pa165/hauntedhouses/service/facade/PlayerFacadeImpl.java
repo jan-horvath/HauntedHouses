@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-@Transactional
-@Service
 public class PlayerFacadeImpl implements PlayerFacade {
     @Override
     public PlayerDTO findPlayerById(Long id) {
