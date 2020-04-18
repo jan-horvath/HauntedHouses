@@ -34,13 +34,7 @@ public class HouseFacadeImpl implements HouseFacade {
 
     @Override
     public Long createHouse(HouseCreateDTO house) {
-        House newHouse = new House();
-        newHouse.setAddress(house.getAddress());
-        newHouse.setHauntedSince(house.getHauntedSince());
-        newHouse.setHint(house.getHint());
-        newHouse.setHistory(house.getHistory());
-        newHouse.setName(house.getName());
-
+        House newHouse = mappingService.mapTo(house, House.class);
         houseService.createHouse(newHouse);
         return newHouse.getId();
     }

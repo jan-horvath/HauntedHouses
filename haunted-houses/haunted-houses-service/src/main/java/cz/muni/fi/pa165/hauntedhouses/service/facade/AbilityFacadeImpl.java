@@ -33,10 +33,7 @@ public class AbilityFacadeImpl implements AbilityFacade {
 
     @Override
     public Long createAbility(AbilityCreateDTO ability) {
-        Ability newAbility = new Ability();
-        newAbility.setName(ability.getName());
-        newAbility.setDescription(ability.getDescription());
-
+        Ability newAbility = mappingService.mapTo(ability, Ability.class);
         abilityService.createAbility(newAbility);
         return newAbility.getId();
     }
