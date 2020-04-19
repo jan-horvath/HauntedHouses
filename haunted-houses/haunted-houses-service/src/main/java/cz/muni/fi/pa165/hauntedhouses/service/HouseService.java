@@ -11,9 +11,35 @@ import java.util.List;
  */
 @Service
 public interface HouseService {
+    /**
+     * Finds House with the given ID
+     * @param id ID of the House
+     * @return House with the given ID if it exists, null otherwise
+     */
     House getHouseById(Long id);
+
+    /**
+     * Finds all Houses in the database
+     * @return List of all Houses
+     */
     List<House> getAllHouses();
+
+    /**
+     * Creates new House in the database
+     * @param house New House
+     */
     void createHouse(House house);
+
+    /**
+     * Deletes the House from the database
+     * @param house House for deletion
+     */
     void deleteHouse(House house);
+
+    /**
+     * Updates the House in the database
+     * @param house House for update
+     * @return Updated House
+     */
     House updateHouse(House house);
 }
