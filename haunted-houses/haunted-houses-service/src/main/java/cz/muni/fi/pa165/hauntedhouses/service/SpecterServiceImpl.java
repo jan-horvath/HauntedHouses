@@ -3,8 +3,10 @@ package cz.muni.fi.pa165.hauntedhouses.service;
 import com.github.javafaker.Faker;
 import cz.muni.fi.pa165.hauntedhouses.dao.SpecterDao;
 import cz.muni.fi.pa165.hauntedhouses.model.Ability;
+import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
@@ -51,6 +53,10 @@ public class SpecterServiceImpl implements SpecterService {
 
     @Override
     public Specter getByGameInstanceId(Long gameInstanceId) {
-        return specterDao.getSpecterByGameInstance(gameInstanceService.getGameInstanceById(gameInstanceId));
+        GameInstance gameInstanceById = gameInstanceService.getGameInstanceById(gameInstanceId);
+        if (gameInstanceById == null) {
+            throw new DataRetrievalFailureException("No such game instance found");
+        }
+        return specterDao.getSpecterByGameInstance(gameInstanceById);
     }
 }

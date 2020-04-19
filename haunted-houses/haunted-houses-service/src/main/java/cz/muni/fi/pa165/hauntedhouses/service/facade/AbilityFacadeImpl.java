@@ -23,12 +23,14 @@ public class AbilityFacadeImpl implements AbilityFacade {
 
     @Override
     public AbilityDTO findAbilityById(Long id) {
-        return mappingService.mapTo(abilityService.getAbilityById(id), AbilityDTO.class);
+        Ability abilityById = abilityService.getAbilityById(id);
+        return (abilityById == null) ? null : mappingService.mapTo(abilityById, AbilityDTO.class);
     }
 
     @Override
     public AbilityDTO findAbilityByName(String name) {
-        return mappingService.mapTo(abilityService.getAbilityByName(name), AbilityDTO.class);
+        Ability abilityByName = abilityService.getAbilityByName(name);
+        return (abilityByName == null) ? null : mappingService.mapTo(abilityByName, AbilityDTO.class);
     }
 
     @Override

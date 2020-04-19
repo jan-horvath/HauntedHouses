@@ -24,7 +24,8 @@ public class HouseFacadeImpl implements HouseFacade {
 
     @Override
     public HouseDTO findHouseById(Long id) {
-        return mappingService.mapTo(houseService.getHouseById(id), HouseDTO.class);
+        House houseById = houseService.getHouseById(id);
+        return (houseById == null) ? null : mappingService.mapTo(houseById, HouseDTO.class);
     }
 
     @Override
