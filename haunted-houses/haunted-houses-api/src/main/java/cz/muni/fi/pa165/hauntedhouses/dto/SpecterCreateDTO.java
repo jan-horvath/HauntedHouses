@@ -98,4 +98,16 @@ public class SpecterCreateDTO {
     public int hashCode() {
         return Objects.hash(getGameInstance());
     }
+
+    @Override
+    public String toString() {
+        return "SpecterCreateDTO{" +
+                "name='" + name + '\'' +
+                ", startOfHaunting=" + startOfHaunting +
+                ", endOfHaunting=" + endOfHaunting +
+                ", description='" + description + '\'' +
+                ", houseDTO_ID=" + ((house == null) ? "houseDTO is null" : house.getId()) +
+                ", gameInstanceDTO_ID=" + ((gameInstance == null) ? "gameInstanceDTO is null" : gameInstance.getId()) +
+                '}';
+    }
 }

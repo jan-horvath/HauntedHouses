@@ -91,4 +91,16 @@ public class House {
     public int hashCode() {
         return Objects.hash(getAddress());
     }
+
+    @Override
+    public String toString() {
+        return "House{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", hauntedSince=" + hauntedSince +
+                ", history='" + history + '\'' +
+                ", hint='" + hint + '\'' +
+                '}';
+    }
 }
