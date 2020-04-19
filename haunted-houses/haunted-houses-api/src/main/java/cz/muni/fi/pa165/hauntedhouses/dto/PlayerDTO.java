@@ -2,6 +2,10 @@ package cz.muni.fi.pa165.hauntedhouses.dto;
 
 import java.util.Objects;
 
+/**
+ * @author Jan Horvath
+ */
+
 public class PlayerDTO {
 
     private Long id;
@@ -9,6 +13,8 @@ public class PlayerDTO {
     private String name;
 
     private String email;
+
+    private GameInstanceDTO gameInstance;
 
     public Long getId() {
         return id;
@@ -34,6 +40,14 @@ public class PlayerDTO {
         this.email = email;
     }
 
+    public GameInstanceDTO getGameInstance() {
+        return gameInstance;
+    }
+
+    public void setGameInstance(GameInstanceDTO gameInstance) {
+        this.gameInstance = gameInstance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,5 +59,15 @@ public class PlayerDTO {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", gameInstanceDTO_ID=" + ((gameInstance == null) ? "gameInstanceDTO is null" : gameInstance.getId()) +
+                '}';
     }
 }

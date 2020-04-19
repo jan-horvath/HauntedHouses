@@ -69,4 +69,15 @@ public class GameInstanceDTO {
     public int hashCode() {
         return Objects.hash(getPlayer());
     }
+
+    @Override
+    public String toString() {
+        return "GameInstanceDTO{" +
+                "id=" + id +
+                ", banishesAttempted=" + banishesAttempted +
+                ", banishesRequired=" + banishesRequired +
+                ", playerDTO_ID=" + ((player == null) ? "playerDTO is null" : player.getId()) +
+                ", specterDTO_ID=" + ((specter == null) ? "specterDTO is null" : specter.getId()) +
+                '}';
+    }
 }

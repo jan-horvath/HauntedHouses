@@ -74,4 +74,13 @@ public class Player {
     public int hashCode() {
         return Objects.hash(getEmail());
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
