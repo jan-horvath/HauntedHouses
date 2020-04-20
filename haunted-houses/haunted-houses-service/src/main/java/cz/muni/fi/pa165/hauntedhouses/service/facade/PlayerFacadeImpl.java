@@ -3,6 +3,9 @@ package cz.muni.fi.pa165.hauntedhouses.service.facade;
 import cz.muni.fi.pa165.hauntedhouses.dto.PlayerAuthenticationDTO;
 import cz.muni.fi.pa165.hauntedhouses.dto.PlayerDTO;
 import cz.muni.fi.pa165.hauntedhouses.facade.PlayerFacade;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 public class PlayerFacadeImpl implements PlayerFacade {
     @Override
