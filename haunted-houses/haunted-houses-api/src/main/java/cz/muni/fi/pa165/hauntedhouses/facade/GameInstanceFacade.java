@@ -17,6 +17,7 @@ public interface GameInstanceFacade {
     /**
      * Creates new GameInstance
      * @param gameInstance DTO containing all information that is required for creating new GameInstance
+     * @throws org.springframework.dao.DataAccessException if constraints are violated
      * @return ID of the GameInstance
      */
     Long createGameInstance(GameInstanceCreateDTO gameInstance);

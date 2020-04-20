@@ -27,6 +27,7 @@ public interface HouseService {
     /**
      * Creates new House in the database
      * @param house New House
+     * @throws org.springframework.dao.DataAccessException if constraints are violated
      */
     void createHouse(House house);
 
@@ -39,6 +40,7 @@ public interface HouseService {
     /**
      * Updates the House in the database
      * @param house House for update
+     * @throws org.springframework.dao.DataAccessException if constraints are violated
      * @return Updated House
      */
     House updateHouse(House house);

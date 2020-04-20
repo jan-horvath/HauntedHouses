@@ -33,6 +33,7 @@ public interface AbilityService {
     /**
      * Creates new Ability in the database
      * @param ability New Ability
+     * @throws org.springframework.dao.DataAccessException if constraints are violated
      */
     void createAbility(Ability ability);
 
