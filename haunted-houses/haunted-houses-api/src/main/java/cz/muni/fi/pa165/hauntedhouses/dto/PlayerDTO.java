@@ -58,6 +58,7 @@ public class PlayerDTO {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
 
     public GameInstanceDTO getGameInstance() {
         return gameInstance;
@@ -88,16 +89,7 @@ public class PlayerDTO {
                 ", email='" + email + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
                 ", admin=" + admin +
-                '}';
-    }
-
-    @Override
-    public String toString() {
-        return "PlayerDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", gameInstanceDTO_ID=" + ((gameInstance == null) ? "gameInstanceDTO is null" : gameInstance.getId()) +
+                ", gameInstance=" + gameInstance +
                 '}';
     }
 }

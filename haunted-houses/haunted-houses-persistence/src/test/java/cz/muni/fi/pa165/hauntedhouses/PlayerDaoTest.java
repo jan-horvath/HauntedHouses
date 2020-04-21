@@ -32,14 +32,17 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         p1 = new Player();
         p1.setName("testPlayer1");
         p1.setEmail("testEmail1");
+        p1.setPasswordHash("testHash1");
 
         p2 = new Player();
         p2.setName("testPlayer2");
         p2.setEmail("testEmail2");
+        p2.setPasswordHash("testHash2");
 
         p3 = new Player();
         p3.setName("testPlayer1");
         p3.setEmail("testEmail1");
+        p3.setPasswordHash("testHash3");
     }
 
     @Test
@@ -50,6 +53,7 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
+        Assert.assertEquals(p1.getPasswordHash(), found.getPasswordHash());
     }
 
     @Test
@@ -68,6 +72,7 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
+        Assert.assertEquals(p1.getPasswordHash(), found.getPasswordHash());
     }
 
     @Test public void getByEmailNonexistingPlayerTest() {
@@ -96,6 +101,7 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
+        Assert.assertEquals(p1.getPasswordHash(), found.getPasswordHash());
     }
 
     @Test
@@ -106,6 +112,7 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
+        Assert.assertEquals(p1.getPasswordHash(), found.getPasswordHash());
 
         playerDao.deletePlayer(p1);
         found = playerDao.getPlayerByEmail(p1.getEmail());
@@ -120,6 +127,7 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         Assert.assertNotNull(found);
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
+        Assert.assertEquals(p1.getPasswordHash(), found.getPasswordHash());
 
         p1.setName("changed");
         playerDao.updatePlayer(p1);
