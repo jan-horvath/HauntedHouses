@@ -79,4 +79,13 @@ public class GameInstance {
     public int hashCode() {
         return Objects.hash(getPlayer());
     }
+
+    @Override
+    public String toString() {
+        return "GameInstance{" +
+                "id=" + id +
+                ", banishesAttempted=" + banishesAttempted +
+                ", banishesRequired=" + banishesRequired +
+                '}';
+    }
 }

@@ -102,4 +102,17 @@ public class SpecterDTO {
     public int hashCode() {
         return Objects.hash(getGameInstance());
     }
+
+    @Override
+    public String toString() {
+        return "SpecterDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startOfHaunting=" + startOfHaunting +
+                ", endOfHaunting=" + endOfHaunting +
+                ", description='" + description + '\'' +
+                ", houseDTO_ID=" + ((house == null) ? "houseDTO is null" : house.getId()) +
+                ", gameInstanceDTO_ID=" + ((gameInstance == null) ? "gameInstanceDTO is null" : gameInstance.getId()) +
+                '}';
+    }
 }
