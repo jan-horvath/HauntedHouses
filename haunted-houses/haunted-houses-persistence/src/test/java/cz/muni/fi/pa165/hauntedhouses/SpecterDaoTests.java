@@ -72,11 +72,13 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         Player p1 = new Player();
         p1.setName("playerName1");
         p1.setEmail("playerEmail1");
+        p1.setPasswordHash("playerPassword1");
         playerDao.createPlayer(p1);
 
         Player p2 = new Player();
         p2.setName("playerName2");
         p2.setEmail("playerEmail2");
+        p2.setPasswordHash("playerPassword2");
         playerDao.createPlayer(p2);
 
         GameInstance g1 = new GameInstance();
