@@ -107,6 +107,7 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
         playerService.registerPlayer(player1, "password");
 
         Assert.assertNotEquals("password", player1.getPasswordHash());
+        Assert.assertFalse(player1.getPasswordHash().isEmpty());
         verify(playerDao, times(1)).createPlayer(player1);
     }
 
@@ -137,5 +138,13 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
 
         Assert.assertTrue(playerService.isAdmin(player1));
         Assert.assertFalse(playerService.isAdmin(player2));
+    }
+
+    @Test
+    public void isAdminDefaultTest() {
+        player1.setId(1L);
+        when(playerDao.getPlayerById(1L)).thenReturn(player1);
+
+        Assert.assertFalse(playerService.isAdmin(player1));
     }
 }
