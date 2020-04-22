@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.hauntedhouses.dao;
 
+import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.Player;
 import org.springframework.orm.jpa.JpaSystemException;
 
@@ -31,6 +32,13 @@ public interface PlayerDao {
      * @return player associated with the given email or null if such player is not found.
      */
     Player getPlayerByEmail(String email);
+
+    /**
+     * Searches database for a player associated with given game instance
+     * @param gameInstance
+     * @return player associated with given game instance
+     */
+    Player getPlayerByGameInstance(GameInstance gameInstance);
 
     /**
      * Searches database for all players
