@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.hauntedhouses.dao.impl;
 import cz.muni.fi.pa165.hauntedhouses.dao.PlayerDao;
 import cz.muni.fi.pa165.hauntedhouses.model.Player;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

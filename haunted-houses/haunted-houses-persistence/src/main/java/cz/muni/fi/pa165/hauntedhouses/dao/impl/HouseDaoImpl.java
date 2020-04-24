@@ -5,14 +5,12 @@ import cz.muni.fi.pa165.hauntedhouses.model.House;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author Petr Vitovsky
  */
 @Repository
-@Transactional
 public class HouseDaoImpl implements HouseDao {
 
     @PersistenceContext
