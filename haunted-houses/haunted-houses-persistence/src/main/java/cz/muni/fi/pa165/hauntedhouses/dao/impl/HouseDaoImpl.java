@@ -53,6 +53,5 @@ public class HouseDaoImpl implements HouseDao {
     @Override
     public void deleteHouse(House house) {
         em.remove(em.contains(house) ? house : em.merge(house));
-
     }
 }
