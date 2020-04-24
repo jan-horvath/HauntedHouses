@@ -1,9 +1,10 @@
 package cz.muni.fi.pa165.hauntedhouses.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
  * @author Zoltan Fridrich
  */
 @Entity
-public class Specter {
+public class Specter implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -38,7 +39,7 @@ public class Specter {
     private GameInstance gameInstance;
 
     @ManyToMany
-    private List<Ability> abilities = new ArrayList<>();
+    private Set<Ability> abilities = new HashSet<>();
 
     public Specter() {}
 
@@ -98,11 +99,11 @@ public class Specter {
         this.gameInstance = gameInstance;
     }
 
-    public List<Ability> getAbilities() {
+    public Set<Ability> getAbilities() {
         return abilities;
     }
 
-    public void setAbilities(List<Ability> abilities) {
+    public void setAbilities(Set<Ability> abilities) {
         this.abilities = abilities;
     }
 

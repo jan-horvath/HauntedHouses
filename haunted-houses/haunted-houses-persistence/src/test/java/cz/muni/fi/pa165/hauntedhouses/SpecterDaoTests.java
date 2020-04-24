@@ -12,10 +12,7 @@ import org.testng.Assert;
 
 import javax.persistence.PersistenceException;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author David Hofman
@@ -210,8 +207,8 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
 
         //Arrays.asList and Collections.singletonList creates an unmodifiable list which Hibernate seems to hate
         //That is why a new modifiable ArrayList is created with the same contents
-        s1.setAbilities(new ArrayList<>(Arrays.asList(ability1,ability2)));
-        s2.setAbilities(new ArrayList<>(Collections.singletonList(ability2)));
+        s1.setAbilities(new HashSet<>(Arrays.asList(ability1,ability2)));
+        s2.setAbilities(new HashSet<>(Collections.singletonList(ability2)));
 
         createSpecterUpdateGameInstance(s1);
         createSpecterUpdateGameInstance(s2);
