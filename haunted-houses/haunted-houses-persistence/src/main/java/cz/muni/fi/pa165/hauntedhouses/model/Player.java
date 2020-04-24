@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.hauntedhouses.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
  */
 
 @Entity
-public class Player {
+public class Player implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -19,6 +20,12 @@ public class Player {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private String passwordHash;
+
+    @Column
+    private boolean admin;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "player")
     private GameInstance gameInstance;
@@ -54,6 +61,22 @@ public class Player {
         this.email = email;
     }
 
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     public GameInstance getGameInstance() {
         return gameInstance;
     }
@@ -81,6 +104,9 @@ public class Player {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", admin=" + admin +
+                ", gameInstance=" + gameInstance +
                 '}';
     }
 }

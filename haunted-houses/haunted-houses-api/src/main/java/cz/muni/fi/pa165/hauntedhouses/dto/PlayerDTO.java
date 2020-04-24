@@ -14,6 +14,10 @@ public class PlayerDTO {
 
     private String email;
 
+    private String passwordHash;
+
+    private boolean admin;
+
     private GameInstanceDTO gameInstance;
 
     public Long getId() {
@@ -40,6 +44,22 @@ public class PlayerDTO {
         this.email = email;
     }
 
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     public GameInstanceDTO getGameInstance() {
         return gameInstance;
     }
@@ -53,12 +73,12 @@ public class PlayerDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PlayerDTO playerDTO = (PlayerDTO) o;
-        return Objects.equals(name, playerDTO.name);
+        return Objects.equals(email, playerDTO.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(email);
     }
 
     @Override
@@ -67,7 +87,9 @@ public class PlayerDTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", gameInstanceDTO_ID=" + ((gameInstance == null) ? "gameInstanceDTO is null" : gameInstance.getId()) +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", admin=" + admin +
+                ", gameInstance=" + gameInstance +
                 '}';
     }
 }

@@ -44,11 +44,13 @@ public class GameInstanceDaoTest extends AbstractTransactionalTestNGSpringContex
         player1 = new Player();
         player1.setName("Player1 name");
         player1.setEmail("Player1 email");
+        player1.setPasswordHash("Player1 password");
         playerDao.createPlayer(player1);
 
         player2 = new Player();
         player2.setName("Player2 name");
         player2.setEmail("Player2 email");
+        player2.setPasswordHash("Player2 password");
         playerDao.createPlayer(player2);
 
         gameInstance1 = new GameInstance();

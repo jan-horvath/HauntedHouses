@@ -5,14 +5,12 @@ import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author David Hofman
  */
 @Repository
-@Transactional
 public class AbilityDaoImpl implements AbilityDao {
 
     @PersistenceContext

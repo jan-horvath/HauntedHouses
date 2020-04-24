@@ -5,13 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author David Hofman
  */
 @Entity
-public class Ability {
+public class Ability implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long id;
