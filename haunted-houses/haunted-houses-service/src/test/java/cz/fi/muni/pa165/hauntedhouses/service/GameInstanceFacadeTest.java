@@ -11,6 +11,7 @@ import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
 import cz.muni.fi.pa165.hauntedhouses.service.facade.GameInstanceFacadeImpl;
 import org.hibernate.service.spi.ServiceException;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -32,25 +33,33 @@ public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     GameInstanceService gameInstanceService;
 
-    @Autowired
+    @Mock
     private MappingService mappingService;
 
-    private GameInstanceFacade gameInstanceFacade;
+    @InjectMocks
+    private GameInstanceFacade gameInstanceFacade = new GameInstanceFacadeImpl();
 
     private long playerId = 7;
     private long gameInstanceId = 15;
+
     private Player player;
+    private PlayerDTO mappedPlayer;
+
     private PlayerDTO playerDTO;
+    private Player mappedPlayerDTO;
+
     private GameInstance gameInstance;
+    private GameInstanceDTO mappedGameInstance;
+
     private GameInstanceDTO gameInstanceDTO;
 
     private long newGameInstanceId = 22;
     private GameInstanceCreateDTO gameInstanceCreateDTO;
+    private GameInstance mappedGameInstanceCreateDTO;
 
     @BeforeClass
     public void mockitoInit() throws ServiceException {
         MockitoAnnotations.initMocks(this);
-        gameInstanceFacade = new GameInstanceFacadeImpl(gameInstanceService, mappingService);
     }
 
     @BeforeMethod
@@ -63,6 +72,15 @@ public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
         gameInstance.setPlayer(player);
         player.setGameInstance(gameInstance);
 
+        mappedPlayer = new PlayerDTO();
+        mappedPlayer.setEmail("email");
+        mappedPlayer.setId(playerId);
+
+        mappedGameInstance = new GameInstanceDTO();
+        mappedGameInstance.setId(gameInstanceId);
+        mappedGameInstance.setPlayer(mappedPlayer);
+        mappedPlayer.setGameInstance(mappedGameInstance);
+
         playerDTO = new PlayerDTO();
         playerDTO.setEmail("email");
         playerDTO.setId(playerId);
@@ -70,8 +88,15 @@ public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
         gameInstanceDTO.setPlayer(playerDTO);
         playerDTO.setGameInstance(gameInstanceDTO);
 
+        mappedPlayerDTO = new Player();
+        mappedPlayerDTO.setEmail("email");
+        mappedPlayerDTO.setId(playerId);
+
         gameInstanceCreateDTO = new GameInstanceCreateDTO();
         gameInstanceCreateDTO.setPlayer(playerDTO);
+
+        mappedGameInstanceCreateDTO = new GameInstance();
+        mappedGameInstanceCreateDTO.setPlayer(mappedPlayerDTO);
 
         setupMockedBehaviour();
     }
@@ -84,6 +109,9 @@ public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
             argument.setId(newGameInstanceId);
             return null;
         }).when(gameInstanceService).createGameInstance(gameInstance);
+
+        when(mappingService.mapTo(gameInstance, GameInstanceDTO.class)).thenReturn(mappedGameInstance);
+        when(mappingService.mapTo(gameInstanceCreateDTO, GameInstance.class)).thenReturn(mappedGameInstanceCreateDTO);
     }
 
     @Test
