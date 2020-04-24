@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity
 public class Ability implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "pooled_generator")
     private Long id;
 
     @Column(nullable=false,unique=true)
