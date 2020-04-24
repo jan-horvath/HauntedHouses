@@ -8,6 +8,11 @@ import cz.muni.fi.pa165.hauntedhouses.dto.SpecterDTO;
  */
 public interface SpecterFacade {
 
+    /**
+     * Finds a specter that belongs to GameInstance with given Id
+     * @param gameInstanceId Id of GameInstance
+     * @return Found Specter, null if it doesn't exist
+     */
     SpecterDTO findSpecterByGameInstanceId(Long gameInstanceId);
 
     //void createSpecter(SpecterCreateDTO specter);

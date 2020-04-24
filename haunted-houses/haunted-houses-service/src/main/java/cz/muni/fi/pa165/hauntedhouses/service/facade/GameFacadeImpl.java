@@ -16,14 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class GameFacadeImpl implements GameFacade {
 
-    @Autowired
     HouseService houseService;
-
-    @Autowired
     GameInstanceService gameInstanceService;
+    GameService gameService;
 
     @Autowired
-    GameService gameService;
+    public GameFacadeImpl(HouseService houseService, GameInstanceService gameInstanceService, GameService gameService) {
+        this.houseService = houseService;
+        this.gameInstanceService = gameInstanceService;
+        this.gameService = gameService;
+    }
 
     @Override
     public boolean banishSpecter(BanishSpecterDTO banishSpecter) {
