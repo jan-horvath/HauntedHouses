@@ -44,17 +44,6 @@ public class SpecterDaoImpl implements SpecterDao {
     }
 
     @Override
-    public Specter getSpecterByName(String name) {
-        try {
-            return em.createQuery("SELECT specter FROM Specter specter WHERE :name = specter.name", Specter.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-
-    @Override
     public Specter getSpecterByGameInstance(GameInstance gameInstance) {
         try {
             return em.createQuery("SELECT specter FROM Specter specter WHERE :gameInstance = specter.gameInstance", Specter.class)

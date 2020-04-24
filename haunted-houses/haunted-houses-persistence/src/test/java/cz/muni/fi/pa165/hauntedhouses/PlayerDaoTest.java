@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.hauntedhouses;
 
 import cz.muni.fi.pa165.hauntedhouses.dao.PlayerDao;
+import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.Player;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +103,20 @@ public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests
         Assert.assertEquals(p1.getName(), found.getName());
         Assert.assertEquals(p1.getEmail(), found.getEmail());
         Assert.assertEquals(p1.getPasswordHash(), found.getPasswordHash());
+    }
+
+    @Test
+    public void createAndGetByGameInstance() {
+        GameInstance gameInstance = new GameInstance();
+        gameInstance.setPlayer(p1);
+        p1.setGameInstance(gameInstance);
+        playerDao.createPlayer(p1);
+
+        Player copy = new Player();
+        copy.setEmail("testEmail1");
+
+        Assert.assertNotNull(gameInstance.getId());
+        Assert.assertEquals(playerDao.getPlayerByGameInstance(gameInstance), copy);
     }
 
     @Test

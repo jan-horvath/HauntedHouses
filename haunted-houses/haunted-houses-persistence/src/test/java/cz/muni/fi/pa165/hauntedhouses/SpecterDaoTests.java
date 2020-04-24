@@ -134,22 +134,6 @@ public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTes
         compareAllSpecterAttributes(s1,foundSpecter);
     }
 
-    /*
-    @Test
-    public void getByNameNonexistentSpecter() {
-        Assert.assertNull(specterDao.getSpecterByName("Non-existing Specter"));
-    }
-    */
-
-    /*
-    @Test
-    public void createAndGetByNameSpecterTest() {
-        createSpecterUpdateGameInstance(s1);
-        Specter foundSpecter = specterDao.getSpecterByName(s1.getName());
-        compareAllSpecterAttributes(s1,foundSpecter);
-    }
-    */
-
     @Test
     public void createAndGetByHouseSpecterTest() {
         House house1 = new House();
