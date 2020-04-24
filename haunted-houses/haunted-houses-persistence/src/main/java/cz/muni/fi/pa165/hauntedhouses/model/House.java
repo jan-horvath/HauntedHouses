@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class House implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "pooled_generator")
     private Long id;
 
     @Column(nullable = false)
