@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Petr Vitovsky
@@ -17,12 +18,12 @@ public class AbilityServiceImpl implements AbilityService {
     private AbilityDao abilityDao;
 
     @Override
-    public Ability getAbilityById(Long id) {
+    public Optional<Ability> getAbilityById(Long id) {
         return abilityDao.getAbilityById(id);
     }
 
     @Override
-    public Ability getAbilityByName(String name) {
+    public Optional<Ability> getAbilityByName(String name) {
         return abilityDao.getAbilityByName(name);
     }
 

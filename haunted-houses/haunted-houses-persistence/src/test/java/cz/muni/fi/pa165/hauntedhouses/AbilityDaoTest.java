@@ -56,9 +56,9 @@ public class AbilityDaoTest extends AbstractTransactionalTestNGSpringContextTest
         allAbilities = abilityDao.getAllAbilities();
         Assert.assertEquals(allAbilities.size(), 1);
 
-        Ability foundDefensiveAbility = abilityDao.getAbilityById(defensiveAbility.getId());
+        Ability foundDefensiveAbility = abilityDao.getAbilityById(defensiveAbility.getId()).get();
         Assert.assertEquals(foundDefensiveAbility, defensiveAbility);
-        foundDefensiveAbility = abilityDao.getAbilityByName("Defensive ability");
+        foundDefensiveAbility = abilityDao.getAbilityByName("Defensive ability").get();
         Assert.assertEquals(foundDefensiveAbility, defensiveAbility);
 
         abilityDao.createAbility(offensiveAbility);
@@ -66,9 +66,9 @@ public class AbilityDaoTest extends AbstractTransactionalTestNGSpringContextTest
         allAbilities = abilityDao.getAllAbilities();
         Assert.assertEquals(allAbilities.size(), 2);
 
-        Ability foundOffensiveAbility = abilityDao.getAbilityById(offensiveAbility.getId());
+        Ability foundOffensiveAbility = abilityDao.getAbilityById(offensiveAbility.getId()).get();
         Assert.assertEquals(foundOffensiveAbility, offensiveAbility);
-        foundOffensiveAbility = abilityDao.getAbilityByName("Offensive ability");
+        foundOffensiveAbility = abilityDao.getAbilityByName("Offensive ability").get();
         Assert.assertEquals(foundOffensiveAbility, offensiveAbility);
     }
 
@@ -85,14 +85,14 @@ public class AbilityDaoTest extends AbstractTransactionalTestNGSpringContextTest
         abilityDao.createAbility(offensiveAbility);
 
         Long nonExistingAbilityId = defensiveAbility.getId() + offensiveAbility.getId();
-        Assert.assertNull(abilityDao.getAbilityById(nonExistingAbilityId));
+        Assert.assertTrue(abilityDao.getAbilityById(nonExistingAbilityId).isEmpty());
     }
 
     @Test
     public void getNonExistingAbilityByNameTest() {
         abilityDao.createAbility(defensiveAbility);
         abilityDao.createAbility(offensiveAbility);
-        Assert.assertNull(abilityDao.getAbilityByName("non-existing ability"));
+        Assert.assertTrue(abilityDao.getAbilityByName("non-existing ability").isEmpty());
     }
 
     @Test
@@ -119,13 +119,13 @@ public class AbilityDaoTest extends AbstractTransactionalTestNGSpringContextTest
         defensiveAbility.setDescription("New description");
         abilityDao.updateAbility(defensiveAbility);
 
-        Assert.assertEquals(abilityDao.getAbilityByName("Defensive ability").getDescription(), "New description");
+        Assert.assertEquals(abilityDao.getAbilityByName("Defensive ability").get().getDescription(), "New description");
 
         defensiveAbility.setName("New defensive ability");
         abilityDao.updateAbility(defensiveAbility);
 
-        Assert.assertNull(abilityDao.getAbilityByName("Defensive ability"));
-        Assert.assertEquals(abilityDao.getAbilityByName("New defensive ability").getDescription(), "New description");
+        Assert.assertTrue(abilityDao.getAbilityByName("Defensive ability").isEmpty());
+        Assert.assertEquals(abilityDao.getAbilityByName("New defensive ability").get().getDescription(), "New description");
     }
 
     @Test
@@ -137,20 +137,20 @@ public class AbilityDaoTest extends AbstractTransactionalTestNGSpringContextTest
         nonExistingAbility.setName("Non-existing ability");
         nonExistingAbility.setDescription("Description");
 
-        Assert.assertNull(abilityDao.updateAbility(nonExistingAbility));
+        Assert.assertTrue(abilityDao.updateAbility(nonExistingAbility).isEmpty());
     }
 
     @Test
     public void updateDeletedAbilityTest() {
         abilityDao.createAbility(defensiveAbility);
         abilityDao.createAbility(offensiveAbility);
-        defensiveAbility = abilityDao.getAbilityByName("Defensive ability");
+        defensiveAbility = abilityDao.getAbilityByName("Defensive ability").get();
 
         abilityDao.deleteAbility(defensiveAbility);
 
         defensiveAbility.setDescription("New description");
 
-        Assert.assertNull(abilityDao.updateAbility(defensiveAbility));
+        Assert.assertTrue(abilityDao.updateAbility(defensiveAbility).isEmpty());
     }
 
     @Test

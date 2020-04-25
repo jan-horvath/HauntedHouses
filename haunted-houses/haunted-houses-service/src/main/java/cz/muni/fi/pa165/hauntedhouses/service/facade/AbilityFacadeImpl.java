@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -23,14 +24,14 @@ public class AbilityFacadeImpl implements AbilityFacade {
 
     @Override
     public AbilityDTO findAbilityById(Long id) {
-        Ability abilityById = abilityService.getAbilityById(id);
-        return (abilityById == null) ? null : mappingService.mapTo(abilityById, AbilityDTO.class);
+        Optional<Ability> abilityById = abilityService.getAbilityById(id);
+        return abilityById.isEmpty() ? null : mappingService.mapTo(abilityById.get(), AbilityDTO.class);
     }
 
     @Override
     public AbilityDTO findAbilityByName(String name) {
-        Ability abilityByName = abilityService.getAbilityByName(name);
-        return (abilityByName == null) ? null : mappingService.mapTo(abilityByName, AbilityDTO.class);
+        Optional<Ability> abilityByName = abilityService.getAbilityByName(name);
+        return abilityByName.isEmpty() ? null : mappingService.mapTo(abilityByName.get(), AbilityDTO.class);
     }
 
     @Override
@@ -42,6 +43,8 @@ public class AbilityFacadeImpl implements AbilityFacade {
 
     @Override
     public void deleteAbility(Long id) {
-        abilityService.deleteAbility(abilityService.getAbilityById(id));
+        Optional<Ability> abilityById = abilityService.getAbilityById(id);
+        abilityById.ifPresent(ability -> abilityService.deleteAbility(ability));
+
     }
 }

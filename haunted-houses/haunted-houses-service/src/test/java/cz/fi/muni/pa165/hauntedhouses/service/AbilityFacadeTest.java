@@ -18,6 +18,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -66,13 +68,13 @@ public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
 
         when(mappingService.mapTo(abilityCreateDTO, Ability.class)).thenReturn(ability);
         when(mappingService.mapTo(ability, AbilityDTO.class)).thenReturn(abilityDTO);
-        when(abilityService.getAbilityById(ability.getId())).thenReturn(ability);
-        when(abilityService.getAbilityByName(ability.getName())).thenReturn(ability);
+        when(abilityService.getAbilityById(ability.getId())).thenReturn(Optional.ofNullable(ability));
+        when(abilityService.getAbilityByName(ability.getName())).thenReturn(Optional.ofNullable(ability));
     }
 
     @Test
     public void findAbilityByIdTest() {
-        assertEquals(abilityDTO, abilityFacade.findAbilityById(ability.getId()));
+        assertEquals(abilityFacade.findAbilityById(ability.getId()), abilityDTO);
         verify(abilityService).getAbilityById(ability.getId());
 
         assertNull(abilityFacade.findAbilityById(2L));

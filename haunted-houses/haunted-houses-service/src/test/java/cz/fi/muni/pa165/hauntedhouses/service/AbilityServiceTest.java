@@ -18,6 +18,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -41,7 +42,7 @@ public class AbilityServiceTest extends AbstractTestNGSpringContextTests {
 
     private Ability ability1;
     private Ability ability2;
-    List<Ability> allAbilities;
+    private List<Ability> allAbilities;
 
     @BeforeMethod
     public void prepareAbilities() {
@@ -58,24 +59,24 @@ public class AbilityServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getAbilityByIdTest() {
-        when(abilityDao.getAbilityById(1L)).thenReturn(ability1);
-        when(abilityDao.getAbilityById(2L)).thenReturn(ability2);
-        when(abilityDao.getAbilityById(3L)).thenReturn(null);
+        when(abilityDao.getAbilityById(1L)).thenReturn(Optional.ofNullable(ability1));
+        when(abilityDao.getAbilityById(2L)).thenReturn(Optional.ofNullable(ability2));
+        when(abilityDao.getAbilityById(3L)).thenReturn(Optional.empty());
 
-        Assert.assertEquals(abilityService.getAbilityById(1L),ability1);
-        Assert.assertEquals(abilityService.getAbilityById(2L),ability2);
-        Assert.assertNull(abilityService.getAbilityById(3L));
+        Assert.assertEquals(abilityService.getAbilityById(1L).get(),ability1);
+        Assert.assertEquals(abilityService.getAbilityById(2L).get(),ability2);
+        Assert.assertTrue(abilityService.getAbilityById(3L).isEmpty());
     }
 
     @Test
     public void getAbilityByNameTest() {
-        when(abilityDao.getAbilityByName("ability1")).thenReturn(ability1);
-        when(abilityDao.getAbilityByName("ability2")).thenReturn(ability2);
-        when(abilityDao.getAbilityByName("nonexistentAbility")).thenReturn(null);
+        when(abilityDao.getAbilityByName("ability1")).thenReturn(Optional.ofNullable(ability1));
+        when(abilityDao.getAbilityByName("ability2")).thenReturn(Optional.ofNullable(ability2));
+        when(abilityDao.getAbilityByName("nonexistentAbility")).thenReturn(Optional.empty());
 
-        Assert.assertEquals(abilityService.getAbilityByName("ability1"),ability1);
-        Assert.assertEquals(abilityService.getAbilityByName("ability2"),ability2);
-        Assert.assertNull(abilityService.getAbilityByName("nonexistentAbility"));
+        Assert.assertEquals(abilityService.getAbilityByName("ability1").get(),ability1);
+        Assert.assertEquals(abilityService.getAbilityByName("ability2").get(),ability2);
+        Assert.assertTrue(abilityService.getAbilityByName("nonexistentAbility").isEmpty());
     }
 
     @Test

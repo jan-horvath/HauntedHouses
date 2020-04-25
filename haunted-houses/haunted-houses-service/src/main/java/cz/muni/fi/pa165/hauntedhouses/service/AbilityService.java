@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Petr Vitovsky
@@ -15,14 +16,14 @@ public interface AbilityService {
      * @param id ID of the Ability
      * @return Ability with given ID if it exists, null otherwise
      */
-    Ability getAbilityById(Long id);
+    Optional<Ability> getAbilityById(Long id);
 
     /**
      * Finds Ability with given name in database
      * @param name Name of the Ability
      * @return Ability with given name if it exists, null otherwise
      */
-    Ability getAbilityByName(String name);
+    Optional<Ability> getAbilityByName(String name);
 
     /**
      * Finds all Abilities in database

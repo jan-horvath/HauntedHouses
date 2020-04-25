@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author David Hofman
@@ -22,17 +23,17 @@ public class AbilityDaoImpl implements AbilityDao {
     }
 
     @Override
-    public Ability getAbilityById(Long id) {
-        return em.find(Ability.class, id);
+    public Optional<Ability> getAbilityById(Long id) {
+        return Optional.ofNullable(em.find(Ability.class, id));
     }
 
     @Override
-    public Ability getAbilityByName(String name) {
+    public Optional<Ability> getAbilityByName(String name) {
         try {
-            return em.createQuery("SELECT a FROM Ability a WHERE a.name = :name", Ability.class)
-                    .setParameter("name",name).getSingleResult();
+            return Optional.of(em.createQuery("SELECT a FROM Ability a WHERE a.name = :name", Ability.class)
+                    .setParameter("name",name).getSingleResult());
         } catch(NoResultException e) {
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -42,9 +43,9 @@ public class AbilityDaoImpl implements AbilityDao {
     }
 
     @Override
-    public Ability updateAbility(Ability A) {
-        if(A.getId() == null || em.find(Ability.class, A.getId()) == null) return null;
-        return em.merge(A);
+    public Optional<Ability> updateAbility(Ability A) {
+        if(A.getId() == null || em.find(Ability.class, A.getId()) == null) return Optional.empty();
+        return Optional.of(em.merge(A));
     }
 
     @Override

@@ -3,6 +3,8 @@ package cz.muni.fi.pa165.hauntedhouses.dao;
 import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.orm.jpa.JpaSystemException;
 
 /**
@@ -22,14 +24,14 @@ public interface AbilityDao {
      * @param id Id of the ability
      * @return Ability with given id, null if it doesn't exist
      */
-    Ability getAbilityById(Long id);
+    Optional<Ability> getAbilityById(Long id);
 
     /**
      * Searches the database for an ability with given name
      * @param name Name of the ability
      * @return Ability with given name, null if it doesn't exist
      */
-    Ability getAbilityByName(String name);
+    Optional<Ability> getAbilityByName(String name);
 
     /**
      * Searches the database for all the abilities
@@ -43,7 +45,7 @@ public interface AbilityDao {
      * @return the updated ability, null if such ability doesn't exist
      * @throws JpaSystemException if the database constraints are violated
      */
-    Ability updateAbility(Ability A);
+    Optional<Ability> updateAbility(Ability A);
 
     /**
      * Deletes the given ability from the database if it exists
