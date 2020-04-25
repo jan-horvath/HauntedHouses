@@ -122,4 +122,11 @@ public class SpecterFacadeTest extends AbstractTestNGSpringContextTests {
 
         specterFacade.findSpecterByGameInstanceId(2L);
     }
+
+    @Test
+    public void findSpecterByGameInstanceIdNoSpecterTest() {
+        when(specterService.getByGameInstanceId(3L)).thenReturn(null);
+
+        Assert.assertNull(specterFacade.findSpecterByGameInstanceId(3L));
+    }
 }
