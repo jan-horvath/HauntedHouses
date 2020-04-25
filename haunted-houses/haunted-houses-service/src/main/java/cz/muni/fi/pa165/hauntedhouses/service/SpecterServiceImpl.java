@@ -21,6 +21,8 @@ import java.util.Random;
 @Service
 public class SpecterServiceImpl implements SpecterService {
 
+    private static final int MAX_SPECTER_ABILITIES = 3;
+
     @Autowired
     AbilityService abilityService;
 
@@ -42,12 +44,14 @@ public class SpecterServiceImpl implements SpecterService {
         specter.setDescription("No description");
 
         List<Ability> allAbilities = abilityService.getAllAbilities();
-        int numberOfRandomAbilities = random.nextInt(Math.min(allAbilities.size(), 3));
-        Collections.shuffle(allAbilities);
-        specter.setAbilities(allAbilities.subList(0, numberOfRandomAbilities));
+        if (allAbilities.size() < MAX_SPECTER_ABILITIES) {
+            specter.setAbilities(allAbilities);
+        } else {
+            Collections.shuffle(allAbilities);
+            specter.setAbilities(allAbilities.subList(0, random.nextInt(MAX_SPECTER_ABILITIES)));
+        }
 
         specterDao.createSpecter(specter);
-
         return specter;
     }
 
