@@ -14,14 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class GameInstanceFacadeImpl implements GameInstanceFacade {
 
+    @Autowired
     GameInstanceService gameInstanceService;
-    MappingService mappingService;
 
     @Autowired
-    public GameInstanceFacadeImpl(GameInstanceService gameInstanceService, MappingService mappingService) {
-        this.gameInstanceService = gameInstanceService;
-        this.mappingService = mappingService;
-    }
+    MappingService mappingService;
 
     @Override
     public GameInstanceDTO findGameInstanceByPlayerId(Long playerId) {
