@@ -13,14 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SpecterFacadeImpl implements SpecterFacade {
 
+    @Autowired
     private SpecterService specterService;
-    private MappingService mappingService;
 
     @Autowired
-    public SpecterFacadeImpl(SpecterService specterService, MappingService mappingService) {
-        this.specterService = specterService;
-        this.mappingService = mappingService;
-    }
+    private MappingService mappingService;
 
     @Override
     public SpecterDTO findSpecterByGameInstanceId(Long gameInstanceId) {

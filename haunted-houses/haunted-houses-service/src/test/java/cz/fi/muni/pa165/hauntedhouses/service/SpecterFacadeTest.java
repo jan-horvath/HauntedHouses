@@ -1,17 +1,20 @@
 package cz.fi.muni.pa165.hauntedhouses.service;
 
+import cz.muni.fi.pa165.hauntedhouses.dto.GameInstanceDTO;
 import cz.muni.fi.pa165.hauntedhouses.dto.SpecterDTO;
 import cz.muni.fi.pa165.hauntedhouses.facade.SpecterFacade;
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
+import cz.muni.fi.pa165.hauntedhouses.model.Player;
 import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import cz.muni.fi.pa165.hauntedhouses.service.SpecterService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
 import cz.muni.fi.pa165.hauntedhouses.service.facade.SpecterFacadeImpl;
 import org.hibernate.service.spi.ServiceException;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -27,45 +30,78 @@ public class SpecterFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     private SpecterService specterService;
 
-    @Autowired
+    @Mock
     private MappingService mappingService;
 
-    private SpecterFacade specterFacade;
+    @InjectMocks
+    private SpecterFacade specterFacade = new SpecterFacadeImpl();
 
     @BeforeClass
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
-
-        specterFacade = new SpecterFacadeImpl(specterService, mappingService);
     }
 
     private Specter specter;
+    private SpecterDTO specterDTO;
     private Specter specterOther;
-    private GameInstance gameInstance;
-    private GameInstance gameInstanceOther;
+    private SpecterDTO specterOtherDTO;
 
+    private GameInstance gameInstance;
+    private GameInstanceDTO gameInstanceDTO;
+    private GameInstance gameInstanceOther;
+    private GameInstanceDTO gameInstanceOtherDTO;
+
+    private Player player1;
+    private Player player2;
 
     @BeforeMethod
     public void init() {
+        player1 = new Player();
+        player1.setName("p1");
+        player1.setEmail("e1");
+
+        player2 = new Player();
+        player2.setName("p2");
+        player2.setEmail("e2");
+
         gameInstance = new GameInstance();
         gameInstance.setId(1L);
+        gameInstance.setPlayer(player1);
+
+        gameInstanceDTO = new GameInstanceDTO();
+        gameInstanceDTO.setId(1L);
 
         specter = new Specter();
         specter.setName("specter");
         specter.setDescription("spooky");
         specter.setGameInstance(gameInstance);
 
+        specterDTO = new SpecterDTO();
+        specterDTO.setName("specter");
+        specterDTO.setDescription("spooky");
+        specterDTO.setGameInstance(gameInstanceDTO);
+
         gameInstanceOther = new GameInstance();
         gameInstanceOther.setId(3L);
+        gameInstanceOther.setPlayer(player2);
+
+        gameInstanceOtherDTO = new GameInstanceDTO();
+        gameInstanceOtherDTO.setId(3L);
 
         specterOther = new Specter();
         specterOther.setName("other specter");
         specterOther.setDescription("even more spooky");
         specterOther.setGameInstance(gameInstanceOther);
 
+        specterOtherDTO = new SpecterDTO();
+        specterOtherDTO.setName("other specter");
+        specterOtherDTO.setDescription("even more spooky");
+        specterOtherDTO.setGameInstance(gameInstanceOtherDTO);
+
         when(specterService.getByGameInstanceId(1L)).thenReturn(specter);
         when(specterService.getByGameInstanceId(3L)).thenReturn(specterOther);
-        when(specterService.getByGameInstanceId(2L)).thenReturn(null);
+        when(mappingService.mapTo(specter, SpecterDTO.class)).thenReturn(specterDTO);
+        when(mappingService.mapTo(specterOther, SpecterDTO.class)).thenReturn(specterOtherDTO);
     }
 
     @Test
@@ -78,7 +114,12 @@ public class SpecterFacadeTest extends AbstractTestNGSpringContextTests {
 
         Assert.assertEquals(testSpecterOther.getName(), specterOther.getName());
         Assert.assertEquals(testSpecterOther.getDescription(), specterOther.getDescription());
+    }
 
-        Assert.assertNull(specterFacade.findSpecterByGameInstanceId(2L));
+    @Test(expectedExceptions = DataRetrievalFailureException.class)
+    public void findSpecterByGameInstanceIdNullTest() {
+        when(specterService.getByGameInstanceId(2L)).thenThrow(DataRetrievalFailureException.class);
+
+        specterFacade.findSpecterByGameInstanceId(2L);
     }
 }
