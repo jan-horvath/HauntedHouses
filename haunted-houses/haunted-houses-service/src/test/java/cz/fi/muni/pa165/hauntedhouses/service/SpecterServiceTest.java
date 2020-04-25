@@ -75,8 +75,8 @@ public class SpecterServiceTest extends AbstractTestNGSpringContextTests {
         assertNotNull(randomSpecter.getName());
         assertNotNull(randomSpecter.getStartOfHaunting());
         assertNotNull(randomSpecter.getEndOfHaunting());
-        assertEquals("No description", randomSpecter.getDescription());
-        assertEquals(abilities, randomSpecter.getAbilities());
+        assertEquals(randomSpecter.getDescription(), "No description");
+        assertEquals(randomSpecter.getAbilities(), abilities);
 
         abilities.add(new Ability());
         randomSpecter = specterService.generateRandomSpecter();
@@ -84,13 +84,13 @@ public class SpecterServiceTest extends AbstractTestNGSpringContextTests {
         assertNotNull(randomSpecter.getName());
         assertNotNull(randomSpecter.getStartOfHaunting());
         assertNotNull(randomSpecter.getEndOfHaunting());
-        assertEquals("No description", randomSpecter.getDescription());
-        assertEquals(abilities, randomSpecter.getAbilities());
+        assertEquals(randomSpecter.getDescription(), "No description");
+        assertEquals(randomSpecter.getAbilities(), abilities);
     }
 
     @Test
     public void getByGameInstanceIdTest() {
-        assertEquals(specter, specterService.getByGameInstanceId(1L));
+        assertEquals(specterService.getByGameInstanceId(1L), specter);
         verify(gameInstanceService).getGameInstanceById(1L);
         verify(specterDao).getSpecterByGameInstance(gameInstance);
 
