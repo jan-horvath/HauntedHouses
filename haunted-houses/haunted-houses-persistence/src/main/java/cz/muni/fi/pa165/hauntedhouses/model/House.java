@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.hauntedhouses.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.time.LocalDate;
 
@@ -10,10 +11,10 @@ import java.time.LocalDate;
  */
 
 @Entity
-public class House {
+public class House implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "pooled_generator")
     private Long id;
 
     @Column(nullable = false)

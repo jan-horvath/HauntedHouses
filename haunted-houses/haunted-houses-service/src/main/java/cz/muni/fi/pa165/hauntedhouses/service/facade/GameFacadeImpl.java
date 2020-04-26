@@ -12,20 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author Petr Vitovsky
+ */
 @Service
 @Transactional
 public class GameFacadeImpl implements GameFacade {
 
-    HouseService houseService;
-    GameInstanceService gameInstanceService;
-    GameService gameService;
-
     @Autowired
-    public GameFacadeImpl(HouseService houseService, GameInstanceService gameInstanceService, GameService gameService) {
-        this.houseService = houseService;
-        this.gameInstanceService = gameInstanceService;
-        this.gameService = gameService;
-    }
+    HouseService houseService;
+    @Autowired
+    GameInstanceService gameInstanceService;
+    @Autowired
+    GameService gameService;
 
     @Override
     public boolean banishSpecter(BanishSpecterDTO banishSpecter) {

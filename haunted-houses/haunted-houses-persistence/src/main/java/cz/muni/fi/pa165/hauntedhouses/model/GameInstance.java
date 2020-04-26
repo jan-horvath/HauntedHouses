@@ -1,15 +1,16 @@
 package cz.muni.fi.pa165.hauntedhouses.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author David Hofman
  */
 @Entity
-public class GameInstance {
+public class GameInstance implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "pooled_generator")
     private Long id;
 
     @Column(nullable=false)

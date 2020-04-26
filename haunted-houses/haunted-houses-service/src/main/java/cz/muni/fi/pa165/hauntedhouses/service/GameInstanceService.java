@@ -6,20 +6,47 @@ import org.springframework.stereotype.Service;
 /**
  *@author David Hofman
  */
-
 @Service
 public interface GameInstanceService {
 
+    /**
+     * Searches the database for the GameInstance with given Id
+     * @param id Id of GameInstance
+     * @return GameInstance with given Id
+     */
     GameInstance getGameInstanceById(Long id);
 
+    /**
+     * Searches the database for the GameInstance of the Player with given Id
+     * @param id Id of the Player
+     * @return GameInstance of the Player with given Id
+     */
     GameInstance getGameInstanceByPlayerId(Long id);
 
+    /**
+     * Creates a GameInstance in the database
+     * @param gameInstance GameInstance to be created
+     */
     void createGameInstance(GameInstance gameInstance);
 
+    /**
+     * Creates a GameInstance with randomly generated Specter
+     * @param gameInstance GameInstance to be created
+     * @throws org.springframework.dao.DataAccessException if database constraints are violated
+     */
     void createGameInstanceWithRandomSpecter(GameInstance gameInstance);
 
+    /**
+     * Updates the GameInstance in the database
+     * @param gameInstance updated GameInstance
+     * @return updated GameInstance
+     * @throws org.springframework.dao.DataAccessException if database constraints are violated
+     */
     GameInstance updateGameInstance(GameInstance gameInstance);
 
+    /**
+     * Deletes the GameInstance from the database
+     * @param gameInstance GameInstance to be deleted
+     */
     void deleteGameInstance(GameInstance gameInstance);
 }
-

@@ -43,13 +43,6 @@ public interface SpecterDao {
     Specter getSpecterById(long id);
 
     /**
-     * Searches database for a specter with given name.
-     * @param name Name of a specter.
-     * @return Specter with given name if it exists, null otherwise.
-     */
-    Specter getSpecterByName(String name);
-
-    /**
      * Searches database for a specter associated with given game instance
      * @param gameInstance
      * @return Specter associated with given game instance, if it exists

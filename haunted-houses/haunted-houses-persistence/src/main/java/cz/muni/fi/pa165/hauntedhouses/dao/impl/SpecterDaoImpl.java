@@ -13,13 +13,11 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Zoltan Fridrich
  */
 @Repository
-@Transactional
 public class SpecterDaoImpl implements SpecterDao {
 
     @PersistenceContext
@@ -43,17 +41,6 @@ public class SpecterDaoImpl implements SpecterDao {
     @Override
     public Specter getSpecterById(long id) {
         return em.find(Specter.class, id);
-    }
-
-    @Override
-    public Specter getSpecterByName(String name) {
-        try {
-            return em.createQuery("SELECT specter FROM Specter specter WHERE :name = specter.name", Specter.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
     }
 
     @Override

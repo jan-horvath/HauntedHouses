@@ -11,6 +11,7 @@ import cz.muni.fi.pa165.hauntedhouses.service.HouseService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
 import cz.muni.fi.pa165.hauntedhouses.service.facade.GameFacadeImpl;
 import org.hibernate.service.spi.ServiceException;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,7 +35,8 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     GameService gameService;
 
-    GameFacade gameFacade;
+    @InjectMocks
+    GameFacade gameFacade = new GameFacadeImpl();
 
     BanishSpecterDTO correctBanish;
     BanishSpecterDTO incorrectBanish;
@@ -50,7 +52,6 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
     @BeforeClass
     public void mockitoInit() throws ServiceException {
         MockitoAnnotations.initMocks(this);
-        gameFacade = new GameFacadeImpl(houseService, gameInstanceService, gameService);
     }
 
     @BeforeMethod

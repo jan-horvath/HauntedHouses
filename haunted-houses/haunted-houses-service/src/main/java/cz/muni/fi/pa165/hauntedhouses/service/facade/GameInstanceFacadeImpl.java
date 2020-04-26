@@ -10,18 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author Petr Vitovsky
+ */
 @Service
 @Transactional
 public class GameInstanceFacadeImpl implements GameInstanceFacade {
 
+    @Autowired
     GameInstanceService gameInstanceService;
-    MappingService mappingService;
 
     @Autowired
-    public GameInstanceFacadeImpl(GameInstanceService gameInstanceService, MappingService mappingService) {
-        this.gameInstanceService = gameInstanceService;
-        this.mappingService = mappingService;
-    }
+    MappingService mappingService;
 
     @Override
     public GameInstanceDTO findGameInstanceByPlayerId(Long playerId) {
