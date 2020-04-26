@@ -24,6 +24,9 @@ import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.when;
 
+/**
+ * @author Petr Vitovsky
+ */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class SpecterFacadeTest extends AbstractTestNGSpringContextTests {
 
