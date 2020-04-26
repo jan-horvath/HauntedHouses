@@ -21,6 +21,9 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * @author Petr Vitovsky
+ */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
 
