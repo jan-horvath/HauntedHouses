@@ -34,7 +34,7 @@ public class SpecterServiceImpl implements SpecterService {
     SpecterDao specterDao;
 
     @Override
-    public Specter generateRandomSpecter() {
+        public Specter generateRandomSpecter() {
         Faker faker = new Faker();
         Random random = new Random();
 
@@ -46,10 +46,10 @@ public class SpecterServiceImpl implements SpecterService {
 
         List<Ability> allAbilities = abilityService.getAllAbilities();
         if (allAbilities.size() < MAX_SPECTER_ABILITIES) {
-            specter.setAbilities(allAbilities);
+            specter.setAbilities(new HashSet<>(allAbilities));
         } else {
             Collections.shuffle(allAbilities);
-            specter.setAbilities(allAbilities.subList(0, random.nextInt(MAX_SPECTER_ABILITIES)));
+            specter.setAbilities(new HashSet<>(allAbilities.subList(0, random.nextInt(MAX_SPECTER_ABILITIES))));
         }
 
         specterDao.createSpecter(specter);
