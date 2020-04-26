@@ -34,7 +34,7 @@ public class SpecterServiceImpl implements SpecterService {
     SpecterDao specterDao;
 
     @Override
-        public Specter generateRandomSpecter() {
+    public Specter generateRandomSpecter() {
         Faker faker = new Faker();
         Random random = new Random();
 
