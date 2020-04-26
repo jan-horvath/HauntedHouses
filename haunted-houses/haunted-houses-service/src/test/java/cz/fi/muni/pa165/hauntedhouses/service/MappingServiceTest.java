@@ -13,6 +13,10 @@ import org.testng.annotations.Test;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * @author Jan Horvath
+ */
+
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class MappingServiceTest extends AbstractTestNGSpringContextTests {
 

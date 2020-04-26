@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * @author Jan Horvath
+ */
+
 @Service
 @Transactional
 public class HouseFacadeImpl implements HouseFacade {

@@ -4,6 +4,10 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * @author Jan Horvath
+ */
+
 public class HouseCreateDTO {
 
     @NotNull

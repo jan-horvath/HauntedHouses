@@ -24,6 +24,10 @@ import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
+/**
+ * @author Zoltan Fridrich
+ */
+
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
 

@@ -27,6 +27,10 @@ import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * @author Jan Horvath
+ */
+
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
 
