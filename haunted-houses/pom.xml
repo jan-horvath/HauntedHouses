@@ -53,13 +53,43 @@
 			<artifactId>javax.el</artifactId>
 			<version>2.2.4</version>
 		</dependency>
-
 	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<compilerArgument>-Xlint:unchecked,deprecation</compilerArgument>
+					</configuration>
+				</plugin>
+				<!-- embedded Tomcat 9 plugin configuration, use "mvn cargo:run" to run -->
+				<plugin>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-maven2-plugin</artifactId>
+					<version>1.7.0</version>
+					<configuration>
+						<container>
+							<containerId>tomcat9x</containerId>
+							<artifactInstaller>
+								<groupId>org.apache.tomcat</groupId>
+								<artifactId>tomcat</artifactId>
+								<version>${tomcat.version}</version>
+							</artifactInstaller>
+						</container>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
 	<modules>
 		<module>haunted-houses-persistence</module>
 		<module>haunted-houses-api</module>
         <module>haunted-houses-service</module>
+        <module>haunted-houses-mvc</module>
     </modules>
 
 </project>
