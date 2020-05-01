@@ -2,6 +2,10 @@ package cz.muni.fi.pa165.hauntedhouses.facade;
 
 import cz.muni.fi.pa165.hauntedhouses.dto.BanishSpecterDTO;
 
+/**
+ * @author Petr Vitovsky
+ */
+
 public interface GameFacade {
     /**
      * Checks whether the player chose the House where the ghost is hiding, increases the number of attempts

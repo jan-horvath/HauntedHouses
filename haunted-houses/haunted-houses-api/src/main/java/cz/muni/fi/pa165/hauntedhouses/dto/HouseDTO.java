@@ -3,6 +3,10 @@ package cz.muni.fi.pa165.hauntedhouses.dto;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * @author Jan Horvath
+ */
+
 public class HouseDTO {
 
     private Long id;

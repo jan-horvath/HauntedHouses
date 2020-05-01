@@ -23,6 +23,10 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
+/**
+ * @author Jan Horvath
+ */
+
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class GameServiceTest extends AbstractTestNGSpringContextTests {
     @Mock

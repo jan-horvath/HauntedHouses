@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+/**
+ * @author Jan Horvath
+ */
+
 @Transactional
 @Service
 public class AbilityFacadeImpl implements AbilityFacade {

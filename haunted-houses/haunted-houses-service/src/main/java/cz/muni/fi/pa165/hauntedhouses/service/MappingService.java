@@ -6,6 +6,10 @@ import java.util.List;
 import org.dozer.Mapper;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * @author Jan Horvath
+ */
+
 @ComponentScan(basePackageClasses = {MappingServiceImpl.class})
 public interface MappingService {
 
