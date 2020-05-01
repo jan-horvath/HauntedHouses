@@ -47,7 +47,7 @@ public class ExceptionController {
         return apiError;
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public ApiError handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
