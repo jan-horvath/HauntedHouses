@@ -1,9 +1,10 @@
-package cz.muni.fi.pa165.haunterhouses.config;
+package cz.muni.fi.pa165.hauntedhouses.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
@@ -25,7 +26,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @Configuration
 //@Import({EshopWithSampleDataConfiguration.class})
-//@ComponentScan(basePackages = "cz.muni.fi.pa165.mvc.controllers")
+@ComponentScan(basePackages = "cz.muni.fi.pa165.hauntedhouses.controllers")
 public class MySpringMvcConfig implements WebMvcConfigurer {
 
     private final static Logger log = LoggerFactory.getLogger(MySpringMvcConfig.class);

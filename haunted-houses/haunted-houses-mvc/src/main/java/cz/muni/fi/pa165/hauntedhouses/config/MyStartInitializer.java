@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.haunterhouses.config;
+package cz.muni.fi.pa165.hauntedhouses.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

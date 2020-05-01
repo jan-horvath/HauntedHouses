@@ -9,11 +9,8 @@
 <jsp:attribute name="body">
 
     <div class="jumbotron">
-        <h1>Welcome to Haunted Houses game</h1>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-        <p><a class="button" href="${pageContext.request.contextPath}/game/1">Call game controller with param = 1</a></p>
-        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/game/150"
-              role="button">Call game controller (150)</a></p>
+        <p class="lead">This is where the game controller takes you.</p>
+        <p class="lead">Param = <c:out value="${ppp}"/></p>
     </div>
 
 </jsp:attribute>
