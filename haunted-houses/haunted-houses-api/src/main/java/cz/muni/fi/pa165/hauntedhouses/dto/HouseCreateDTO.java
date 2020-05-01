@@ -1,22 +1,26 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class HouseCreateDTO {
 
-    @NotNull
+    @NotNull(message = "Name cannot be null!")
+    @NotEmpty(message = "Name cannot be empty!")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Address cannot be null!")
+    @NotEmpty(message = "Address cannot be empty!")
     private String address;
 
     private LocalDate hauntedSince;
 
     private String history;
 
-    @NotNull
+    @NotNull(message = "Hint cannot be null!")
+    @NotEmpty(message = "Hint cannot be empty!")
     private String hint;
 
     public String getName() {
