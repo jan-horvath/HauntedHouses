@@ -88,8 +88,8 @@
 	<modules>
 		<module>haunted-houses-persistence</module>
 		<module>haunted-houses-api</module>
-        <module>haunted-houses-service</module>
-        <module>haunted-houses-mvc</module>
-    </modules>
-
+    		<module>haunted-houses-service</module>
+		<module>haunted-houses-rest</module>
+   	 	<module>haunted-houses-mvc</module>
+  	</modules>
 </project>
