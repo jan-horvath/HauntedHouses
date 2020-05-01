@@ -45,6 +45,9 @@ import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
+/**
+ * @author Petr Vitovsky
+ */
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
 public class HouseControllerTest extends AbstractTestNGSpringContextTests {

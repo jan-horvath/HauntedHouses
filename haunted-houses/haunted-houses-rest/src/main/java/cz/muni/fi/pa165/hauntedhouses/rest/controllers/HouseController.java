@@ -16,6 +16,9 @@ import javax.validation.Valid;
 import javax.validation.ValidationException;
 import java.util.List;
 
+/**
+ * @author Petr Vitovsky
+ */
 @RestController
 @RequestMapping("/house")
 public class HouseController {
