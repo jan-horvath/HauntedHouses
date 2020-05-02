@@ -112,7 +112,7 @@ public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
             GameInstance argument = invocationOnMock.getArgument(0);
             argument.setId(newGameInstanceId);
             return null;
-        }).when(gameInstanceService).createGameInstance(gameInstance);
+        }).when(gameInstanceService).createGameInstanceWithRandomSpecter(gameInstance);
 
         when(mappingService.mapTo(gameInstance, GameInstanceDTO.class)).thenReturn(mappedGameInstance);
         when(mappingService.mapTo(gameInstanceCreateDTO, GameInstance.class)).thenReturn(mappedGameInstanceCreateDTO);
@@ -131,7 +131,7 @@ public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
     @Test
     public void createGameInstanceTest() {
         Assert.assertEquals(gameInstanceFacade.createGameInstance(gameInstanceCreateDTO), Long.valueOf(newGameInstanceId));
-        verify(gameInstanceService, times(1)).createGameInstance(gameInstance);
+        verify(gameInstanceService, times(1)).createGameInstanceWithRandomSpecter(gameInstance);
     }
 
     @Test

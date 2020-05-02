@@ -32,7 +32,11 @@ public class GameInstanceFacadeImpl implements GameInstanceFacade {
     @Override
     public Long createGameInstance(GameInstanceCreateDTO gameInstance) {
         GameInstance gameInstanceEntity = mappingService.mapTo(gameInstance, GameInstance.class);
-        gameInstanceService.createGameInstance(gameInstanceEntity);
+        if (gameInstance.getSpecter() == null) {
+            gameInstanceService.createGameInstanceWithRandomSpecter(gameInstanceEntity);
+        } else {
+            gameInstanceService.createGameInstance(gameInstanceEntity);
+        }
 
         return gameInstanceEntity.getId();
     }
