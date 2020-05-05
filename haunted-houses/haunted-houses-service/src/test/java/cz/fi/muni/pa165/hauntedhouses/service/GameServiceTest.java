@@ -90,13 +90,12 @@ public class GameServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void checkAnswerReturnsTrueTest() {
-        when(houseService.getAllHouses()).thenReturn(houses);
+        when(houseService.getRandomHouse()).thenReturn(house2);
 
         Assert.assertTrue(gameService.checkAnswer(correctHouse, gameInstance));
 
         Assert.assertEquals(gameInstance.getBanishesAttempted(), 11);
         Assert.assertEquals(gameInstance.getBanishesRequired(), 4);
-        Assert.assertTrue(houses.contains(specter.getHouse()));
     }
 
     @Test

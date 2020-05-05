@@ -9,8 +9,9 @@
 <jsp:attribute name="body">
 
     <div class="jumbotron">
-        <p class="lead">This is where the game controller takes you.</p>
-        <p class="lead">Param = <c:out value="${ppp}"/></p>
+        <h1>TEST</h1>
+        <p class="lead">Player count = ${playerCount} </p>
+        <p class="lead">House count = ${houseCount} </p>
     </div>
 
 </jsp:attribute>

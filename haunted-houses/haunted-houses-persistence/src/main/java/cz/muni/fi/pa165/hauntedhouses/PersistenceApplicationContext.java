@@ -2,9 +2,6 @@ package cz.muni.fi.pa165.hauntedhouses;
 
 import javax.sql.DataSource;
 
-import cz.muni.fi.pa165.hauntedhouses.dao.AbilityDao;
-import cz.muni.fi.pa165.hauntedhouses.dao.HouseDao;
-import cz.muni.fi.pa165.hauntedhouses.dao.SpecterDao;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,7 +20,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses={HouseDao.class, SpecterDao.class, AbilityDao.class})
+@ComponentScan(basePackages = "cz.muni.fi.pa165.hauntedhouses.dao")
 public class PersistenceApplicationContext {
 
     @Bean

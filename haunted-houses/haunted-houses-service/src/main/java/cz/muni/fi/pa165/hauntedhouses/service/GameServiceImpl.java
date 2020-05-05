@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.hauntedhouses.service;
 
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
+import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +32,7 @@ public class GameServiceImpl implements GameService {
         }
 
         instance.setBanishesRequired(instance.getBanishesRequired() - 1);
-        instance.getSpecter().setHouse(getRandomHouse());
+        instance.getSpecter().setHouse(houseService.getRandomHouse());
         return true;
-    }
-
-    private House getRandomHouse() {
-        List<House> houses = houseService.getAllHouses();
-        Random rand = new Random();
-        return houses.get(rand.nextInt(houses.size()));
     }
 }

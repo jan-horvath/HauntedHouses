@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
+import cz.muni.fi.pa165.hauntedhouses.facade.PlayerFacade;
+
 import java.util.Objects;
 
 /**
@@ -19,6 +21,14 @@ public class PlayerDTO {
     private boolean admin;
 
     private GameInstanceDTO gameInstance;
+
+    public PlayerDTO() {}
+
+    public PlayerDTO(String name, String email, boolean admin) {
+        this.name = name;
+        this.email = email;
+        this.admin = admin;
+    }
 
     public Long getId() {
         return id;

@@ -11,9 +11,9 @@
     <div class="jumbotron">
         <h1>Welcome to Haunted Houses game</h1>
         <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-        <p><a class="button" href="${pageContext.request.contextPath}/game/1">Call game controller with param = 1</a></p>
-        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/game/150"
-              role="button">Call game controller (150)</a></p>
+        <p><a class="button" href="${pageContext.request.contextPath}/game/check_game?playerid=1">Call game controller</a></p>
+        <p><a class="button" href="${pageContext.request.contextPath}/game/test">TEST</a></p>
+        <p><a class="button" href="${pageContext.request.contextPath}/game/populate">POPULATE</a></p>
     </div>
 
 </jsp:attribute>
