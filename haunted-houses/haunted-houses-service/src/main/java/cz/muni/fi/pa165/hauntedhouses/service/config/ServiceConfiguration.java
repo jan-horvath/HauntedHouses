@@ -19,7 +19,7 @@ import java.util.Collections;
 
 @Configuration
 @Import(PersistenceApplicationContext.class)
-@ComponentScan(basePackageClasses = {MappingServiceImpl.class})
+@ComponentScan(basePackages = {"cz.muni.fi.pa165.hauntedhouses.service"})
 public class ServiceConfiguration {
 
     @Bean

@@ -27,6 +27,14 @@ public class HouseCreateDTO {
     @NotEmpty(message = "Hint cannot be empty!")
     private String hint;
 
+    public HouseCreateDTO() {}
+
+    public HouseCreateDTO(String name, String address, String hint) {
+        this.name = name;
+        this.address = address;
+        this.hint = hint;
+    }
+
     public String getName() {
         return this.name;
     }

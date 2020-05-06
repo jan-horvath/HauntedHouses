@@ -44,4 +44,9 @@ public interface HouseService {
      * @return Updated House
      */
     House updateHouse(House house);
+
+    /**
+     * @return random house from the database
+     */
+    House getRandomHouse();
 }

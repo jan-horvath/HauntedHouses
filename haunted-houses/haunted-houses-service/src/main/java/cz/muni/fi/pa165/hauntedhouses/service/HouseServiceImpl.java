@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Petr Vitovsky
@@ -39,5 +40,12 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public House updateHouse(House house) {
         return houseDao.updateHouse(house);
+    }
+
+    @Override
+    public House getRandomHouse() {
+        List<House> houses = houseDao.getAllHouses();
+        Random rand = new Random();
+        return houses.get(rand.nextInt(houses.size()));
     }
 }

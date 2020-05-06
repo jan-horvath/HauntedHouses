@@ -18,4 +18,5 @@ public interface GameService {
      * @return true if the player chose the right House, false otherwise
      */
     boolean checkAnswer(House house, GameInstance instance);
+
 }

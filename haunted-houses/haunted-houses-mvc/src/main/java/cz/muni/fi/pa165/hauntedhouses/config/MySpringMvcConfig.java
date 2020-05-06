@@ -1,11 +1,13 @@
 package cz.muni.fi.pa165.hauntedhouses.config;
 
+import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -25,7 +27,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
 @Configuration
-//@Import({EshopWithSampleDataConfiguration.class})
+@Import(ServiceConfiguration.class)
 @ComponentScan(basePackages = "cz.muni.fi.pa165.hauntedhouses.controllers")
 public class MySpringMvcConfig implements WebMvcConfigurer {
 

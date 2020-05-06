@@ -52,7 +52,6 @@ public class SpecterServiceImpl implements SpecterService {
             specter.setAbilities(new HashSet<>(allAbilities.subList(0, random.nextInt(MAX_SPECTER_ABILITIES))));
         }
 
-        specterDao.createSpecter(specter);
         return specter;
     }
 
