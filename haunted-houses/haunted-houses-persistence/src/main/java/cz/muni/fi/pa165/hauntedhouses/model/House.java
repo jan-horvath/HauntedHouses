@@ -4,7 +4,7 @@ package cz.muni.fi.pa165.hauntedhouses.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * @author Petr Vitovsky
@@ -24,7 +24,7 @@ public class House implements Serializable {
     private String address;
 
     @Column
-    private LocalDate hauntedSince;
+    private Date hauntedSince;
 
     @Column
     private String history;
@@ -64,11 +64,11 @@ public class House implements Serializable {
         this.history = history;
     }
 
-    public LocalDate getHauntedSince() {
+    public Date getHauntedSince() {
         return this.hauntedSince;
     }
 
-    public void setHauntedSince(LocalDate hauntedSince) {
+    public void setHauntedSince(Date hauntedSince) {
         this.hauntedSince = hauntedSince;
     }
 

@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.hauntedhouses.dao.HouseDao;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 
 import javax.persistence.PersistenceException;
 
@@ -31,18 +32,27 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
 
     @BeforeMethod
     public void setup() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 1988);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+
         h1 = new House();
         h1.setName("name1");
         h1.setAddress("address1");
         h1.setHistory("history1");
-        h1.setHauntedSince(LocalDate.of(1995, 12, 22));
+        h1.setHauntedSince(cal.getTime());
         h1.setHint("hint1");
+
+        cal.set(Calendar.YEAR, 2012);
+        cal.set(Calendar.MONTH, Calendar.DECEMBER);
+        cal.set(Calendar.DAY_OF_MONTH, 22);
 
         h2 = new House();
         h2.setName("name2");
         h2.setAddress("address2");
         h2.setHistory("history2");
-        h2.setHauntedSince(LocalDate.of(2012, 12, 22));
+        h2.setHauntedSince(cal.getTime());
         h2.setHint("hint2");
 
         h3 = new House();

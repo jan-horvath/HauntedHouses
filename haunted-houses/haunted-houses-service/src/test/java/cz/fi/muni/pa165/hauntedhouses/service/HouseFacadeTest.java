@@ -21,6 +21,7 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static org.mockito.Mockito.reset;
@@ -60,11 +61,16 @@ public class HouseFacadeTest extends AbstractTestNGSpringContextTests {
         reset(houseService);
         reset(mappingService);
 
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 1990);
+        cal.set(Calendar.MONTH, Calendar.NOVEMBER);
+        cal.set(Calendar.DAY_OF_MONTH, 10);
+
         house = new House();
         house.setId(1L);
         house.setName("name");
         house.setAddress("address");
-        house.setHauntedSince(LocalDate.EPOCH);
+        house.setHauntedSince(cal.getTime());
         house.setHistory("history");
         house.setHint("hint");
 
