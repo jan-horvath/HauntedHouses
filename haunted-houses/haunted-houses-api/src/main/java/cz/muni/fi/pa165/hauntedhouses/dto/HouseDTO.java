@@ -1,6 +1,10 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
-import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -15,7 +19,8 @@ public class HouseDTO {
 
     private String address;
 
-    private LocalDate hauntedSince;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date hauntedSince;
 
     private String history;
 
@@ -53,11 +58,11 @@ public class HouseDTO {
         this.history = history;
     }
 
-    public LocalDate getHauntedSince() {
+    public Date getHauntedSince() {
         return this.hauntedSince;
     }
 
-    public void setHauntedSince(LocalDate hauntedSince) {
+    public void setHauntedSince(Date hauntedSince) {
         this.hauntedSince = hauntedSince;
     }
 
