@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Calendar;
 
 /**
  * @author Jan Horvath
@@ -115,10 +116,15 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void HouseCreateDTO_conversionTest() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 1990);
+        cal.set(Calendar.MONTH, Calendar.NOVEMBER);
+        cal.set(Calendar.DAY_OF_MONTH, 10);
+
         HouseCreateDTO houseCreateDTO_A = new HouseCreateDTO();
         houseCreateDTO_A.setName("name");
         houseCreateDTO_A.setAddress("address");
-        houseCreateDTO_A.setHauntedSince(LocalDate.of(1990, 10, 10));
+        houseCreateDTO_A.setHauntedSince(cal.getTime());
         houseCreateDTO_A.setHint("hint");
         houseCreateDTO_A.setHistory("history");
 
@@ -126,25 +132,30 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertNull(house.getId());
         Assert.assertEquals(house.getName(), "name");
         Assert.assertEquals(house.getAddress(), "address");
-        Assert.assertEquals(house.getHauntedSince(), LocalDate.of(1990, 10, 10));
+        Assert.assertEquals(house.getHauntedSince(), cal.getTime());
         Assert.assertEquals(house.getHint(), "hint");
         Assert.assertEquals(house.getHistory(), "history");
 
         HouseCreateDTO houseCreateDTO_B = mappingService.mapTo(house, HouseCreateDTO.class);
         Assert.assertEquals(houseCreateDTO_B.getName(), "name");
         Assert.assertEquals(houseCreateDTO_B.getAddress(), "address");
-        Assert.assertEquals(houseCreateDTO_B.getHauntedSince(), LocalDate.of(1990, 10, 10));
+        Assert.assertEquals(houseCreateDTO_B.getHauntedSince(), cal.getTime());
         Assert.assertEquals(houseCreateDTO_B.getHint(), "hint");
         Assert.assertEquals(houseCreateDTO_B.getHistory(), "history");
     }
 
     @Test
     public void houseDTO_conversionTest() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 1990);
+        cal.set(Calendar.MONTH, Calendar.NOVEMBER);
+        cal.set(Calendar.DAY_OF_MONTH, 10);
+
         HouseDTO houseDTO_A = new HouseDTO();
         houseDTO_A.setId(888L);
         houseDTO_A.setName("name");
         houseDTO_A.setAddress("address");
-        houseDTO_A.setHauntedSince(LocalDate.of(1990, 10, 10));
+        houseDTO_A.setHauntedSince(cal.getTime());
         houseDTO_A.setHint("hint");
         houseDTO_A.setHistory("history");
 
@@ -152,7 +163,7 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(house.getId(), Long.valueOf(888));
         Assert.assertEquals(house.getName(), "name");
         Assert.assertEquals(house.getAddress(), "address");
-        Assert.assertEquals(house.getHauntedSince(), LocalDate.of(1990, 10, 10));
+        Assert.assertEquals(house.getHauntedSince(), cal.getTime());
         Assert.assertEquals(house.getHint(), "hint");
         Assert.assertEquals(house.getHistory(), "history");
 
@@ -160,7 +171,7 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(houseDTO_B.getId(), Long.valueOf(888));
         Assert.assertEquals(houseDTO_B.getName(), "name");
         Assert.assertEquals(houseDTO_B.getAddress(), "address");
-        Assert.assertEquals(houseDTO_B.getHauntedSince(), LocalDate.of(1990, 10, 10));
+        Assert.assertEquals(houseDTO_B.getHauntedSince(), cal.getTime());
         Assert.assertEquals(houseDTO_B.getHint(), "hint");
         Assert.assertEquals(houseDTO_B.getHistory(), "history");
     }
