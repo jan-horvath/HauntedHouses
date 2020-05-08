@@ -14,5 +14,9 @@
         <p class="lead">House count = ${houseCount} </p>
     </div>
 
+    Banishes attempted = ${game.banishesAttempted}
+    Banishes required = ${game.banishesRequired}
+    Game ID = ${game.id}
+
 </jsp:attribute>
 </my:pagetemplate>
