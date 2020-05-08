@@ -121,4 +121,15 @@ public class GameController {
         redirectAttributes.addFlashAttribute("alert_success", "Database populated");
         return "redirect:" + uriBuilder.path("/").toUriString();
     }
+
+    @RequestMapping(value = "/populate_players", method = RequestMethod.GET)
+    public String populatePlayers(UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+        playerFacade.registerPlayer(new PlayerDTO("admin", "admin@email", true), "password");
+        playerFacade.registerPlayer(new PlayerDTO("user1", "user1@email", false), "password");
+        playerFacade.registerPlayer(new PlayerDTO("user2", "user2@email", false), "password");
+
+
+        redirectAttributes.addFlashAttribute("alert_success", "Database populated with more players (try admin@email:password)");
+        return "redirect:" + uriBuilder.path("/").toUriString();
+    }
 }
