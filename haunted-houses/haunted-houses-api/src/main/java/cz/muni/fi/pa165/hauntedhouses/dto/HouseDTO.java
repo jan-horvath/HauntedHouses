@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +21,7 @@ public class HouseDTO {
     private String address;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date hauntedSince;
 
     private String history;
