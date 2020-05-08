@@ -31,6 +31,10 @@ public class HouseController {
     @Autowired
     private HouseFacade houseFacade;
 
+    public void setHouseFacade(HouseFacade houseFacade) {
+        this.houseFacade = houseFacade;
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("houses", houseFacade.findAllHouses());
