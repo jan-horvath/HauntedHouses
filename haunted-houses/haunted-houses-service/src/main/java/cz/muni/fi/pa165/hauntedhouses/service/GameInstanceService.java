@@ -3,6 +3,8 @@ package cz.muni.fi.pa165.hauntedhouses.service;
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  *@author David Hofman
  */
@@ -22,6 +24,11 @@ public interface GameInstanceService {
      * @return GameInstance of the Player with given Id
      */
     GameInstance getGameInstanceByPlayerId(Long id);
+
+    /**
+     * @return all game instances from the database
+     */
+    List<GameInstance> getAllGameInstances();
 
     /**
      * Creates a GameInstance in the database

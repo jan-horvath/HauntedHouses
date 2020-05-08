@@ -65,7 +65,16 @@ public class GameInstanceDaoImpl implements GameInstanceDao {
 
     @Override
     public void deleteGameInstance(GameInstance gameInstance) {
-        em.remove(em.contains(gameInstance) ? gameInstance : em.merge(gameInstance));
+        System.err.println("Deleting GI through DAO");
+        //em.remove(em.contains(gameInstance) ? gameInstance : em.merge(gameInstance));
+        /*if (em.contains(gameInstance)) {
+            em.remove(gameInstance);
+        } else {
+            GameInstance merge = em.merge(gameInstance);
+            em.remove(merge);
+        }
+        em.flush();*/
+        em.remove(em.merge(gameInstance));
     }
 }
 
