@@ -14,8 +14,9 @@
         <p><a class="button" href="${pageContext.request.contextPath}/game/check_game?playerid=1">Call game controller</a></p>
         <p><a class="button" href="${pageContext.request.contextPath}/game/test">TEST</a></p>
         <p><a class="button" href="${pageContext.request.contextPath}/game/populate">POPULATE</a></p>
-        <p><a class="button" href="${pageContext.request.contextPath}/game/populate_players">populate with more players</a></p>
-        <p><a class="button" href="${pageContext.request.contextPath}/auth/">Go to secure page.</a></p>
+        <p><a class="button" href="${pageContext.request.contextPath}/game/populate_players">populate with more players (click before attempting to log in)</a></p>
+        <p><a class="button" href="${pageContext.request.contextPath}/login">Go to log in page.</a></p>
+        <p><a class="button" href="${pageContext.request.contextPath}/admin">Go to admin page.</a></p>
     </div>
 
 </jsp:attribute>

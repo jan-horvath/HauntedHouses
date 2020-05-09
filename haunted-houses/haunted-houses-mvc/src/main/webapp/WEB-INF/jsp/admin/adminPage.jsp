@@ -7,10 +7,12 @@
 
 <my:pagetemplate>
 <jsp:attribute name="body">
+
     <div class="jumbotron">
-        <h4>This page is only accessible to administrators.</h4>
-        <p><a class="button" href="${pageContext.request.contextPath}">Go back</a></p>
+        <h4>This page is only accessible to admin.</h4>
+        <p><a class="button" href="${pageContext.request.contextPath}/">Go back to homepage</a></p>
     </div>
 
 </jsp:attribute>
 </my:pagetemplate>
+
