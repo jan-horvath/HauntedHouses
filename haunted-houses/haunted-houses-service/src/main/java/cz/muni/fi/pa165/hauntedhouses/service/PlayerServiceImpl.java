@@ -119,4 +119,9 @@ public class PlayerServiceImpl implements PlayerService {
         int paddingLength = (array.length * 2) - hex.length();
         return paddingLength > 0 ? String.format("%0" + paddingLength + "d", 0) + hex : hex;
     }
+
+    @Override
+    public void deletePlayer(Player p) {
+        playerDao.deletePlayer(p);
+    }
 }

@@ -61,4 +61,10 @@ public class PlayerFacadeImpl implements PlayerFacade {
     public boolean isAdmin(PlayerDTO player) {
         return playerService.isAdmin(mappingService.mapTo(player, Player.class));
     }
+
+    @Override
+    public void deletePlayer(Long id) {
+        Player player = playerService.getPlayerById(id);
+        playerService.deletePlayer(player);
+    }
 }
