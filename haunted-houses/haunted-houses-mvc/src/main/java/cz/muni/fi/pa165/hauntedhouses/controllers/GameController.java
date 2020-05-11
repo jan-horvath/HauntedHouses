@@ -49,6 +49,12 @@ public class GameController {
             @ModelAttribute("createDTO") GameInstanceCreateDTO createDTO,
             RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("create game called ({})", createDTO);
+
+        if (createDTO.getBanishesRequired() <= 0) {
+            redirectAttributes.addFlashAttribute("alert_warning", "Please enter a positive number");
+            return "redirect:" + uriBuilder.path("/game/new").queryParam("playerId", playerId).toUriString();
+        }
+
         createDTO.setPlayer(playerFacade.findPlayerById(playerId));
         gameInstanceFacade.createGameInstance(createDTO);
         log.debug("Players:" + playerFacade.getAllPlayers().toString());
