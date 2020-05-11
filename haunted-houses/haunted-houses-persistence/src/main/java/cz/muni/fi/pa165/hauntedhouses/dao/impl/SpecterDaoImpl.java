@@ -35,7 +35,14 @@ public class SpecterDaoImpl implements SpecterDao {
 
     @Override
     public void deleteSpecter(Specter specter) {
-        em.remove(em.contains(specter) ? specter : em.merge(specter));
+        if (em.contains(specter)) {
+            specter.getGameInstance().setSpecter(null);
+            em.remove(specter);
+        } else {
+            Specter merge = em.merge(specter);
+            specter.getGameInstance().setSpecter(null);
+            em.remove(merge);
+        }
     }
 
     @Override

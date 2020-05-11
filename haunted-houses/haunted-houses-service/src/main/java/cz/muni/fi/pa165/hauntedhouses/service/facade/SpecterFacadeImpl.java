@@ -29,6 +29,12 @@ public class SpecterFacadeImpl implements SpecterFacade {
         return (specter == null) ? null : mappingService.mapTo(specter, SpecterDTO.class);
     }
 
+    @Override
+    public SpecterDTO findSpecterById(Long specterId) {
+        Specter specter = specterService.getBySpecterId(specterId);
+        return mappingService.mapTo(specter, SpecterDTO.class);
+    }
+
     /*
     @Override
     public void createSpecter(SpecterCreateDTO specter) {
@@ -36,10 +42,11 @@ public class SpecterFacadeImpl implements SpecterFacade {
     }
     */
 
-    /*
+
     @Override
     public void deleteSpecter(Long id) {
-
+        Specter specter = specterService.getBySpecterId(id);
+        specterService.deleteSpecter(specter);
     }
-    */
+
 }

@@ -56,11 +56,21 @@ public class SpecterServiceImpl implements SpecterService {
     }
 
     @Override
+    public Specter getBySpecterId(Long specterId) {
+        return specterDao.getSpecterById(specterId);
+    }
+
+    @Override
     public Specter getByGameInstanceId(Long gameInstanceId) {
         GameInstance gameInstanceById = gameInstanceService.getGameInstanceById(gameInstanceId);
         if (gameInstanceById == null) {
             throw new DataRetrievalFailureException("No such game instance found");
         }
         return specterDao.getSpecterByGameInstance(gameInstanceById);
+    }
+
+    @Override
+    public void deleteSpecter(Specter specter) {
+        specterDao.deleteSpecter(specter);
     }
 }

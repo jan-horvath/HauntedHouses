@@ -24,4 +24,8 @@ public interface SpecterService {
      * @return specter associated with given game instance or null is no such specter exists
      */
     Specter getByGameInstanceId(Long gameInstanceId);
+
+    Specter getBySpecterId(Long specterId);
+
+    void deleteSpecter(Specter specter);
 }
