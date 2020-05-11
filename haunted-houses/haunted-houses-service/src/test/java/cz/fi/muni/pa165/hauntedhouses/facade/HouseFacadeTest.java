@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.hauntedhouses.service;
+package cz.fi.muni.pa165.hauntedhouses.facade;
 
 import cz.muni.fi.pa165.hauntedhouses.dto.HouseCreateDTO;
 import cz.muni.fi.pa165.hauntedhouses.dto.HouseDTO;

@@ -60,4 +60,10 @@ public interface PlayerService {
      * @return True if player p is admin, false otherwise
      */
     boolean isAdmin(Player p);
+
+    /**
+     * Deletes player from database
+     * @param p
+     */
+    void deletePlayer(Player p);
 }

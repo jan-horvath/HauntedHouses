@@ -57,4 +57,10 @@ public interface PlayerFacade {
      * @return True if player is admin, false otherwise
      */
     boolean isAdmin(PlayerDTO player);
+
+    /**
+     * Deletes a player specified by ID
+     * @param id
+     */
+    void deletePlayer(Long id);
 }

@@ -9,14 +9,14 @@
 <jsp:attribute name="body">
 
     <div class="jumbotron">
-        <h1>TEST</h1>
-        <p class="lead">Player count = ${playerCount} </p>
-        <p class="lead">House count = ${houseCount} </p>
+        <<h1>CONGRATULATIONS!</h1>
+        <p class="lead">You have successfully banished the ghost after ${banishments} tries.</p>
+        <p class="lead">Would you like to create a new game?</p>
+        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/game/new?playerId=${playerId}"
+              role="button">Yes</a></p>
+        <p><a class="btn btn-lg btn-danger" href="${pageContext.request.contextPath}"
+              role="button">No</a></p>
     </div>
-
-    Banishes attempted = ${game.banishesAttempted}
-    Banishes required = ${game.banishesRequired}
-    Game ID = ${game.id}
 
 </jsp:attribute>
 </my:pagetemplate>

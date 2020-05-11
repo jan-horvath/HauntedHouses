@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author Petr Vitovsky
  */
@@ -30,6 +32,11 @@ public class GameInstanceFacadeImpl implements GameInstanceFacade {
     }
 
     @Override
+    public List<GameInstanceDTO> findAllGameInstances() {
+        return mappingService.mapTo(gameInstanceService.getAllGameInstances(), GameInstanceDTO.class);
+    }
+
+    @Override
     public Long createGameInstance(GameInstanceCreateDTO gameInstance) {
         GameInstance gameInstanceEntity = mappingService.mapTo(gameInstance, GameInstance.class);
         if (gameInstance.getSpecter() == null) {
@@ -37,12 +44,14 @@ public class GameInstanceFacadeImpl implements GameInstanceFacade {
         } else {
             gameInstanceService.createGameInstance(gameInstanceEntity);
         }
+        gameInstanceEntity.getPlayer().setGameInstance(gameInstanceEntity);
 
         return gameInstanceEntity.getId();
     }
 
     @Override
     public void deleteGameInstance(Long id) {
+        System.err.println("Deleting GI through FACADE");
         GameInstance gameInstance = gameInstanceService.getGameInstanceById(id);
         gameInstanceService.deleteGameInstance(gameInstance);
     }
