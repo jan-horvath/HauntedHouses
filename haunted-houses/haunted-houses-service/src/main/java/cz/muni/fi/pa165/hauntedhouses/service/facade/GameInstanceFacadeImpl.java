@@ -44,6 +44,7 @@ public class GameInstanceFacadeImpl implements GameInstanceFacade {
         } else {
             gameInstanceService.createGameInstance(gameInstanceEntity);
         }
+        gameInstanceEntity.getPlayer().setGameInstance(gameInstanceEntity);
 
         return gameInstanceEntity.getId();
     }
