@@ -7,6 +7,8 @@ import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author David Hofman
  */
@@ -37,6 +39,11 @@ public class GameInstanceServiceImpl implements GameInstanceService {
     }
 
     @Override
+    public List<GameInstance> getAllGameInstances() {
+        return gameInstanceDao.getAllGameInstances();
+    }
+
+    @Override
     public void createGameInstance(GameInstance gameInstance) {
         gameInstance.getSpecter().setHouse(houseService.getRandomHouse());
         gameInstanceDao.createGameInstance(gameInstance);
@@ -58,7 +65,9 @@ public class GameInstanceServiceImpl implements GameInstanceService {
 
     @Override
     public void deleteGameInstance(GameInstance gameInstance) {
+        System.err.println("Deleting GI through SERVICE");
         gameInstanceDao.deleteGameInstance(gameInstance);
+        List<GameInstance> allGameInstances = gameInstanceDao.getAllGameInstances();
     }
 }
 

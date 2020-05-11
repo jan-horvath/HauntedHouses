@@ -15,7 +15,9 @@ public interface SpecterFacade {
      */
     SpecterDTO findSpecterByGameInstanceId(Long gameInstanceId);
 
+    SpecterDTO findSpecterById(Long specterId);
+
     //void createSpecter(SpecterCreateDTO specter);
 
-    //void deleteSpecter(Long id);
+    void deleteSpecter(Long id);
 }

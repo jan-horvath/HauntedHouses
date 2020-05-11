@@ -3,6 +3,8 @@ package cz.muni.fi.pa165.hauntedhouses.facade;
 import cz.muni.fi.pa165.hauntedhouses.dto.GameInstanceCreateDTO;
 import cz.muni.fi.pa165.hauntedhouses.dto.GameInstanceDTO;
 
+import java.util.List;
+
 /**
  * @author Zoltan Fridrich
  */
@@ -13,6 +15,12 @@ public interface GameInstanceFacade {
      * @return GameInstanceDTO of given Player if he exists and has a GameInstance, null otherwise
      */
     GameInstanceDTO findGameInstanceByPlayerId(Long playerId);
+
+    /**
+     *
+     * @return all game instances from the database
+     */
+    List<GameInstanceDTO> findAllGameInstances();
 
     /**
      * Creates new GameInstance
