@@ -8,11 +8,11 @@
 <my:pagetemplate>
 <jsp:attribute name="body">
 
-    <div class="jumbotron">
-        <h1>Welcome to Haunted Houses game</h1>
-        <p><a class="button" href="${pageContext.request.contextPath}/game/test">TEST</a></p>
-        <p><a class="button" href="${pageContext.request.contextPath}/game/populate">POPULATE</a></p>
-    </div>
+    <p class="lead">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+        int occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
 
 </jsp:attribute>
 </my:pagetemplate>
