@@ -30,14 +30,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><my:a href="/"><f:message key="navigation.home"/></my:a></li>
-                <li><my:a href="/game/new?playerId=1"><f:message key="navigation.game.player1"/></my:a></li>
+                <li><my:a href="/game/new"><f:message key="navigation.game.player1"/></my:a></li>
                 <li><my:a href="/house/list"><f:message key="navigation.houses"/></my:a></li>
                 <li><my:a href="/about"><f:message key="navigation.about"/></my:a></li>
+                <li><my:a href="/login"><f:message key="navigation.login"/></my:a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

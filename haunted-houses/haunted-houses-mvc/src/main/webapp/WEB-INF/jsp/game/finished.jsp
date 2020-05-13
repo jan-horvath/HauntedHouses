@@ -12,7 +12,7 @@
         <<h1>CONGRATULATIONS!</h1>
         <p class="lead">You have successfully banished the ghost after ${banishments} tries.</p>
         <p class="lead">Would you like to create a new game?</p>
-        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/game/new?playerId=${playerId}"
+        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/game/new"
               role="button">Yes</a></p>
         <p><a class="btn btn-lg btn-danger" href="${pageContext.request.contextPath}"
               role="button">No</a></p>

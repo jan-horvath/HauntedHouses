@@ -35,7 +35,7 @@
                 <td><c:out value="${house.name}"/></td>
                 <td><c:out value="${house.address}"/></td>
                 <td>
-                    <form method="post" action="${pageContext.request.contextPath}/game/banish?playerId=${playerId}&houseId=${house.id}">
+                    <form method="post" action="${pageContext.request.contextPath}/game/banish?houseId=${house.id}">
                         <button type="submit" class="btn btn-primary">Select</button>
                     </form>
                 </td>
