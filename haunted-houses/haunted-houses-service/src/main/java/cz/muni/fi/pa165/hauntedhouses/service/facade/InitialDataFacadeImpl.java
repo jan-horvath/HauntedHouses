@@ -131,5 +131,10 @@ public class InitialDataFacadeImpl implements InitialDataFacade {
         ability4.setName("Hide under bed");
         ability4.setDescription("The specter might be hiding under you bed IRL.");
         abilityService.createAbility(ability4);
+
+        Ability ability5 = new Ability();
+        ability5.setName("Protection");
+        ability5.setDescription("The specter will haunt you for the rest of your life if we get a low score for this milestone.");
+        abilityService.createAbility(ability5);
     }
 }
