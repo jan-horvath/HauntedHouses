@@ -20,7 +20,7 @@
                            <td><input type='password' name='password' /></td>
                        </tr>
                        <tr>
-                           <td><input name="submit" type="submit" value="Log in" /></td>
+                           <td><button class="btn btn-primary" type="submit">Log in</button></td>
                        </tr>
                    </table>
                </form>

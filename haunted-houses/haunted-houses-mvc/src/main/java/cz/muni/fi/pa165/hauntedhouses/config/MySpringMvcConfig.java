@@ -42,6 +42,7 @@ public class MySpringMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/about").setViewName("about");
         registry.addViewController("/login").setViewName("auth/login");
+        registry.addViewController("/denied").setViewName("auth/accessDenied");
     }
 
 
