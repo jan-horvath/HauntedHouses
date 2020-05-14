@@ -39,7 +39,12 @@
                 <li><my:a href="/game/new"><f:message key="navigation.game.player1"/></my:a></li>
                 <li><my:a href="/house/list"><f:message key="navigation.houses"/></my:a></li>
                 <li><my:a href="/about"><f:message key="navigation.about"/></my:a></li>
-                <li><my:a href="/login"><f:message key="navigation.login"/></my:a></li>
+                <sec:authorize access="!isAuthenticated()">
+                    <li><my:a href="/login"><f:message key="navigation.login"/></my:a></li>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <li><my:a href="/perform_logout"><f:message key="navigation.logout"/></my:a></li>
+                </sec:authorize>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -53,20 +58,6 @@
             <h1><c:out value="${title}"/></h1>
         </div>
     </c:if>
-
-    <!-- authenticated user info -->
-    <sec:authorize access="isAuthenticated()">
-    <div class="row">
-        <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10"></div>
-        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/perform_logout'">Logout</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    </sec:authorize>
 
     <!-- alerts -->
     <c:if test="${not empty alert_danger}">
