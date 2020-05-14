@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.hauntedhouses.config;
 
+import cz.muni.fi.pa165.hauntedhouses.facade.InitialDataFacade;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,20 +18,16 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-/**
- * The central Spring context and Spring MVC configuration.
- * The @Configuration annotation declares it as Spring configuration.
- * The @EnableWebMvc enables default  MVC config for using @Controller, @RequestMapping and so on,
- * see http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-config-enable
- *
- * @author Martin Kuba makub@ics.muni.cz
- */
+import javax.annotation.PostConstruct;
 
 @EnableWebMvc
 @Configuration
-@Import(ServiceConfiguration.class)
+@Import({ServiceConfiguration.class})
 @ComponentScan(basePackages = "cz.muni.fi.pa165.hauntedhouses.controllers")
 public class MySpringMvcConfig implements WebMvcConfigurer {
+
+    @Autowired
+    private InitialDataFacade initialDataFacade;
 
     private final static Logger log = LoggerFactory.getLogger(MySpringMvcConfig.class);
 
@@ -76,5 +74,13 @@ public class MySpringMvcConfig implements WebMvcConfigurer {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename(TEXTS);
         return messageSource;
+    }
+
+    /**
+     * Loads initial data
+     */
+    @PostConstruct
+    public void loadData() {
+        initialDataFacade.loadData();
     }
 }
