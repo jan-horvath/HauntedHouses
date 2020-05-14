@@ -1,12 +1,10 @@
 package cz.muni.fi.pa165.hauntedhouses.config;
 
 import cz.muni.fi.pa165.hauntedhouses.security.CustomAuthenticationProvider;
-import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@Import(ServiceConfiguration.class)
 @ComponentScan(basePackages = "cz.muni.fi.pa165.hauntedhouses.security")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

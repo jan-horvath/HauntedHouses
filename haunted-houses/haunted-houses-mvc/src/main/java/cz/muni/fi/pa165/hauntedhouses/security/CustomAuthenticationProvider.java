@@ -14,7 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -31,18 +31,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
+        GrantedAuthority authority = grantAuthority(email,password);
 
-        if (authenticate(email,password)) {
-            final List<GrantedAuthority> grantedAuths = new ArrayList<>();
-            PlayerDTO matchingPlayer = playerFacade.findPlayerByEmail(email);
-            if(matchingPlayer.isAdmin()) {
-               grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            }
-            else {
-                grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-            }
-            return new UsernamePasswordAuthenticationToken(
-                    email, password, grantedAuths);
+        if (authority != null) {
+            final List<GrantedAuthority> grantedAuthoritiesList = Arrays.asList(authority);
+            return new UsernamePasswordAuthenticationToken(email, password, grantedAuthoritiesList);
         } else {
             return null;
         }
@@ -53,22 +46,23 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 
-    public boolean authenticate(String email,String password) {
+    public GrantedAuthority grantAuthority(String email,String password) {
         PlayerDTO matchingPlayer = playerFacade.findPlayerByEmail(email);
         if (matchingPlayer == null) {
             log.warn("no user with email {}", email);
-            return false;
+            return null;
         }
         PlayerAuthenticationDTO playerAuthenticationDTO  = new PlayerAuthenticationDTO();
         playerAuthenticationDTO.setPlayerId(matchingPlayer.getId());
         playerAuthenticationDTO.setPassword(password);
-        if (!playerFacade.isAdmin(matchingPlayer)) {
-            log.warn("user not admin {}", matchingPlayer);
-        }
         if (!playerFacade.authenticate(playerAuthenticationDTO)) {
             log.warn("wrong credentials: user={} password={}", email, password);
-            return false;
+            return null;
         }
-        return true;
+        if (!playerFacade.isAdmin(matchingPlayer)) {
+            log.warn("user not admin {}", matchingPlayer);
+            return new SimpleGrantedAuthority("ROLE_USER");
+        }
+        return new SimpleGrantedAuthority("ROLE_ADMIN");
     }
 }

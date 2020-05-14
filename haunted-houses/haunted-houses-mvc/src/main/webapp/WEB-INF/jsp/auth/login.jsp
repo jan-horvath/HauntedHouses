@@ -25,6 +25,5 @@
                    </table>
                </form>
            </div>
-           <p><a class="button" href="${pageContext.request.contextPath}/">Go back to homepage</a></p>
 </jsp:attribute>
 </my:pagetemplate>

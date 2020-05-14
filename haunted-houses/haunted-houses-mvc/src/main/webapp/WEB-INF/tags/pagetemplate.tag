@@ -61,7 +61,7 @@
         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <a href="<c:url value="/perform_logout" />">Logout</a>
+                    <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/perform_logout'">Logout</button>
                 </div>
             </div>
         </div>
