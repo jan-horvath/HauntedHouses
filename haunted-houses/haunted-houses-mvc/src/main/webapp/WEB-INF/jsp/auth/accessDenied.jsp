@@ -9,13 +9,7 @@
 <jsp:attribute name="body">
 
     <div class="jumbotron">
-        <<h1>CONGRATULATIONS!</h1>
-        <p class="lead">You have successfully banished the ghost after ${banishments} tries.</p>
-        <p class="lead">Would you like to create a new game?</p>
-        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/game/new"
-              role="button">Yes</a></p>
-        <p><a class="btn btn-lg btn-danger" href="${pageContext.request.contextPath}"
-              role="button">No</a></p>
+        <h3>Sorry, only admin can view this page.</h3>
     </div>
 
 </jsp:attribute>

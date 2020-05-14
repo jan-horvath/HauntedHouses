@@ -11,7 +11,6 @@
     <div class="jumbotron">
         <h1>Welcome to Haunted Houses game</h1>
         <p><a class="button" href="${pageContext.request.contextPath}/game/test">TEST</a></p>
-        <p><a class="button" href="${pageContext.request.contextPath}/game/populate">POPULATE</a></p>
     </div>
 
 </jsp:attribute>

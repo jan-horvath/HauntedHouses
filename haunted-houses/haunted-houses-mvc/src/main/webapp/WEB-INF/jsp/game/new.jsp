@@ -4,11 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <my:pagetemplate title="New game">
 <jsp:attribute name="body">
 
-    <form:form method="post" action="${pageContext.request.contextPath}/game/create?playerId=${playerId}"
+    <form:form method="post" action="${pageContext.request.contextPath}/game/create"
                modelAttribute="createDTO" cssClass="form-horizontal">
         <div class="form-group ${name_error?'has-error':''}">
             <form:label path="banishesRequired" cssClass="col-sm-2 control-label">Banishes required:</form:label>

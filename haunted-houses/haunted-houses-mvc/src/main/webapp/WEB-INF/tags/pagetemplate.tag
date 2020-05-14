@@ -6,6 +6,8 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <html lang="${pageContext.request.locale}">
 <head>
     <meta charset="utf-8">
@@ -28,14 +30,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><my:a href="/"><f:message key="navigation.home"/></my:a></li>
-                <li><my:a href="/game/new?playerId=1"><f:message key="navigation.game.player1"/></my:a></li>
+                <li><my:a href="/game/new"><f:message key="navigation.game.player1"/></my:a></li>
                 <li><my:a href="/house/list"><f:message key="navigation.houses"/></my:a></li>
                 <li><my:a href="/about"><f:message key="navigation.about"/></my:a></li>
+                <sec:authorize access="!isAuthenticated()">
+                    <li><my:a href="/login"><f:message key="navigation.login"/></my:a></li>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <li><my:a href="/perform_logout"><f:message key="navigation.logout"/></my:a></li>
+                </sec:authorize>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -48,20 +57,6 @@
         <div class="page-header">
             <h1><c:out value="${title}"/></h1>
         </div>
-    </c:if>
-
-    <!-- authenticated user info -->
-    <c:if test="${not empty authenticatedUser}">
-    <div class="row">
-        <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10"></div>
-        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <c:out value="${authenticatedUser.givenName} ${authenticatedUser.surname}"/>
-                </div>
-            </div>
-        </div>
-    </div>
     </c:if>
 
     <!-- alerts -->
