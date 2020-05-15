@@ -18,6 +18,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,6 +43,7 @@ public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     private MappingService mappingService;
 
+    private List<AbilityDTO> abilitiesDTO;
     private AbilityCreateDTO abilityCreateDTO;
     private AbilityDTO abilityDTO;
     private Ability ability;
@@ -68,10 +72,22 @@ public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
         abilityCreateDTO.setName(ability.getName());
         abilityCreateDTO.setDescription(ability.getDescription());
 
+        List<Ability> abilities = new ArrayList<>();
+        abilities.add(ability);
+        abilities.add(new Ability());
+
+        abilitiesDTO = new ArrayList<>();
+        abilitiesDTO.add(abilityDTO);
+        abilitiesDTO.add(new AbilityDTO());
+
         when(mappingService.mapTo(abilityCreateDTO, Ability.class)).thenReturn(ability);
+        when(mappingService.mapTo(abilityDTO, Ability.class)).thenReturn(ability);
         when(mappingService.mapTo(ability, AbilityDTO.class)).thenReturn(abilityDTO);
+        when(mappingService.mapTo(abilities, AbilityDTO.class)).thenReturn(abilitiesDTO);
+
         when(abilityService.getAbilityById(ability.getId())).thenReturn(ability);
         when(abilityService.getAbilityByName(ability.getName())).thenReturn(ability);
+        when(abilityService.getAllAbilities()).thenReturn(abilities);
     }
 
     @Test
@@ -91,6 +107,12 @@ public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void findAllAbilitiesTest() {
+        assertEquals(abilitiesDTO, abilityFacade.findAllAbilities());
+        verify(abilityService).getAllAbilities();
+    }
+
+    @Test
     public void createAbilityTest() {
         assertEquals(ability.getId(), abilityFacade.createAbility(abilityCreateDTO));
         verify(abilityService).createAbility(ability);
@@ -100,5 +122,13 @@ public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
     public void deleteAbilityTest() {
         abilityFacade.deleteAbility(ability.getId());
         verify(abilityService).deleteAbility(ability);
+    }
+
+    @Test
+    public void updateAbilityTest() {
+        abilityDTO.setName("new name");
+        abilityFacade.updateAbility(abilityDTO);
+        assertEquals(abilityDTO, abilityFacade.findAbilityById(ability.getId()));
+        verify(abilityService).updateAbility(ability);
     }
 }
