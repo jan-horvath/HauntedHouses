@@ -25,13 +25,13 @@ public class SpecterServiceImpl implements SpecterService {
     private static final int MAX_SPECTER_ABILITIES = 3;
 
     @Autowired
-    AbilityService abilityService;
+    private AbilityService abilityService;
 
     @Autowired
-    GameInstanceService gameInstanceService;
+    private GameInstanceService gameInstanceService;
 
     @Autowired
-    SpecterDao specterDao;
+    private SpecterDao specterDao;
 
     @Override
     public Specter generateRandomSpecter() {

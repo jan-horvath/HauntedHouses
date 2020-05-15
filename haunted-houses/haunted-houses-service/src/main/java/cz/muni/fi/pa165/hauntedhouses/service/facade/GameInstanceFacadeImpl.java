@@ -20,10 +20,10 @@ import java.util.List;
 public class GameInstanceFacadeImpl implements GameInstanceFacade {
 
     @Autowired
-    GameInstanceService gameInstanceService;
+    private GameInstanceService gameInstanceService;
 
     @Autowired
-    MappingService mappingService;
+    private MappingService mappingService;
 
     @Override
     public GameInstanceDTO findGameInstanceByPlayerId(Long playerId) {

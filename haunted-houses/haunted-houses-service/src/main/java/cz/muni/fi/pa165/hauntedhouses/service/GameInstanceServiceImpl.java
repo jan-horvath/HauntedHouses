@@ -17,16 +17,16 @@ import java.util.List;
 public class GameInstanceServiceImpl implements GameInstanceService {
 
     @Autowired
-    GameInstanceDao gameInstanceDao;
+    private GameInstanceDao gameInstanceDao;
 
     @Autowired
-    PlayerDao playerDao;
+    private PlayerDao playerDao;
 
     @Autowired
-    SpecterService specterService;
+    private SpecterService specterService;
 
     @Autowired
-    HouseService houseService;
+    private HouseService houseService;
 
     @Override
     public GameInstance getGameInstanceById(Long id) {
