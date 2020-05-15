@@ -1,10 +1,8 @@
 package cz.muni.fi.pa165.hauntedhouses.controllers;
 
 import cz.muni.fi.pa165.hauntedhouses.dto.*;
-import cz.muni.fi.pa165.hauntedhouses.facade.GameFacade;
-import cz.muni.fi.pa165.hauntedhouses.facade.GameInstanceFacade;
-import cz.muni.fi.pa165.hauntedhouses.facade.HouseFacade;
-import cz.muni.fi.pa165.hauntedhouses.facade.PlayerFacade;
+import cz.muni.fi.pa165.hauntedhouses.facade.*;
+import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +33,26 @@ public class GameController {
     @Autowired
     private GameFacade gameFacade;
 
+    @Autowired
+    private SpecterFacade specterFacade;
+
+    @RequestMapping(value = "/check_game", method = RequestMethod.GET)
+    public String toGame(UriComponentsBuilder uriBuilder,
+                         Principal principal) {
+        PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
+        log.debug("\"/check_game\" called for user email {} (player found: {})", principal.getName(), foundPlayer != null);
+        GameInstanceDTO gameInstance = gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId());
+
+        if (gameInstance == null) {
+            return "redirect:" + uriBuilder.path("/game/new").toUriString();
+        }
+        return "redirect:" + uriBuilder.path("/game/play").toUriString();
+    }
+
     @RequestMapping(value = "/new")
     public String newGame(Model model, Principal principal) {
         PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
-        log.debug("new game called (playerId = " + foundPlayer.getId() + ")");
+        log.debug("\"/new\" called for user email {} (player found: {})", principal.getName(), foundPlayer != null);
         model.addAttribute("createDTO", new GameInstanceCreateDTO());
         model.addAttribute("playerId", foundPlayer.getId());
         return "game/new";
@@ -50,57 +64,33 @@ public class GameController {
             RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder,
             Principal principal) {
         PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
-        log.debug("player identified (id = " + foundPlayer.getId() + ")");
-        log.debug("create game called ({})", createDTO);
+        log.debug("\"/create\" called for user email {} (player found: {}, banishments: {})",
+                principal.getName(), foundPlayer != null, createDTO.getBanishesRequired());
         if (createDTO.getBanishesRequired() <= 0) {
             redirectAttributes.addFlashAttribute("alert_warning", "Please enter a positive number");
             return "/game/new";
         }
 
-        createDTO.setPlayer(playerFacade.findPlayerById(foundPlayer.getId()));
+        createDTO.setPlayer(foundPlayer);
         gameInstanceFacade.createGameInstance(createDTO);
-        log.debug("Players:" + playerFacade.getAllPlayers().toString());
-        redirectAttributes.addFlashAttribute("alert_success", gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId()));
+        redirectAttributes.addFlashAttribute("alert_success",
+                gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId()));
         return "redirect:" + uriBuilder.path("/game/check_game").toUriString();
-    }
-
-    @RequestMapping(value = "/check_game", method = RequestMethod.GET)
-    public String toGame(UriComponentsBuilder uriBuilder,
-                         RedirectAttributes redirectAttributes,
-                         Principal principal) {
-        PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
-        log.debug("play game called (playerId = " + foundPlayer.getId() + ")");
-        GameInstanceDTO gameInstance = gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId());
-        if (gameInstance == null) {
-            if (playerFacade.findPlayerById(foundPlayer.getId()) == null) {
-                redirectAttributes.addFlashAttribute("alert_warning", "Player with id " + foundPlayer.getId() + " does not exist.");
-                return "redirect:" + uriBuilder.path("/").toUriString();
-            }
-            return "/game/new";
-        }
-
-        return "redirect:" + uriBuilder.path("/game/play").toUriString();
     }
 
     @RequestMapping(value = "/play", method = RequestMethod.GET)
     public String play(Model model, Principal principal) {
         PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
-        log.debug("play method called");
+        log.debug("\"/play\" called for user email {} (player found: {})", principal.getName(), foundPlayer != null);
         GameInstanceDTO gameInstance = gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId());
 
         List<HouseDTO> allHouses = houseFacade.findAllHouses();
         SpecterDTO specter = gameInstance.getSpecter();
 
-        log.debug("Specter = " + specter);
-        log.debug("House = " + specter.getHouse());
-        log.debug("Game = " + gameInstance);
-
         model.addAttribute("allHouses", allHouses);
         model.addAttribute("specter", specter);
         model.addAttribute("hint", specter.getHouse().getHint());
         model.addAttribute("game", gameInstance);
-
-        model.addAttribute("playerId", foundPlayer.getId());
 
         return "game/game";
     }
@@ -109,6 +99,8 @@ public class GameController {
     public String banish(@RequestParam Long houseId, UriComponentsBuilder uriBuilder,
                            RedirectAttributes redirectAttributes, Model model, Principal principal) {
         PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
+        log.debug("\"/banish\" called for user email {} (player found: {}, houseId: {})",
+                principal.getName(), foundPlayer != null, houseId);
         BanishSpecterDTO banishSpecterDTO = new BanishSpecterDTO();
         banishSpecterDTO.setHouseId(houseId);
         GameInstanceDTO game = gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId());
@@ -118,7 +110,6 @@ public class GameController {
         if (success) {
             if (game.getBanishesRequired() == 1) {
                 model.addAttribute("banishments", game.getBanishesAttempted() + 1);
-                model.addAttribute("playerId", foundPlayer.getId());
                 gameInstanceFacade.deleteGameInstance(game.getId());
                 return "game/finished";
             }
@@ -133,14 +124,9 @@ public class GameController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test(Model model) {
         model.addAttribute("playerCount", playerFacade.getAllPlayers().size());
+        model.addAttribute("gameCount", gameInstanceFacade.findAllGameInstances().size());
         model.addAttribute("houseCount", houseFacade.findAllHouses().size());
-        GameInstanceDTO game = gameInstanceFacade.findGameInstanceByPlayerId(1L);
-        if (game != null) {
-            gameInstanceFacade.deleteGameInstance(game.getId());
-            game = gameInstanceFacade.findGameInstanceByPlayerId(1L);
 
-            model.addAttribute("game", game);
-        }
         return "game/test";
     }
 }
