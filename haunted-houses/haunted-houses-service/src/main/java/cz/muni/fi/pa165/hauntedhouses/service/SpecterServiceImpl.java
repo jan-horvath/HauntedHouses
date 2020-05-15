@@ -10,10 +10,7 @@ import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author Jan Horvath
@@ -24,14 +21,18 @@ public class SpecterServiceImpl implements SpecterService {
 
     private static final int MAX_SPECTER_ABILITIES = 3;
 
-    @Autowired
-    AbilityService abilityService;
+    private static final List<String> descriptions = Collections.unmodifiableList(Arrays.asList(
+            new String[] {"The scariest specter in the world.", "One of the oldest specters in the world.",
+            "The most unholy created that has ever existed.", "The most dangerous specter of them all."}));
 
     @Autowired
-    GameInstanceService gameInstanceService;
+    private AbilityService abilityService;
 
     @Autowired
-    SpecterDao specterDao;
+    private GameInstanceService gameInstanceService;
+
+    @Autowired
+    private SpecterDao specterDao;
 
     @Override
     public Specter generateRandomSpecter() {
@@ -42,7 +43,7 @@ public class SpecterServiceImpl implements SpecterService {
         specter.setName(faker.witcher().monster());
         specter.setStartOfHaunting(LocalTime.of(random.nextInt(24), 0));
         specter.setEndOfHaunting(LocalTime.of(random.nextInt(24), 0));
-        specter.setDescription("No description");
+        specter.setDescription(descriptions.get(random.nextInt(descriptions.size())));
 
         List<Ability> allAbilities = abilityService.getAllAbilities();
         if (allAbilities.size() < MAX_SPECTER_ABILITIES) {

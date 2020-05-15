@@ -20,10 +20,10 @@ import javax.transaction.Transactional;
 public class AbilityFacadeImpl implements AbilityFacade {
 
     @Autowired
-    MappingService mappingService;
+    private MappingService mappingService;
 
     @Autowired
-    AbilityService abilityService;
+    private AbilityService abilityService;
 
     @Override
     public AbilityDTO findAbilityById(Long id) {

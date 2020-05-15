@@ -21,10 +21,10 @@ import java.util.List;
 public class HouseFacadeImpl implements HouseFacade {
 
     @Autowired
-    MappingService mappingService;
+    private MappingService mappingService;
 
     @Autowired
-    HouseService houseService;
+    private HouseService houseService;
 
     @Override
     public HouseDTO findHouseById(Long id) {

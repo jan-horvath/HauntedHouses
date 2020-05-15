@@ -25,9 +25,7 @@ import java.util.List;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertThrows;
+import static org.testng.Assert.*;
 
 public class SpecterServiceTest extends AbstractTestNGSpringContextTests {
 
@@ -75,7 +73,7 @@ public class SpecterServiceTest extends AbstractTestNGSpringContextTests {
         assertNotNull(randomSpecter.getName());
         assertNotNull(randomSpecter.getStartOfHaunting());
         assertNotNull(randomSpecter.getEndOfHaunting());
-        assertEquals(randomSpecter.getDescription(), "No description");
+        assertFalse(randomSpecter.getDescription().isEmpty());
         assertEquals(randomSpecter.getAbilities(), abilities);
 
         abilities.add(new Ability());
@@ -84,7 +82,7 @@ public class SpecterServiceTest extends AbstractTestNGSpringContextTests {
         assertNotNull(randomSpecter.getName());
         assertNotNull(randomSpecter.getStartOfHaunting());
         assertNotNull(randomSpecter.getEndOfHaunting());
-        assertEquals(randomSpecter.getDescription(), "No description");
+        assertFalse(randomSpecter.getDescription().isEmpty());
         assertEquals(randomSpecter.getAbilities(), abilities);
     }
 
