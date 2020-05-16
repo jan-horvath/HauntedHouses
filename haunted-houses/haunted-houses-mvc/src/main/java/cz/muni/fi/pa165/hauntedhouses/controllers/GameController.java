@@ -33,9 +33,6 @@ public class GameController {
     @Autowired
     private GameFacade gameFacade;
 
-    @Autowired
-    private SpecterFacade specterFacade;
-
     @RequestMapping(value = "/check_game", method = RequestMethod.GET)
     public String toGame(UriComponentsBuilder uriBuilder,
                          Principal principal) {
@@ -89,6 +86,7 @@ public class GameController {
 
         model.addAttribute("allHouses", allHouses);
         model.addAttribute("specter", specter);
+        model.addAttribute("abilities", specter.getAbilities());
         model.addAttribute("hint", specter.getHouse().getHint());
         model.addAttribute("game", gameInstance);
 
