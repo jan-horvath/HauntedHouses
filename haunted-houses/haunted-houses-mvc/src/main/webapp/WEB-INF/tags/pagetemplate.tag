@@ -38,6 +38,7 @@
                 <li><my:a href="/"><f:message key="navigation.home"/></my:a></li>
                 <li><my:a href="/game/check_game"><f:message key="navigation.game"/></my:a></li>
                 <li><my:a href="/house/list"><f:message key="navigation.houses"/></my:a></li>
+                <li><my:a href="/ability/list"><f:message key="navigation.abilities"/></my:a></li>
                 <li><my:a href="/about"><f:message key="navigation.about"/></my:a></li>
                 <sec:authorize access="!isAuthenticated()">
                     <li><my:a href="/login"><f:message key="navigation.login"/></my:a></li>
