@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @author Jan Horvath
@@ -38,6 +39,11 @@ public class AbilityFacadeImpl implements AbilityFacade {
     }
 
     @Override
+    public List<AbilityDTO> findAllAbilities() {
+        return mappingService.mapTo(abilityService.getAllAbilities(), AbilityDTO.class);
+    }
+
+    @Override
     public Long createAbility(AbilityCreateDTO ability) {
         Ability newAbility = mappingService.mapTo(ability, Ability.class);
         abilityService.createAbility(newAbility);
@@ -47,5 +53,11 @@ public class AbilityFacadeImpl implements AbilityFacade {
     @Override
     public void deleteAbility(Long id) {
         abilityService.deleteAbility(abilityService.getAbilityById(id));
+    }
+
+    @Override
+    public void updateAbility(AbilityDTO ability) {
+        Ability abilityToUpdate = mappingService.mapTo(ability, Ability.class);
+        abilityService.updateAbility(abilityToUpdate);
     }
 }
