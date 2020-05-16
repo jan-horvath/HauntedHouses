@@ -1,5 +1,5 @@
 # Haunted Houses REST API
-REST API for House entity. Given commands are for Windows curl, for Linux remove backslashes inside data (e.g. replace \"name\" with "name").
+REST API for House entity. Given commands are for Windows curl, for Linux remove backslashes inside data (e.g. replace \\"name\\" with "name").
 
 ## List all
 `curl -i -X GET http://localhost:8080/pa165/rest/api/v1/house`
