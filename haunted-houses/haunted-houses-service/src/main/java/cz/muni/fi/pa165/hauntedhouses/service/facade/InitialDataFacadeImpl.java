@@ -114,12 +114,12 @@ public class InitialDataFacadeImpl implements InitialDataFacade {
     private void loadAbilities() {
         Ability ability1 = new Ability();
         ability1.setName("Invisibility");
-        ability1.setDescription("The specter may become invisible.");
+        ability1.setDescription("The specter may become invisible when nobody is watching");
         abilityService.createAbility(ability1);
 
         Ability ability2 = new Ability();
         ability2.setName("Fire breathing");
-        ability2.setDescription("The specter may breath fire.");
+        ability2.setDescription("The specter may breathe fire.");
         abilityService.createAbility(ability2);
 
         Ability ability3 = new Ability();
@@ -129,12 +129,27 @@ public class InitialDataFacadeImpl implements InitialDataFacade {
 
         Ability ability4 = new Ability();
         ability4.setName("Hide under bed");
-        ability4.setDescription("The specter might be hiding under you bed IRL.");
+        ability4.setDescription("The specter might be hiding under your bed IRL.");
         abilityService.createAbility(ability4);
 
         Ability ability5 = new Ability();
         ability5.setName("Protection");
         ability5.setDescription("The specter will haunt you for the rest of your life if we get a low score for this milestone.");
         abilityService.createAbility(ability5);
+
+        Ability ability6 = new Ability();
+        ability6.setName("Time travel");
+        ability6.setDescription("The specter can travel through time but only into the future at a rate of one second per second");
+
+        Ability ability7 = new Ability();
+        ability7.setName("Insect transformation");
+        ability7.setDescription("The specter can transform into any insect... Irreversibly.");
+
+        Ability ability8 = new Ability();
+        ability8.setName("Poisonous clouds");
+        ability8.setDescription("The specter can create highly poisonous clouds around it. The specter is not immune to the poison.");
+
+
+
     }
 }

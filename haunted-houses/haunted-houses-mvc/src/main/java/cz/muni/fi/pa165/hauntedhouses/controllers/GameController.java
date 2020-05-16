@@ -21,20 +21,21 @@ public class GameController {
 
     final static Logger log = LoggerFactory.getLogger(GameController.class);
 
-    @Autowired
     private GameInstanceFacade gameInstanceFacade;
 
-    @Autowired
     private PlayerFacade playerFacade;
 
-    @Autowired
     private HouseFacade houseFacade;
 
-    @Autowired
     private GameFacade gameFacade;
 
     @Autowired
-    private SpecterFacade specterFacade;
+    public GameController(GameInstanceFacade gameInstanceFacade, PlayerFacade playerFacade, HouseFacade houseFacade, GameFacade gameFacade) {
+        this.gameInstanceFacade = gameInstanceFacade;
+        this.playerFacade = playerFacade;
+        this.houseFacade = houseFacade;
+        this.gameFacade = gameFacade;
+    }
 
     @RequestMapping(value = "/check_game", method = RequestMethod.GET)
     public String toGame(UriComponentsBuilder uriBuilder,
@@ -89,6 +90,7 @@ public class GameController {
 
         model.addAttribute("allHouses", allHouses);
         model.addAttribute("specter", specter);
+        model.addAttribute("abilities", specter.getAbilities());
         model.addAttribute("hint", specter.getHouse().getHint());
         model.addAttribute("game", gameInstance);
 
