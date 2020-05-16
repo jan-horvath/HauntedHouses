@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.hauntedhouses.controllers;
 
 import cz.muni.fi.pa165.hauntedhouses.dto.*;
 import cz.muni.fi.pa165.hauntedhouses.facade.*;
-import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

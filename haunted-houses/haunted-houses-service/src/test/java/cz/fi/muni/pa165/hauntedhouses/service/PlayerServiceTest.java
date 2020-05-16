@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.hauntedhouses.model.Player;
 import cz.muni.fi.pa165.hauntedhouses.service.PlayerService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,6 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     PlayerDao playerDao;
 
-    @InjectMocks
     PlayerService playerService;
 
     private Player player1;

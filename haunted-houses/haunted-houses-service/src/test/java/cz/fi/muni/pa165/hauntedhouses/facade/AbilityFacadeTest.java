@@ -7,11 +7,10 @@ import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import cz.muni.fi.pa165.hauntedhouses.service.AbilityService;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
-import cz.muni.fi.pa165.hauntedhouses.service.facade.AbilityFacadeImpl;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
@@ -40,13 +39,17 @@ public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     private AbilityService abilityService;
 
-    @InjectMocks
-    private AbilityFacade abilityFacade = new AbilityFacadeImpl(mappingService,abilityService);
+    private AbilityFacade abilityFacade;
 
     private List<AbilityDTO> abilitiesDTO;
     private AbilityCreateDTO abilityCreateDTO;
     private AbilityDTO abilityDTO;
     private Ability ability;
+
+    @Autowired
+    public AbilityFacadeTest(AbilityFacade abilityFacade) {
+        this.abilityFacade = abilityFacade;
+    }
 
     @BeforeClass
     public void setup() throws ServiceException {

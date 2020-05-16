@@ -7,19 +7,17 @@ import cz.muni.fi.pa165.hauntedhouses.model.House;
 import cz.muni.fi.pa165.hauntedhouses.service.HouseService;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
-import cz.muni.fi.pa165.hauntedhouses.service.facade.HouseFacadeImpl;
 
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -43,13 +41,17 @@ public class HouseFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     private HouseService houseService;
 
-    @InjectMocks
-    private HouseFacade houseFacade = new HouseFacadeImpl(mappingService, houseService);
+    private HouseFacade houseFacade;
 
     private List<HouseDTO> housesDTO;
     private HouseCreateDTO houseCreateDTO;
     private HouseDTO houseDTO;
     private House house;
+
+    @Autowired
+    public HouseFacadeTest(HouseFacade houseFacade) {
+        this.houseFacade = houseFacade;
+    }
 
     @BeforeClass
     public void setup() throws ServiceException {

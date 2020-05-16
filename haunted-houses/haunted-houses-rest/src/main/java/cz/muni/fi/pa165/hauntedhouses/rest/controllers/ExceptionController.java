@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.hauntedhouses.rest.exceptions.InvalidParameterException;
 import cz.muni.fi.pa165.hauntedhouses.rest.exceptions.ResourceAlreadyExistingException;
 import cz.muni.fi.pa165.hauntedhouses.rest.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @ControllerAdvice
 public class ExceptionController {

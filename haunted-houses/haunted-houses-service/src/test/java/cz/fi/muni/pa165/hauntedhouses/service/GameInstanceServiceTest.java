@@ -7,14 +7,13 @@ import cz.muni.fi.pa165.hauntedhouses.model.House;
 import cz.muni.fi.pa165.hauntedhouses.model.Player;
 import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import cz.muni.fi.pa165.hauntedhouses.service.GameInstanceService;
-import cz.muni.fi.pa165.hauntedhouses.service.GameInstanceServiceImpl;
 import cz.muni.fi.pa165.hauntedhouses.service.HouseService;
 import cz.muni.fi.pa165.hauntedhouses.service.SpecterService;
 
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -39,13 +38,23 @@ public class GameInstanceServiceTest {
     @Mock
     private HouseService houseService;
 
-    @InjectMocks
-    GameInstanceService gameInstanceService = new GameInstanceServiceImpl(gameInstanceDao,playerDao,specterService,houseService);
+    GameInstanceService gameInstanceService;
 
     private GameInstance gameInstance;
     private GameInstance gameInstance2;
     private Player player;
     private Specter randomSpecter;
+
+    @Autowired
+    public GameInstanceServiceTest(GameInstanceDao gameInstanceDao,
+                                   PlayerDao playerDao,
+                                   SpecterService specterService,
+                                   HouseService houseService) {
+        this.gameInstanceDao = gameInstanceDao;
+        this.playerDao = playerDao;
+        this.specterService = specterService;
+        this.houseService = houseService;
+    }
 
     @BeforeClass
     public void setup() throws ServiceException {

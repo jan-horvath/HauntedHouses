@@ -6,13 +6,12 @@ import cz.muni.fi.pa165.hauntedhouses.model.Player;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import cz.muni.fi.pa165.hauntedhouses.service.PlayerService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
-import cz.muni.fi.pa165.hauntedhouses.service.facade.PlayerFacadeImpl;
 import cz.muni.fi.pa165.hauntedhouses.dto.PlayerDTO;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -38,14 +37,18 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     private MappingService mappingService;
 
-    @InjectMocks
-    private PlayerFacade playerFacade = new PlayerFacadeImpl(playerService, mappingService);
+    private PlayerFacade playerFacade;
 
     private Player player1;
     private Player player2;
 
     private PlayerDTO playerDTO1;
     private PlayerDTO playerDTO2;
+
+    @Autowired
+    public PlayerFacadeTest(PlayerFacade playerFacade) {
+        this.playerFacade = playerFacade;
+    }
 
     @BeforeClass
     public void setup() throws ServiceException {
