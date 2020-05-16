@@ -39,7 +39,7 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
     private MappingService mappingService;
 
     @InjectMocks
-    private PlayerFacade playerFacade = new PlayerFacadeImpl();
+    private PlayerFacade playerFacade = new PlayerFacadeImpl(playerService, mappingService);
 
     private Player player1;
     private Player player2;

@@ -37,7 +37,7 @@ public class SpecterFacadeTest extends AbstractTestNGSpringContextTests {
     private MappingService mappingService;
 
     @InjectMocks
-    private SpecterFacade specterFacade = new SpecterFacadeImpl();
+    private SpecterFacade specterFacade = new SpecterFacadeImpl(specterService,mappingService);
 
     @BeforeClass
     public void setup() throws ServiceException {

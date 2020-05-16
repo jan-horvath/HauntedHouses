@@ -17,8 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ComponentScan(basePackages = "cz.muni.fi.pa165.hauntedhouses.security")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private CustomAuthenticationProvider authProvider;
+
     @Autowired
-    public CustomAuthenticationProvider authProvider;
+    public WebSecurityConfig(CustomAuthenticationProvider authProvider) {
+        this.authProvider = authProvider;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

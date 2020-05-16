@@ -29,10 +29,10 @@ import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class GameServiceTest extends AbstractTestNGSpringContextTests {
+
     @Mock
     private HouseService houseService;
 
-    @Autowired
     @InjectMocks
     private GameService gameService;
 
@@ -44,6 +44,11 @@ public class GameServiceTest extends AbstractTestNGSpringContextTests {
 
     private GameInstance gameInstance;
     private Specter specter;
+
+    @Autowired
+    public GameServiceTest(GameService gameService) {
+        this.gameService = gameService;
+    }
 
     @BeforeClass
     public void setup() throws ServiceException {

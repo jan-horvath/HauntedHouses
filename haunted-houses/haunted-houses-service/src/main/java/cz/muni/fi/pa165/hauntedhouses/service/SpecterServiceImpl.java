@@ -25,14 +25,18 @@ public class SpecterServiceImpl implements SpecterService {
             new String[] {"The scariest specter in the world.", "One of the oldest specters in the world.",
             "The most unholy created that has ever existed.", "The most dangerous specter of them all."}));
 
-    @Autowired
     private AbilityService abilityService;
-
-    @Autowired
     private GameInstanceService gameInstanceService;
+    private SpecterDao specterDao;
 
     @Autowired
-    private SpecterDao specterDao;
+    public SpecterServiceImpl(AbilityService abilityService,
+                              GameInstanceService gameInstanceService,
+                              SpecterDao specterDao) {
+        this.abilityService = abilityService;
+        this.gameInstanceService = gameInstanceService;
+        this.specterDao = specterDao;
+    }
 
     @Override
     public Specter generateRandomSpecter() {

@@ -19,11 +19,15 @@ import java.util.Collection;
 @Transactional
 public class PlayerFacadeImpl implements PlayerFacade {
 
-    @Autowired
     private PlayerService playerService;
+    private MappingService mappingService;
 
     @Autowired
-    private MappingService mappingService;
+    public PlayerFacadeImpl(PlayerService playerService,
+                            MappingService mappingService) {
+        this.playerService = playerService;
+        this.mappingService = mappingService;
+    }
 
     @Override
     public PlayerDTO findPlayerById(Long id) {

@@ -30,13 +30,17 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     PlayerDao playerDao;
 
-    @Autowired
     @InjectMocks
     PlayerService playerService;
 
     private Player player1;
     private Player player2;
     private List<Player> allPlayers;
+
+    @Autowired
+    public PlayerServiceTest(PlayerService playerService) {
+        this.playerService = playerService;
+    }
 
     @BeforeClass
     public void setup() throws ServiceException {

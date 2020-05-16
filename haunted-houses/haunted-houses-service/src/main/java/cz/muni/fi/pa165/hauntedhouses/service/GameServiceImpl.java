@@ -15,8 +15,12 @@ import java.util.Random;
 @Service
 public class GameServiceImpl implements GameService {
 
-    @Autowired
     private HouseService houseService;
+
+    @Autowired
+    public GameServiceImpl(HouseService houseService) {
+        this.houseService = houseService;
+    }
 
     @Override
     public boolean checkAnswer(House house, GameInstance instance) {

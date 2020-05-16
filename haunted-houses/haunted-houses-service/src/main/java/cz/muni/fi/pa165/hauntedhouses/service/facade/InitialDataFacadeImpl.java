@@ -17,14 +17,18 @@ import java.util.Calendar;
 @Transactional
 public class InitialDataFacadeImpl implements InitialDataFacade {
 
-    @Autowired
     private PlayerService playerService;
-
-    @Autowired
     private HouseService houseService;
+    private AbilityService abilityService;
 
     @Autowired
-    private AbilityService abilityService;
+    public InitialDataFacadeImpl(PlayerService playerService,
+                                 HouseService houseService,
+                                 AbilityService abilityService) {
+        this.playerService = playerService;
+        this.houseService = houseService;
+        this.abilityService = abilityService;
+    }
 
     @Override
     public void loadData() {

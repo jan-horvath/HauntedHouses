@@ -22,17 +22,21 @@ import java.util.List;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class NoMockTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
     private GameInstanceFacade gameInstanceFacade;
-
-    @Autowired
     private PlayerFacade playerFacade;
-
-    @Autowired
     private HouseFacade houseFacade;
+    private SpecterFacade specterFacade;
 
     @Autowired
-    private SpecterFacade specterFacade;
+    public NoMockTest(GameInstanceFacade gameInstanceFacade,
+                      PlayerFacade playerFacade,
+                      HouseFacade houseFacade,
+                      SpecterFacade specterFacade) {
+        this.gameInstanceFacade = gameInstanceFacade;
+        this.playerFacade = playerFacade;
+        this.houseFacade = houseFacade;
+        this. specterFacade = specterFacade;
+    }
 
     @Test
     public void deleteGameInstanceTest() {

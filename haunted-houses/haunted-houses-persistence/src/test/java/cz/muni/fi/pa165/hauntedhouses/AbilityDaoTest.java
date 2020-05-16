@@ -19,13 +19,17 @@ import java.util.List;
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class AbilityDaoTest extends AbstractTransactionalTestNGSpringContextTests {
 
-    @Autowired
     private AbilityDao abilityDao;
 
     private Ability defensiveAbility;
     private Ability defensiveAbilityCopy;
     private Ability offensiveAbility;
     private Ability offensiveAbilityCopy;
+
+    @Autowired
+    public AbilityDaoTest(AbilityDao abilityDao) {
+        this.abilityDao = abilityDao;
+    }
 
     @BeforeMethod
     public void setup() {

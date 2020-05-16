@@ -35,13 +35,15 @@ import static org.mockito.Mockito.*;
 public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
-    GameInstanceService gameInstanceService;
+    private GameInstanceService gameInstanceService;
 
     @Mock
     private MappingService mappingService;
 
     @InjectMocks
-    private GameInstanceFacade gameInstanceFacade = new GameInstanceFacadeImpl();
+    private GameInstanceFacade gameInstanceFacade = new GameInstanceFacadeImpl(
+            gameInstanceService,
+            mappingService);
 
     private long playerId = 7;
     private long gameInstanceId = 15;

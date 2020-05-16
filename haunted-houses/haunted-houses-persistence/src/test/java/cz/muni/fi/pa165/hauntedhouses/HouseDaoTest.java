@@ -23,12 +23,16 @@ import org.testng.annotations.Test;
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests {
 
-    @Autowired
     private HouseDao houseDao;
 
     private House h1;
     private House h2;
     private House h3;
+
+    @Autowired
+    public HouseDaoTest(HouseDao houseDao) {
+        this.houseDao = houseDao;
+    }
 
     @BeforeMethod
     public void setup() {

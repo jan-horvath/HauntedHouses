@@ -26,13 +26,16 @@ import javax.annotation.PostConstruct;
 @ComponentScan(basePackages = "cz.muni.fi.pa165.hauntedhouses.controllers")
 public class MySpringMvcConfig implements WebMvcConfigurer {
 
-    @Autowired
     private InitialDataFacade initialDataFacade;
 
     private final static Logger log = LoggerFactory.getLogger(MySpringMvcConfig.class);
 
     private static final String TEXTS = "Texts";
 
+    @Autowired
+    public MySpringMvcConfig(InitialDataFacade initialDataFacade) {
+        this.initialDataFacade = initialDataFacade;
+    }
     /**
      * Maps the main page to a specific view.
      */

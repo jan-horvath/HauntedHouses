@@ -29,9 +29,6 @@ import static org.testng.Assert.*;
 
 public class SpecterServiceTest extends AbstractTestNGSpringContextTests {
 
-    @InjectMocks
-    private SpecterService specterService = new SpecterServiceImpl();
-
     @Mock
     private AbilityService abilityService;
 
@@ -40,6 +37,11 @@ public class SpecterServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private SpecterDao specterDao;
+
+    private SpecterService specterService = new SpecterServiceImpl(
+            abilityService,
+            gameInstanceService,
+            specterDao);
 
     private List<Ability> abilities;
     private Specter specter;

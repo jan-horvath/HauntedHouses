@@ -34,14 +34,14 @@ import static org.testng.Assert.assertNull;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
 
-    @InjectMocks
-    private AbilityFacade abilityFacade = new AbilityFacadeImpl();
+    @Mock
+    private MappingService mappingService;
 
     @Mock
     private AbilityService abilityService;
 
-    @Mock
-    private MappingService mappingService;
+    @InjectMocks
+    private AbilityFacade abilityFacade = new AbilityFacadeImpl(mappingService,abilityService);
 
     private List<AbilityDTO> abilitiesDTO;
     private AbilityCreateDTO abilityCreateDTO;

@@ -21,8 +21,12 @@ import java.util.Calendar;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class MappingServiceTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
     private MappingService mappingService;
+
+    @Autowired
+    public MappingServiceTest(MappingService mappingService) {
+        this.mappingService = mappingService;
+    }
 
     @Test
     public void abilityCreateDTO_conversionTest() {

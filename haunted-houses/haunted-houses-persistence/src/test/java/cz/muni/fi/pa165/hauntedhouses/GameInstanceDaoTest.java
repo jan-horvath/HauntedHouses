@@ -21,13 +21,8 @@ import java.util.List;
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class GameInstanceDaoTest extends AbstractTransactionalTestNGSpringContextTests {
 
-    @Autowired
     private GameInstanceDao gameInstanceDao;
-
-    @Autowired
     private PlayerDao playerDao;
-
-    @Autowired
     private SpecterDao specterDao;
 
     private Player player1;
@@ -38,6 +33,15 @@ public class GameInstanceDaoTest extends AbstractTransactionalTestNGSpringContex
 
     private Specter specter1;
     private Specter specter2;
+
+    @Autowired
+    public GameInstanceDaoTest(GameInstanceDao gameInstanceDao,
+                               PlayerDao playerDao,
+                               SpecterDao specterDao) {
+        this.gameInstanceDao = gameInstanceDao;
+        this.playerDao = playerDao;
+        this.specterDao = specterDao;
+    }
 
     @BeforeMethod
     public void setup() {

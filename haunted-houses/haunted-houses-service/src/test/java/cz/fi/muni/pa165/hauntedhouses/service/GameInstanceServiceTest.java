@@ -27,9 +27,6 @@ import static org.testng.Assert.assertEquals;
 
 public class GameInstanceServiceTest {
 
-    @InjectMocks
-    GameInstanceService gameInstanceService = new GameInstanceServiceImpl();
-
     @Mock
     private GameInstanceDao gameInstanceDao;
 
@@ -41,6 +38,9 @@ public class GameInstanceServiceTest {
 
     @Mock
     private HouseService houseService;
+
+    @InjectMocks
+    GameInstanceService gameInstanceService = new GameInstanceServiceImpl(gameInstanceDao,playerDao,specterService,houseService);
 
     private GameInstance gameInstance;
     private GameInstance gameInstance2;

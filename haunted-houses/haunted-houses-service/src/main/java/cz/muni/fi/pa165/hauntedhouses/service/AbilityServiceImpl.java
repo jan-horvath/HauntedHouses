@@ -13,8 +13,12 @@ import java.util.List;
 @Service
 public class AbilityServiceImpl implements AbilityService {
 
-    @Autowired
     private AbilityDao abilityDao;
+
+    @Autowired
+    public AbilityServiceImpl(AbilityDao abilityDao) {
+        this.abilityDao = abilityDao;
+    }
 
     @Override
     public Ability getAbilityById(Long id) {

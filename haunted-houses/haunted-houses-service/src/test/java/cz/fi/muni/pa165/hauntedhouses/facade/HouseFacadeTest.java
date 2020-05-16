@@ -37,14 +37,14 @@ import static org.testng.Assert.assertNull;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class HouseFacadeTest extends AbstractTestNGSpringContextTests {
 
-    @InjectMocks
-    private HouseFacade houseFacade = new HouseFacadeImpl();
+    @Mock
+    private MappingService mappingService;
 
     @Mock
     private HouseService houseService;
 
-    @Mock
-    private MappingService mappingService;
+    @InjectMocks
+    private HouseFacade houseFacade = new HouseFacadeImpl(mappingService, houseService);
 
     private List<HouseDTO> housesDTO;
     private HouseCreateDTO houseCreateDTO;

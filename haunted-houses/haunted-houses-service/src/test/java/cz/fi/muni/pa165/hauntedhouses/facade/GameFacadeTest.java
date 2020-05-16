@@ -31,16 +31,18 @@ import static org.mockito.Mockito.*;
 public class GameFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
-    HouseService houseService;
+    private HouseService houseService;
 
     @Mock
-    GameInstanceService gameInstanceService;
+    private GameInstanceService gameInstanceService;
 
     @Mock
-    GameService gameService;
+    private GameService gameService;
 
-    @InjectMocks
-    GameFacade gameFacade = new GameFacadeImpl();
+    private GameFacade gameFacade = new GameFacadeImpl(
+            houseService,
+            gameInstanceService
+            ,gameService);
 
     BanishSpecterDTO correctBanish;
     BanishSpecterDTO incorrectBanish;

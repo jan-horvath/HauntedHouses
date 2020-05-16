@@ -30,7 +30,6 @@ public class AbilityServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private AbilityDao abilityDao;
 
-    @Autowired
     @InjectMocks
     private AbilityService abilityService;
 
@@ -42,6 +41,10 @@ public class AbilityServiceTest extends AbstractTestNGSpringContextTests {
     private Ability ability1;
     private Ability ability2;
     List<Ability> allAbilities;
+
+    public AbilityServiceTest(AbilityService abilityService) {
+        this.abilityService = abilityService;
+    }
 
     @BeforeMethod
     public void prepareAbilities() {
