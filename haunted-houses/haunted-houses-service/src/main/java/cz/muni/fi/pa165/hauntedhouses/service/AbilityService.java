@@ -42,4 +42,12 @@ public interface AbilityService {
      * @param ability Ability for deletion
      */
     void deleteAbility(Ability ability);
+
+    /**
+     * Updates the Ability in the database
+     * @param ability Ability for update
+     * @throws org.springframework.dao.DataAccessException if constraints are violated
+     * @return Updated Ability
+     */
+    Ability updateAbility(Ability ability);
 }

@@ -40,4 +40,9 @@ public class AbilityServiceImpl implements AbilityService {
     public void deleteAbility(Ability ability) {
         abilityDao.deleteAbility(ability);
     }
+
+    @Override
+    public Ability updateAbility(Ability ability) {
+        return abilityDao.updateAbility(ability);
+    }
 }
