@@ -8,9 +8,7 @@ import cz.muni.fi.pa165.hauntedhouses.rest.controllers.HouseController;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -111,7 +109,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
         doReturn(Collections.unmodifiableList(houses)).when(
                 houseFacade).findAllHouses();
 
-        mockMvc.perform(get("/house"))
+        mockMvc.perform(get("/api/v1/house"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.[?(@.id==1)].name").value("nameOne"))
@@ -127,7 +125,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
         doReturn(houseOne).when(houseFacade).findHouseById(1L);
         doReturn(houseTwo).when(houseFacade).findHouseById(2L);
 
-        mockMvc.perform(get("/house/1"))
+        mockMvc.perform(get("/api/v1/house/1"))
                 .andExpect(status().isOk())
                 .andExpect(
                         content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -135,7 +133,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
                 .andExpect(jsonPath("$.address").value("addressOne"))
                 .andExpect(jsonPath("$.hint").value("hintOne"));
 
-        mockMvc.perform(get("/house/2"))
+        mockMvc.perform(get("/api/v1/house/2"))
                 .andExpect(status().isOk())
                 .andExpect(
                         content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -148,7 +146,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
     public void getNonexistingHouse() throws Exception {
         doReturn(null).when(houseFacade).findHouseById(1L);
 
-        mockMvc.perform(get("/house/1")).andExpect(
+        mockMvc.perform(get("/api/v1/house/1")).andExpect(
                 status().is4xxClientError());
     }
 
@@ -165,7 +163,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
         String json = this.convertObjectToJsonBytes(houseCreateDTO);
 
         mockMvc.perform(
-                post("/house/create").contentType(MediaType.APPLICATION_JSON).content(json))
+                post("/api/v1/house").contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
 
         verify(houseFacade).createHouse(houseCreateDTO);
@@ -180,7 +178,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
 
         String json = this.convertObjectToJsonBytes(houseCreateDTO);
 
-        mockMvc.perform(post("/house/create")).andExpect(
+        mockMvc.perform(post("/api/v1/house")).andExpect(
                 status().is4xxClientError());
     }
 
@@ -195,7 +193,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
         String json = this.convertObjectToJsonBytes(houseDTO);
 
         mockMvc.perform(
-                post("/house/update").contentType(MediaType.APPLICATION_JSON).content(json))
+                put("/api/v1/house").contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
 
         verify(houseFacade).updateHouse(houseDTO);
@@ -213,13 +211,13 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
 
         doThrow(new RuntimeException("invalid parameter")).when(houseFacade).updateHouse(houseDTO);
 
-        mockMvc.perform(post("/house/update").contentType(MediaType.APPLICATION_JSON).content(json))
+        mockMvc.perform(put("/api/v1/house").contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void deleteHouse() throws Exception {
-        mockMvc.perform(delete("/house/1"))
+        mockMvc.perform(delete("/api/v1/house/1"))
                 .andExpect(status().isOk());
 
         verify(houseFacade).deleteHouse(1L);
@@ -229,7 +227,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
     public void deleteNonexistingHouse() throws Exception {
         doThrow(new RuntimeException("the house does not exist")).when(houseFacade).deleteHouse(1L);
 
-        mockMvc.perform(delete("/house/1"))
+        mockMvc.perform(delete("/api/v1/house/1"))
                 .andExpect(status().is4xxClientError());
     }
 

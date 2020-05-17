@@ -20,7 +20,7 @@ import java.util.List;
  * @author Petr Vitovsky
  */
 @RestController
-@RequestMapping("/house")
+@RequestMapping("/api/v1/house")
 public class HouseController {
 
     final static Logger logger = LoggerFactory.getLogger(HouseController.class);
@@ -44,7 +44,7 @@ public class HouseController {
         return houseDTO;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final HouseDTO createHouse(@Valid @RequestBody HouseCreateDTO house) throws Exception {
         logger.debug("rest createHouse()");
@@ -68,7 +68,7 @@ public class HouseController {
         }
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final HouseDTO updateHouse(@RequestBody HouseDTO house) throws Exception {
         logger.debug("rest updateHouse()");
