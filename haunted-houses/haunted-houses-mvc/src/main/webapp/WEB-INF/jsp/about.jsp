@@ -7,12 +7,23 @@
 
 <my:pagetemplate>
 <jsp:attribute name="body">
+    <p class="lead">
+        Haunted houses is a game where you search for specters and banish them from haunted houses.
+    </p>
 
-    <p class="lead">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-        int occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+    <h2>Create game</h2>
+    <p class="lead">
+        Before you start playing, you first need to create a game.
+        In order to so, you need to set the number of banishes required to complete the game.
+        Game will start automatically after creation.
+    </p>
 
+    <h2>Gameplay</h2>
+    <p class="lead">
+        Once the game has been created a unique specter will haunt one of the houses in the selection.
+        Your task is to find the haunted house based on the hint you are given.
+        Once you find the haunted house, the specter is banished and flees into another house losing life in a process.
+        After you banish the specter enough times the specter is defeated and you win the game.
+    </p>
 </jsp:attribute>
 </my:pagetemplate>
