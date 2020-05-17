@@ -50,7 +50,7 @@ public class GameController {
         return "redirect:" + uriBuilder.path("/game/play").toUriString();
     }
 
-    @RequestMapping(value = "/new")
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newGame(Model model, Principal principal) {
         PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
         log.debug("\"/new\" called for user email {} (player found: {})", principal.getName(), foundPlayer != null);
@@ -60,10 +60,8 @@ public class GameController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(
-            @ModelAttribute("createDTO") GameInstanceCreateDTO createDTO,
-            RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder,
-            Principal principal) {
+    public String create(@ModelAttribute("createDTO") GameInstanceCreateDTO createDTO,
+                         RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Principal principal) {
         PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
         log.debug("\"/create\" called for user email {} (player found: {}, banishments: {})",
                 principal.getName(), foundPlayer != null, createDTO.getBanishesRequired());
@@ -121,14 +119,5 @@ public class GameController {
         }
 
         return "redirect:" + uriBuilder.path("/game/play").toUriString();
-    }
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test(Model model) {
-        model.addAttribute("playerCount", playerFacade.getAllPlayers().size());
-        model.addAttribute("gameCount", gameInstanceFacade.findAllGameInstances().size());
-        model.addAttribute("houseCount", houseFacade.findAllHouses().size());
-
-        return "game/test";
     }
 }
