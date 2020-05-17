@@ -21,14 +21,14 @@ public class SpecterServiceImpl implements SpecterService {
 
     private static final int MAX_SPECTER_ABILITIES = 4;
 
-    private static final List<String> descriptions = Collections.unmodifiableList(Arrays.asList(new String[] {
+    private static final List<String> descriptions = List.of(
             "The scariest specter in the world.",
             "One of the oldest specters in the world.",
             "The most unholy creature that has ever existed.",
             "The most dangerous specter of them all.",
             "Looks cute. Will bite your face off.",
             "Hates mondays. Loves casual killing fridays.",
-            "Likes brunches, walks on the beach and spontaneous sacrificial rituals."}));
+            "Likes brunches, walks on the beach and spontaneous sacrificial rituals.");
 
     private AbilityService abilityService;
     private GameInstanceService gameInstanceService;

@@ -144,16 +144,16 @@ public class InitialDataFacadeImpl implements InitialDataFacade {
         Ability ability6 = new Ability();
         ability6.setName("Time travel");
         ability6.setDescription("The specter can travel through time but only into the future at a rate of one second per second");
+        abilityService.createAbility(ability6);
 
         Ability ability7 = new Ability();
         ability7.setName("Insect transformation");
         ability7.setDescription("The specter can transform into any insect... Irreversibly.");
+        abilityService.createAbility(ability7);
 
         Ability ability8 = new Ability();
         ability8.setName("Poisonous clouds");
         ability8.setDescription("The specter can create highly poisonous clouds around it. The specter is not immune to the poison.");
-
-
-
+        abilityService.createAbility(ability8);
     }
 }
