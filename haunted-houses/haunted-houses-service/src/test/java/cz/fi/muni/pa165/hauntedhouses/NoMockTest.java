@@ -5,34 +5,34 @@ import cz.muni.fi.pa165.hauntedhouses.facade.GameInstanceFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.HouseFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.PlayerFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.SpecterFacade;
-import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import javax.transaction.Transactional;
 import java.time.LocalTime;
 import java.util.Collection;
-import java.util.List;
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class NoMockTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
     private GameInstanceFacade gameInstanceFacade;
-
-    @Autowired
     private PlayerFacade playerFacade;
-
-    @Autowired
     private HouseFacade houseFacade;
+    private SpecterFacade specterFacade;
 
     @Autowired
-    private SpecterFacade specterFacade;
+    public NoMockTest(GameInstanceFacade gameInstanceFacade,
+                      PlayerFacade playerFacade,
+                      HouseFacade houseFacade,
+                      SpecterFacade specterFacade) {
+        this.gameInstanceFacade = gameInstanceFacade;
+        this.playerFacade = playerFacade;
+        this.houseFacade = houseFacade;
+        this. specterFacade = specterFacade;
+    }
 
     @Test
     public void deleteGameInstanceTest() {

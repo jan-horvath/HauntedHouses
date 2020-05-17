@@ -30,14 +30,18 @@ public class SpecterServiceImpl implements SpecterService {
             "Hates mondays. Loves casual killing fridays.",
             "Likes brunches, walks on the beach and spontaneous sacrificial rituals."}));
 
-    @Autowired
     private AbilityService abilityService;
-
-    @Autowired
     private GameInstanceService gameInstanceService;
+    private SpecterDao specterDao;
 
     @Autowired
-    private SpecterDao specterDao;
+    public SpecterServiceImpl(AbilityService abilityService,
+                              GameInstanceService gameInstanceService,
+                              SpecterDao specterDao) {
+        this.abilityService = abilityService;
+        this.gameInstanceService = gameInstanceService;
+        this.specterDao = specterDao;
+    }
 
     @Override
     public Specter generateRandomSpecter() {

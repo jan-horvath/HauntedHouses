@@ -19,11 +19,15 @@ import java.util.List;
 @Transactional
 public class GameInstanceFacadeImpl implements GameInstanceFacade {
 
-    @Autowired
     private GameInstanceService gameInstanceService;
+    private MappingService mappingService;
 
     @Autowired
-    private MappingService mappingService;
+    public GameInstanceFacadeImpl(GameInstanceService gameInstanceService,
+                                  MappingService mappingService) {
+        this.gameInstanceService = gameInstanceService;
+        this. mappingService = mappingService;
+    }
 
     @Override
     public GameInstanceDTO findGameInstanceByPlayerId(Long playerId) {

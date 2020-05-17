@@ -20,11 +20,15 @@ import java.util.List;
 @Service
 public class AbilityFacadeImpl implements AbilityFacade {
 
-    @Autowired
     private MappingService mappingService;
+    private AbilityService abilityService;
 
     @Autowired
-    private AbilityService abilityService;
+    public AbilityFacadeImpl(MappingService mappingService,
+                             AbilityService abilityService) {
+        this.mappingService = mappingService;
+        this.abilityService = abilityService;
+    }
 
     @Override
     public AbilityDTO findAbilityById(Long id) {

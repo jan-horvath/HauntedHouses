@@ -13,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.ValidationException;
 import java.util.List;
 
 /**
@@ -25,8 +24,12 @@ public class HouseController {
 
     final static Logger logger = LoggerFactory.getLogger(HouseController.class);
 
-    @Autowired
     private HouseFacade houseFacade;
+
+    @Autowired
+    public HouseController(HouseFacade houseFacade) {
+        this.houseFacade = houseFacade;
+    }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<HouseDTO> getHouses() {

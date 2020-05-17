@@ -10,7 +10,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 
@@ -21,8 +20,12 @@ import java.util.Calendar;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class MappingServiceTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
     private MappingService mappingService;
+
+    @Autowired
+    public MappingServiceTest(MappingService mappingService) {
+        this.mappingService = mappingService;
+    }
 
     @Test
     public void abilityCreateDTO_conversionTest() {

@@ -30,7 +30,6 @@ public class HouseServiceTest extends AbstractTestNGSpringContextTests  {
     @Mock
     private HouseDao houseDao;
 
-    @Autowired
     @InjectMocks
     private HouseService houseService;
 
@@ -42,6 +41,11 @@ public class HouseServiceTest extends AbstractTestNGSpringContextTests  {
     private House house1;
     private House house2;
     List<House> allHouses;
+
+    @Autowired
+    public HouseServiceTest(HouseService houseService) {
+        this.houseService = houseService;
+    }
 
     @BeforeMethod
     public void prepareHouses() {

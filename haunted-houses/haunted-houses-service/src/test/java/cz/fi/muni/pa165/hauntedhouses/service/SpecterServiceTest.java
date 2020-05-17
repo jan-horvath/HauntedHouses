@@ -7,12 +7,11 @@ import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import cz.muni.fi.pa165.hauntedhouses.service.AbilityService;
 import cz.muni.fi.pa165.hauntedhouses.service.GameInstanceService;
 import cz.muni.fi.pa165.hauntedhouses.service.SpecterService;
-import cz.muni.fi.pa165.hauntedhouses.service.SpecterServiceImpl;
 
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
@@ -29,9 +28,6 @@ import static org.testng.Assert.*;
 
 public class SpecterServiceTest extends AbstractTestNGSpringContextTests {
 
-    @InjectMocks
-    private SpecterService specterService = new SpecterServiceImpl();
-
     @Mock
     private AbilityService abilityService;
 
@@ -41,9 +37,16 @@ public class SpecterServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private SpecterDao specterDao;
 
+    private SpecterService specterService;
+
     private List<Ability> abilities;
     private Specter specter;
     private GameInstance gameInstance;
+
+    @Autowired
+    public SpecterServiceTest(SpecterService specterService) {
+        this.specterService = specterService;
+    }
 
     @BeforeClass
     public void setup() throws ServiceException {

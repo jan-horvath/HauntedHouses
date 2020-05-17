@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import cz.muni.fi.pa165.hauntedhouses.service.AbilityService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,6 @@ public class AbilityServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private AbilityDao abilityDao;
 
-    @Autowired
-    @InjectMocks
     private AbilityService abilityService;
 
     @BeforeClass
@@ -42,6 +39,11 @@ public class AbilityServiceTest extends AbstractTestNGSpringContextTests {
     private Ability ability1;
     private Ability ability2;
     List<Ability> allAbilities;
+
+    @Autowired
+    public AbilityServiceTest(AbilityService abilityService) {
+        this.abilityService = abilityService;
+    }
 
     @BeforeMethod
     public void prepareAbilities() {

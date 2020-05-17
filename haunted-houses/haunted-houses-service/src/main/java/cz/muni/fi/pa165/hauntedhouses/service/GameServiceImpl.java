@@ -2,12 +2,8 @@ package cz.muni.fi.pa165.hauntedhouses.service;
 
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
-import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Random;
 
 /**
  * @author Petr Vitovsky
@@ -15,8 +11,12 @@ import java.util.Random;
 @Service
 public class GameServiceImpl implements GameService {
 
-    @Autowired
     private HouseService houseService;
+
+    @Autowired
+    public GameServiceImpl(HouseService houseService) {
+        this.houseService = houseService;
+    }
 
     @Override
     public boolean checkAnswer(House house, GameInstance instance) {

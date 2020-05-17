@@ -37,8 +37,7 @@ public class AbilityControllerTest {
     @BeforeClass
     public void init() {
         MockitoAnnotations.initMocks(this);
-        abilityController = new AbilityController();
-        abilityController.setAbilityFacade(abilityFacade);
+        abilityController = new AbilityController(abilityFacade);
         mockMvc = MockMvcBuilders.standaloneSetup(abilityController).build();
     }
 

@@ -9,11 +9,10 @@ import cz.muni.fi.pa165.hauntedhouses.service.GameInstanceService;
 import cz.muni.fi.pa165.hauntedhouses.service.GameService;
 import cz.muni.fi.pa165.hauntedhouses.service.HouseService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
-import cz.muni.fi.pa165.hauntedhouses.service.facade.GameFacadeImpl;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -31,16 +30,15 @@ import static org.mockito.Mockito.*;
 public class GameFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
-    HouseService houseService;
+    private HouseService houseService;
 
     @Mock
-    GameInstanceService gameInstanceService;
+    private GameInstanceService gameInstanceService;
 
     @Mock
-    GameService gameService;
+    private GameService gameService;
 
-    @InjectMocks
-    GameFacade gameFacade = new GameFacadeImpl();
+    private GameFacade gameFacade;
 
     BanishSpecterDTO correctBanish;
     BanishSpecterDTO incorrectBanish;
@@ -52,6 +50,11 @@ public class GameFacadeTest extends AbstractTestNGSpringContextTests {
     long correctHouseId = 10;
     long incorrectHouseId = 9;
     long gameInstanceId = 5;
+
+    @Autowired
+    public GameFacadeTest(GameFacade gameFacade) {
+        this.gameFacade = gameFacade;
+    }
 
     @BeforeClass
     public void mockitoInit() throws ServiceException {

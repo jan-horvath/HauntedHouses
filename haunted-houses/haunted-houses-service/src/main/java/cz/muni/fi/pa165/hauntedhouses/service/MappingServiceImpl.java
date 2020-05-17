@@ -15,8 +15,12 @@ import java.util.List;
 @Service
 public class MappingServiceImpl implements MappingService {
 
-    @Autowired
     private Mapper dozer;
+
+    @Autowired
+    public MappingServiceImpl(Mapper dozer) {
+        this.dozer = dozer;
+    }
 
     public  <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
         List<T> mappedCollection = new ArrayList<>();

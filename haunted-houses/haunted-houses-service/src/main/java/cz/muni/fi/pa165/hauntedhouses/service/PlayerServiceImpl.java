@@ -20,8 +20,12 @@ import java.util.List;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
-    @Autowired
     private PlayerDao playerDao;
+
+    @Autowired
+    public PlayerServiceImpl(PlayerDao playerDao) {
+        this.playerDao = playerDao;
+    }
 
     @Override
     public Player getPlayerById(Long playerId) {

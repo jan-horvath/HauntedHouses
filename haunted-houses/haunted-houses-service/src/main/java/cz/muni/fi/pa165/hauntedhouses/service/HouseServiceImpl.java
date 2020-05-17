@@ -14,8 +14,12 @@ import java.util.Random;
 @Service
 public class HouseServiceImpl implements HouseService {
 
-    @Autowired
     private HouseDao houseDao;
+
+    @Autowired
+    public HouseServiceImpl(HouseDao houseDao) {
+        this.houseDao = houseDao;
+    }
 
     @Override
     public House getHouseById(Long id) {

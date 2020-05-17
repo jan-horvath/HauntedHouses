@@ -38,8 +38,7 @@ public class HouseControllerTest {
     @BeforeClass
     public void init() {
         MockitoAnnotations.initMocks(this);
-        houseController = new HouseController();
-        houseController.setHouseFacade(houseFacade);
+        houseController = new HouseController(houseFacade);
         mockMvc = MockMvcBuilders.standaloneSetup(houseController).build();
     }
 

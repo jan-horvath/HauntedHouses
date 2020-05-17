@@ -28,8 +28,12 @@ public class HouseController {
 
     private final static Logger log = LoggerFactory.getLogger(HouseController.class);
 
-    @Autowired
     private HouseFacade houseFacade;
+
+    @Autowired
+    public HouseController(HouseFacade houseFacade) {
+        this.houseFacade = houseFacade;
+    }
 
     public void setHouseFacade(HouseFacade houseFacade) {
         this.houseFacade = houseFacade;

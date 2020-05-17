@@ -12,7 +12,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.persistence.PersistenceException;
-import javax.transaction.Transactional;
 
 /**
  * @author Petr Vitovsky
@@ -21,12 +20,16 @@ import javax.transaction.Transactional;
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class PlayerDaoTest extends AbstractTransactionalTestNGSpringContextTests {
 
-    @Autowired
     private PlayerDao playerDao;
 
     private Player p1;
     private Player p2;
     private Player p3;
+
+    @Autowired
+    public PlayerDaoTest(PlayerDao playerDao) {
+        this.playerDao = playerDao;
+    }
 
     @BeforeMethod
     public void setup() {

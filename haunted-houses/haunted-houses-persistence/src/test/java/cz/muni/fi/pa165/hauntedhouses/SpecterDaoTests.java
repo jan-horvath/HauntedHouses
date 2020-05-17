@@ -21,23 +21,31 @@ import java.util.*;
 @ContextConfiguration(classes = PersistenceApplicationContext.class)
 public class SpecterDaoTests extends AbstractTransactionalTestNGSpringContextTests {
 
-    @Autowired
     private SpecterDao specterDao;
 
-    @Autowired
     private AbilityDao abilityDao;
 
-    @Autowired
     private HouseDao houseDao;
 
-    @Autowired
     private GameInstanceDao gameInstanceDao;
 
-    @Autowired
     private PlayerDao playerDao;
 
     private Specter s1;
     private Specter s2;
+
+    @Autowired
+    public SpecterDaoTests(SpecterDao specterDao,
+                           AbilityDao abilityDao,
+                           HouseDao houseDao,
+                           GameInstanceDao gameInstanceDao,
+                           PlayerDao playerDao) {
+        this.specterDao = specterDao;
+        this. abilityDao = abilityDao;
+        this.houseDao = houseDao;
+        this. gameInstanceDao = gameInstanceDao;
+        this.playerDao = playerDao;
+    }
 
     private void createSpecterUpdateGameInstance(Specter specter) {
         specterDao.createSpecter(specter);

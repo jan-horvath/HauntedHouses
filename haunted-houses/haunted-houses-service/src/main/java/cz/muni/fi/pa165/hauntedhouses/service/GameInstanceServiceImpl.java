@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.hauntedhouses.dao.PlayerDao;
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,17 +17,21 @@ import java.util.List;
 @Service
 public class GameInstanceServiceImpl implements GameInstanceService {
 
-    @Autowired
     private GameInstanceDao gameInstanceDao;
-
-    @Autowired
     private PlayerDao playerDao;
-
-    @Autowired
     private SpecterService specterService;
+    private HouseService houseService;
 
     @Autowired
-    private HouseService houseService;
+    public GameInstanceServiceImpl(GameInstanceDao gameInstanceDao,
+                                   PlayerDao playerDao,
+                                   @Lazy SpecterService specterService,
+                                   HouseService houseService) {
+        this.gameInstanceDao = gameInstanceDao;
+        this.playerDao = playerDao;
+        this.specterService = specterService;
+        this.houseService = houseService;
+    }
 
     @Override
     public GameInstance getGameInstanceById(Long id) {

@@ -20,11 +20,15 @@ import java.util.List;
 @Transactional
 public class HouseFacadeImpl implements HouseFacade {
 
-    @Autowired
     private MappingService mappingService;
+    private HouseService houseService;
 
     @Autowired
-    private HouseService houseService;
+    public HouseFacadeImpl(MappingService mappingService,
+                           HouseService houseService) {
+        this.mappingService = mappingService;
+        this. houseService = houseService;
+    }
 
     @Override
     public HouseDTO findHouseById(Long id) {

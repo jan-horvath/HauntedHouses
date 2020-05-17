@@ -22,8 +22,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final static Logger log = LoggerFactory.getLogger(CustomAuthenticationProvider.class);
 
-    @Autowired
     private PlayerFacade playerFacade;
+
+    @Autowired
+    public CustomAuthenticationProvider(PlayerFacade playerFacade) {
+        this.playerFacade = playerFacade;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication)

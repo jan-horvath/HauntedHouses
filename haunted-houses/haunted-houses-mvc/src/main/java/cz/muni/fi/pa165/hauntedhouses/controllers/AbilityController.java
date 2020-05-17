@@ -30,8 +30,12 @@ public class AbilityController {
 
     private final static Logger log = LoggerFactory.getLogger(AbilityController.class);
 
-    @Autowired
     private AbilityFacade abilityFacade;
+
+    @Autowired
+    public AbilityController(AbilityFacade abilityFacade) {
+        this.abilityFacade = abilityFacade;
+    }
 
     public void setAbilityFacade(AbilityFacade abilityFacade) {
         this.abilityFacade = abilityFacade;

@@ -9,14 +9,10 @@ import cz.muni.fi.pa165.hauntedhouses.model.Player;
 import cz.muni.fi.pa165.hauntedhouses.service.GameInstanceService;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
-import cz.muni.fi.pa165.hauntedhouses.service.facade.GameInstanceFacadeImpl;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -35,13 +31,12 @@ import static org.mockito.Mockito.*;
 public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
-    GameInstanceService gameInstanceService;
+    private GameInstanceService gameInstanceService;
 
     @Mock
     private MappingService mappingService;
 
-    @InjectMocks
-    private GameInstanceFacade gameInstanceFacade = new GameInstanceFacadeImpl();
+    private GameInstanceFacade gameInstanceFacade;
 
     private long playerId = 7;
     private long gameInstanceId = 15;
@@ -60,6 +55,11 @@ public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
     private long newGameInstanceId = 22;
     private GameInstanceCreateDTO gameInstanceCreateDTO;
     private GameInstance mappedGameInstanceCreateDTO;
+
+    @Autowired
+    public GameInstanceFacadeTest(GameInstanceFacade gameInstanceFacade) {
+        this.gameInstanceFacade = gameInstanceFacade;
+    }
 
     @BeforeClass
     public void mockitoInit() throws ServiceException {

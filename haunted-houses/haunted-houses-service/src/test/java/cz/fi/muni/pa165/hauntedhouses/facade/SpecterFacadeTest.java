@@ -9,11 +9,10 @@ import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import cz.muni.fi.pa165.hauntedhouses.service.SpecterService;
 import cz.muni.fi.pa165.hauntedhouses.service.config.ServiceConfiguration;
-import cz.muni.fi.pa165.hauntedhouses.service.facade.SpecterFacadeImpl;
 import org.hibernate.service.spi.ServiceException;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -36,8 +35,12 @@ public class SpecterFacadeTest extends AbstractTestNGSpringContextTests {
     @Mock
     private MappingService mappingService;
 
-    @InjectMocks
-    private SpecterFacade specterFacade = new SpecterFacadeImpl();
+    private SpecterFacade specterFacade;
+
+    @Autowired
+    public SpecterFacadeTest(SpecterFacade specterFacade) {
+        this.specterFacade = specterFacade;
+    }
 
     @BeforeClass
     public void setup() throws ServiceException {
