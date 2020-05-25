@@ -28,15 +28,9 @@ public class SpecterFacadeImpl implements SpecterFacade {
     }
 
     @Override
-    public SpecterDTO findSpecterByGameInstanceId(Long gameInstanceId) {
+    public SpecterDTO getSpecterByGameInstanceId(Long gameInstanceId) {
         Specter specter = specterService.getByGameInstanceId(gameInstanceId);
         return (specter == null) ? null : mappingService.mapTo(specter, SpecterDTO.class);
-    }
-
-    @Override
-    public SpecterDTO findSpecterById(Long specterId) {
-        Specter specter = specterService.getBySpecterId(specterId);
-        return mappingService.mapTo(specter, SpecterDTO.class);
     }
 
     @Override

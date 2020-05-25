@@ -14,13 +14,7 @@ public interface GameInstanceFacade {
      * @param playerId ID of the Player
      * @return GameInstanceDTO of given Player if he exists and has a GameInstance, null otherwise
      */
-    GameInstanceDTO findGameInstanceByPlayerId(Long playerId);
-
-    /**
-     *
-     * @return all game instances from the database
-     */
-    List<GameInstanceDTO> findAllGameInstances();
+    GameInstanceDTO getGameInstanceByPlayerId(Long playerId);
 
     /**
      * Creates new GameInstance

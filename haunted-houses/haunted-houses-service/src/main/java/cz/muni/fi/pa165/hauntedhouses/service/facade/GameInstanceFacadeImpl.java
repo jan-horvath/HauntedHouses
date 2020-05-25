@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * @author Petr Vitovsky
  */
@@ -30,14 +28,9 @@ public class GameInstanceFacadeImpl implements GameInstanceFacade {
     }
 
     @Override
-    public GameInstanceDTO findGameInstanceByPlayerId(Long playerId) {
+    public GameInstanceDTO getGameInstanceByPlayerId(Long playerId) {
         GameInstance gameInstance = gameInstanceService.getGameInstanceByPlayerId(playerId);
         return (gameInstance == null) ? null : mappingService.mapTo(gameInstance, GameInstanceDTO.class);
-    }
-
-    @Override
-    public List<GameInstanceDTO> findAllGameInstances() {
-        return mappingService.mapTo(gameInstanceService.getAllGameInstances(), GameInstanceDTO.class);
     }
 
     @Override

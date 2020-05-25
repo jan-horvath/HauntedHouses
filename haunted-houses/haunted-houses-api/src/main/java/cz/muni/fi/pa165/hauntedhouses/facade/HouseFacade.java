@@ -16,12 +16,12 @@ public interface HouseFacade {
      * @param id
      * @return found house if such exists, null otherwise
      */
-    HouseDTO findHouseById(Long id);
+    HouseDTO getHouseById(Long id);
 
     /**
      * @return All houses in the database
      */
-    List<HouseDTO> findAllHouses();
+    List<HouseDTO> getAllHouses();
 
     /**
      * Creates new house in database

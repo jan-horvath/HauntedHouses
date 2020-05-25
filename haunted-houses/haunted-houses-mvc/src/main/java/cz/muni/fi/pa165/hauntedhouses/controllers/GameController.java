@@ -39,9 +39,9 @@ public class GameController {
     @RequestMapping(value = "/check_game", method = RequestMethod.GET)
     public String toGame(UriComponentsBuilder uriBuilder,
                          Principal principal) {
-        PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
+        PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
         log.debug("\"/check_game\" called for user email {} (player found: {})", principal.getName(), foundPlayer != null);
-        GameInstanceDTO gameInstance = gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId());
+        GameInstanceDTO gameInstance = gameInstanceFacade.getGameInstanceByPlayerId(foundPlayer.getId());
 
         if (gameInstance == null) {
             return "redirect:" + uriBuilder.path("/game/new").toUriString();
@@ -51,7 +51,7 @@ public class GameController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newGame(Model model, Principal principal) {
-        PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
+        PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
         log.debug("\"/new\" called for user email {} (player found: {})", principal.getName(), foundPlayer != null);
         model.addAttribute("createDTO", new GameInstanceCreateDTO());
         model.addAttribute("playerId", foundPlayer.getId());
@@ -61,7 +61,7 @@ public class GameController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@ModelAttribute("createDTO") GameInstanceCreateDTO createDTO,
                          RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Principal principal) {
-        PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
+        PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
         log.debug("\"/create\" called for user email {} (player found: {}, banishments: {})",
                 principal.getName(), foundPlayer != null, createDTO.getBanishesRequired());
         if (createDTO.getBanishesRequired() <= 0) {
@@ -72,17 +72,17 @@ public class GameController {
         createDTO.setPlayer(foundPlayer);
         gameInstanceFacade.createGameInstance(createDTO);
         redirectAttributes.addFlashAttribute("alert_success",
-                gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId()));
+                gameInstanceFacade.getGameInstanceByPlayerId(foundPlayer.getId()));
         return "redirect:" + uriBuilder.path("/game/check_game").toUriString();
     }
 
     @RequestMapping(value = "/play", method = RequestMethod.GET)
     public String play(Model model, Principal principal) {
-        PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
+        PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
         log.debug("\"/play\" called for user email {} (player found: {})", principal.getName(), foundPlayer != null);
-        GameInstanceDTO gameInstance = gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId());
+        GameInstanceDTO gameInstance = gameInstanceFacade.getGameInstanceByPlayerId(foundPlayer.getId());
 
-        List<HouseDTO> allHouses = houseFacade.findAllHouses();
+        List<HouseDTO> allHouses = houseFacade.getAllHouses();
         SpecterDTO specter = gameInstance.getSpecter();
 
         model.addAttribute("allHouses", allHouses);
@@ -97,12 +97,12 @@ public class GameController {
     @RequestMapping(value = "/banish", method = RequestMethod.POST)
     public String banish(@RequestParam Long houseId, UriComponentsBuilder uriBuilder,
                            RedirectAttributes redirectAttributes, Model model, Principal principal) {
-        PlayerDTO foundPlayer = playerFacade.findPlayerByEmail(principal.getName());
+        PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
         log.debug("\"/banish\" called for user email {} (player found: {}, houseId: {})",
                 principal.getName(), foundPlayer != null, houseId);
         BanishSpecterDTO banishSpecterDTO = new BanishSpecterDTO();
         banishSpecterDTO.setHouseId(houseId);
-        GameInstanceDTO game = gameInstanceFacade.findGameInstanceByPlayerId(foundPlayer.getId());
+        GameInstanceDTO game = gameInstanceFacade.getGameInstanceByPlayerId(foundPlayer.getId());
         banishSpecterDTO.setGameInstanceId(game.getId());
         boolean success = gameFacade.banishSpecter(banishSpecterDTO);
 

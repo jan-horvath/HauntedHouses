@@ -120,12 +120,12 @@ public class GameInstanceFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findGameInstanceByPlayerIdTest() {
-        Assert.assertEquals(gameInstanceFacade.findGameInstanceByPlayerId(playerId), gameInstanceDTO);
+        Assert.assertEquals(gameInstanceFacade.getGameInstanceByPlayerId(playerId), gameInstanceDTO);
     }
 
     @Test
     public void findGameInstanceByPlayerIdFailTest() {
-        Assert.assertNull(gameInstanceFacade.findGameInstanceByPlayerId(123L));
+        Assert.assertNull(gameInstanceFacade.getGameInstanceByPlayerId(123L));
     }
 
     @Test

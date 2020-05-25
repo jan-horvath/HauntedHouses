@@ -17,7 +17,7 @@ public interface PlayerFacade {
      * @param id Players id
      * @return Player with given id
      */
-    PlayerDTO findPlayerById(Long id);
+    PlayerDTO getPlayerById(Long id);
 
     /**
      * Search for player with given email
@@ -25,7 +25,7 @@ public interface PlayerFacade {
      * @param email Players email
      * @return Player with given email
      */
-    PlayerDTO findPlayerByEmail(String email);
+    PlayerDTO getPlayerByEmail(String email);
 
     /**
      * Get all registered players
@@ -58,9 +58,4 @@ public interface PlayerFacade {
      */
     boolean isAdmin(PlayerDTO player);
 
-    /**
-     * Deletes a player specified by ID
-     * @param id
-     */
-    void deletePlayer(Long id);
 }

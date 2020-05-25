@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.hauntedhouses.facade;
 
-import cz.muni.fi.pa165.hauntedhouses.dto.SpecterCreateDTO;
 import cz.muni.fi.pa165.hauntedhouses.dto.SpecterDTO;
 
 /**
@@ -13,9 +12,11 @@ public interface SpecterFacade {
      * @param gameInstanceId Id of GameInstance
      * @return Found Specter, null if it doesn't exist
      */
-    SpecterDTO findSpecterByGameInstanceId(Long gameInstanceId);
+    SpecterDTO getSpecterByGameInstanceId(Long gameInstanceId);
 
-    SpecterDTO findSpecterById(Long specterId);
-
+    /**
+     * Deletes Specter with the given ID from the database
+     * @param id
+     */
     void deleteSpecter(Long id);
 }

@@ -90,9 +90,9 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findPlayerByIdTest() {
-        Assert.assertEquals(playerFacade.findPlayerById(player1.getId()),playerDTO1);
-        Assert.assertEquals(playerFacade.findPlayerById(player2.getId()),playerDTO2);
-        Assert.assertNull(playerFacade.findPlayerById(3L));
+        Assert.assertEquals(playerFacade.getPlayerById(player1.getId()),playerDTO1);
+        Assert.assertEquals(playerFacade.getPlayerById(player2.getId()),playerDTO2);
+        Assert.assertNull(playerFacade.getPlayerById(3L));
 
         verify(playerService).getPlayerById(player1.getId());
         verify(playerService).getPlayerById(player2.getId());
@@ -101,9 +101,9 @@ public class PlayerFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findPlayerByEmailTest() {
-        Assert.assertEquals(playerFacade.findPlayerByEmail("email1"),playerDTO1);
-        Assert.assertEquals(playerFacade.findPlayerByEmail("email2"),playerDTO2);
-        Assert.assertNull(playerFacade.findPlayerByEmail("nonexistent"));
+        Assert.assertEquals(playerFacade.getPlayerByEmail("email1"),playerDTO1);
+        Assert.assertEquals(playerFacade.getPlayerByEmail("email2"),playerDTO2);
+        Assert.assertNull(playerFacade.getPlayerByEmail("nonexistent"));
 
         verify(playerService).getPlayerByEmail("email1");
         verify(playerService).getPlayerByEmail("email2");
