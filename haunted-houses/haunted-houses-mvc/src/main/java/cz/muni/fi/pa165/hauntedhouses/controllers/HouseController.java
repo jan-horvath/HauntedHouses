@@ -41,14 +41,14 @@ public class HouseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
-        model.addAttribute("houses", houseFacade.findAllHouses());
+        model.addAttribute("houses", houseFacade.getAllHouses());
         return "house/list";
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String view(@PathVariable long id, Model model) {
         log.debug("view({})", id);
-        model.addAttribute("house", houseFacade.findHouseById(id));
+        model.addAttribute("house", houseFacade.getHouseById(id));
         return "house/view";
     }
 
@@ -124,13 +124,13 @@ public class HouseController {
     public String update(@PathVariable long id, Model model) {
         log.debug("update({})", id);
 
-        model.addAttribute("houseUpdate", houseFacade.findHouseById(id));
+        model.addAttribute("houseUpdate", houseFacade.getHouseById(id));
         return "house/update";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-        HouseDTO house = houseFacade.findHouseById(id);
+        HouseDTO house = houseFacade.getHouseById(id);
         log.debug("delete({})", id);
         try {
             houseFacade.deleteHouse(id);

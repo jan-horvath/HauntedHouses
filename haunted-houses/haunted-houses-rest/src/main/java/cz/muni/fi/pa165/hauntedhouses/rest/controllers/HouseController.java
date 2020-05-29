@@ -34,14 +34,14 @@ public class HouseController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<HouseDTO> getHouses() {
         logger.debug("rest getHouses()");
-        return houseFacade.findAllHouses();
+        return houseFacade.getAllHouses();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final HouseDTO getHouse(@PathVariable("id") long id) throws Exception {
         logger.debug("rest getHouse({})", id);
 
-        HouseDTO houseDTO = houseFacade.findHouseById(id);
+        HouseDTO houseDTO = houseFacade.getHouseById(id);
         if (houseDTO == null) throw new ResourceNotFoundException();
 
         return houseDTO;
@@ -54,7 +54,7 @@ public class HouseController {
 
         try {
             Long id = houseFacade.createHouse(house);
-            return houseFacade.findHouseById(id);
+            return houseFacade.getHouseById(id);
         } catch (Exception ex) {
             throw new ResourceAlreadyExistingException();
         }
@@ -78,7 +78,7 @@ public class HouseController {
 
         try {
             houseFacade.updateHouse(house);
-            return houseFacade.findHouseById(house.getId());
+            return houseFacade.getHouseById(house.getId());
         } catch (Exception ex) {
             throw new InvalidParameterException();
         }

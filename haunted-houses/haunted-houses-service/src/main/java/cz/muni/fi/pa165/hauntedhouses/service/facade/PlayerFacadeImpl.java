@@ -30,13 +30,13 @@ public class PlayerFacadeImpl implements PlayerFacade {
     }
 
     @Override
-    public PlayerDTO findPlayerById(Long id) {
+    public PlayerDTO getPlayerById(Long id) {
         Player player = playerService.getPlayerById(id);
         return (player == null) ? null : mappingService.mapTo(player, PlayerDTO.class);
     }
 
     @Override
-    public PlayerDTO findPlayerByEmail(String email) {
+    public PlayerDTO getPlayerByEmail(String email) {
         Player player = playerService.getPlayerByEmail(email);
         return (player == null) ? null : mappingService.mapTo(player, PlayerDTO.class);
     }
@@ -66,9 +66,4 @@ public class PlayerFacadeImpl implements PlayerFacade {
         return playerService.isAdmin(mappingService.mapTo(player, Player.class));
     }
 
-    @Override
-    public void deletePlayer(Long id) {
-        Player player = playerService.getPlayerById(id);
-        playerService.deletePlayer(player);
-    }
 }

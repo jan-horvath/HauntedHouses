@@ -43,14 +43,14 @@ public class AbilityController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
-        model.addAttribute("abilities", abilityFacade.findAllAbilities());
+        model.addAttribute("abilities", abilityFacade.getAllAbilities());
         return "ability/list";
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String view(@PathVariable long id, Model model) {
         log.debug("view({})", id);
-        model.addAttribute("ability", abilityFacade.findAbilityById(id));
+        model.addAttribute("ability", abilityFacade.getAbilityById(id));
         return "ability/view";
     }
 
@@ -121,13 +121,13 @@ public class AbilityController {
     public String update(@PathVariable long id, Model model) {
         log.debug("update({})", id);
 
-        model.addAttribute("abilityUpdate", abilityFacade.findAbilityById(id));
+        model.addAttribute("abilityUpdate", abilityFacade.getAbilityById(id));
         return "ability/update";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-        AbilityDTO ability = abilityFacade.findAbilityById(id);
+        AbilityDTO ability = abilityFacade.getAbilityById(id);
         log.debug("delete({})", id);
         try {
             abilityFacade.deleteAbility(id);

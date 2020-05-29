@@ -112,8 +112,8 @@ public class SpecterFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findSpecterByGameInstanceIdTest() {
-        SpecterDTO testSpecter = specterFacade.findSpecterByGameInstanceId(1L);
-        SpecterDTO testSpecterOther = specterFacade.findSpecterByGameInstanceId(3L);
+        SpecterDTO testSpecter = specterFacade.getSpecterByGameInstanceId(1L);
+        SpecterDTO testSpecterOther = specterFacade.getSpecterByGameInstanceId(3L);
 
         Assert.assertEquals(testSpecter.getName(), specter.getName());
         Assert.assertEquals(testSpecter.getDescription(), specter.getDescription());
@@ -126,13 +126,13 @@ public class SpecterFacadeTest extends AbstractTestNGSpringContextTests {
     public void findSpecterByGameInstanceIdNullTest() {
         when(specterService.getByGameInstanceId(2L)).thenThrow(DataRetrievalFailureException.class);
 
-        specterFacade.findSpecterByGameInstanceId(2L);
+        specterFacade.getSpecterByGameInstanceId(2L);
     }
 
     @Test
     public void findSpecterByGameInstanceIdNoSpecterTest() {
         when(specterService.getByGameInstanceId(3L)).thenReturn(null);
 
-        Assert.assertNull(specterFacade.findSpecterByGameInstanceId(3L));
+        Assert.assertNull(specterFacade.getSpecterByGameInstanceId(3L));
     }
 }

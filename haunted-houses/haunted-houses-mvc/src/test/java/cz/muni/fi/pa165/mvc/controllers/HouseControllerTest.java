@@ -55,7 +55,7 @@ public class HouseControllerTest {
     public void listTest() throws Exception {
         List<HouseDTO> houses = new ArrayList<>();
         houses.add(houseDTO);
-        when(houseFacade.findAllHouses()).thenReturn(houses);
+        when(houseFacade.getAllHouses()).thenReturn(houses);
 
         this.mockMvc.perform(get("/house/list/")
                 .accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
@@ -67,7 +67,7 @@ public class HouseControllerTest {
 
     @Test
     public void viewTest() throws Exception {
-        when(houseFacade.findHouseById(1L)).thenReturn(houseDTO);
+        when(houseFacade.getHouseById(1L)).thenReturn(houseDTO);
 
         this.mockMvc.perform(get("/house/view/1")
                 .accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
@@ -135,7 +135,7 @@ public class HouseControllerTest {
 
     @Test
     public void deleteTest() throws Exception {
-        when(houseFacade.findHouseById(1L)).thenReturn(houseDTO);
+        when(houseFacade.getHouseById(1L)).thenReturn(houseDTO);
 
         this.mockMvc.perform(post("/house/delete/1"))
                 .andExpect(redirectedUrl("http://localhost/house/list"));

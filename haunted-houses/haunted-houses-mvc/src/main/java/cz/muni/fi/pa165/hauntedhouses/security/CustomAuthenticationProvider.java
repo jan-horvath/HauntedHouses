@@ -51,7 +51,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     }
 
     public GrantedAuthority grantAuthority(String email,String password) {
-        PlayerDTO matchingPlayer = playerFacade.findPlayerByEmail(email);
+        PlayerDTO matchingPlayer = playerFacade.getPlayerByEmail(email);
         if (matchingPlayer == null) {
             log.warn("no user with email {}", email);
             return null;

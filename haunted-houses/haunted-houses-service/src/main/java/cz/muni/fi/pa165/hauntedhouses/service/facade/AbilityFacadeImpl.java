@@ -31,19 +31,19 @@ public class AbilityFacadeImpl implements AbilityFacade {
     }
 
     @Override
-    public AbilityDTO findAbilityById(Long id) {
+    public AbilityDTO getAbilityById(Long id) {
         Ability abilityById = abilityService.getAbilityById(id);
         return (abilityById == null) ? null : mappingService.mapTo(abilityById, AbilityDTO.class);
     }
 
     @Override
-    public AbilityDTO findAbilityByName(String name) {
+    public AbilityDTO getAbilityByName(String name) {
         Ability abilityByName = abilityService.getAbilityByName(name);
         return (abilityByName == null) ? null : mappingService.mapTo(abilityByName, AbilityDTO.class);
     }
 
     @Override
-    public List<AbilityDTO> findAllAbilities() {
+    public List<AbilityDTO> getAllAbilities() {
         return mappingService.mapTo(abilityService.getAllAbilities(), AbilityDTO.class);
     }
 

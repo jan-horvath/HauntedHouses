@@ -46,11 +46,11 @@ public class NoMockTest extends AbstractTestNGSpringContextTests {
 
         //This also creates a randomized Specter and assigns it the House above
         gameInstanceFacade.createGameInstance(gameInstanceCreateDTO);
-        GameInstanceDTO game = gameInstanceFacade.findGameInstanceByPlayerId(player.getId());
+        GameInstanceDTO game = gameInstanceFacade.getGameInstanceByPlayerId(player.getId());
         Assert.assertNotNull(game);
 
         gameInstanceFacade.deleteGameInstance(game.getId());
-        game = gameInstanceFacade.findGameInstanceByPlayerId(player.getId());
+        game = gameInstanceFacade.getGameInstanceByPlayerId(player.getId());
         Assert.assertNull(game);
     }
 
@@ -79,7 +79,7 @@ public class NoMockTest extends AbstractTestNGSpringContextTests {
         Collection<PlayerDTO> allPlayers = playerFacade.getAllPlayers();
         Assert.assertTrue(allPlayers.contains(playerDTO));
 
-        PlayerDTO player_found = playerFacade.findPlayerByEmail("player email");
+        PlayerDTO player_found = playerFacade.getPlayerByEmail("player email");
         GameInstanceDTO gameInstance_found = player_found.getGameInstance();
         SpecterDTO specter_found = gameInstance_found.getSpecter();
 
@@ -88,6 +88,6 @@ public class NoMockTest extends AbstractTestNGSpringContextTests {
 
         specterFacade.deleteSpecter(specter_found.getId());
 
-        Assert.assertNull(specterFacade.findSpecterByGameInstanceId(gameInstance_found.getId()));
+        Assert.assertNull(specterFacade.getSpecterByGameInstanceId(gameInstance_found.getId()));
     }
 }

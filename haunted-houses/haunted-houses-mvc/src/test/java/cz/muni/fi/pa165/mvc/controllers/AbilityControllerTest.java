@@ -53,7 +53,7 @@ public class AbilityControllerTest {
     public void listTest() throws Exception {
         List<AbilityDTO> abilities = new ArrayList<>();
         abilities.add(abilityDTO);
-        when(abilityFacade.findAllAbilities()).thenReturn(abilities);
+        when(abilityFacade.getAllAbilities()).thenReturn(abilities);
 
         this.mockMvc.perform(get("/ability/list/")
                 .accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
@@ -65,7 +65,7 @@ public class AbilityControllerTest {
 
     @Test
     public void viewTest() throws Exception {
-        when(abilityFacade.findAbilityById(1L)).thenReturn(abilityDTO);
+        when(abilityFacade.getAbilityById(1L)).thenReturn(abilityDTO);
 
         this.mockMvc.perform(get("/ability/view/1")
                 .accept(MediaType.parseMediaType("text/html;charset=UTF-8")))
@@ -127,7 +127,7 @@ public class AbilityControllerTest {
 
     @Test
     public void deleteTest() throws Exception {
-        when(abilityFacade.findAbilityById(1L)).thenReturn(abilityDTO);
+        when(abilityFacade.getAbilityById(1L)).thenReturn(abilityDTO);
 
         this.mockMvc.perform(post("/ability/delete/1"))
                 .andExpect(redirectedUrl("http://localhost/ability/list"));
