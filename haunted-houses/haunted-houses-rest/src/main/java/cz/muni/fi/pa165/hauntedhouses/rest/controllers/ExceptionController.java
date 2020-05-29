@@ -37,7 +37,7 @@ public class ExceptionController {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     ApiError handleResourceNotFoundException(ResourceNotFoundException ex) {
         ApiError apiError = new ApiError();
@@ -54,6 +54,18 @@ public class ExceptionController {
             String message = error.getDefaultMessage();
             errors.add(message);
         }
+
+        ApiError apiError = new ApiError();
+        apiError.setErrors(errors);
+        return apiError;
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public ApiError handleGeneralException(Exception ex) {
+        List<String> errors = new ArrayList<>();
+        errors.add(ex.getMessage());
 
         ApiError apiError = new ApiError();
         apiError.setErrors(errors);
