@@ -23,7 +23,7 @@ public class GameInstance implements Serializable {
     @JoinColumn(unique = true, nullable = false)
     private Player player;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "gameInstance")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "gameInstance")
     private Specter specter;
 
     public GameInstance() { }

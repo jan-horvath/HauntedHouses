@@ -31,7 +31,7 @@ public class Specter implements Serializable {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "house_id")
+    @JoinColumn(name = "houseId")
     private House house;
 
     @OneToOne
