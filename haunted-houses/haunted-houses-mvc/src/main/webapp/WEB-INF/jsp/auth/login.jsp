@@ -7,7 +7,6 @@
 
 <my:pagetemplate title="Log in">
 <jsp:attribute name="body">
-
            <div class="jumbotron">
                <form name='f' action="perform_login" method='POST'>
                    <table>
@@ -23,6 +22,9 @@
                            <td><button class="btn btn-primary" type="submit">Log in</button></td>
                        </tr>
                    </table>
+                   <c:if test="${ param.error ne null}">
+                       Invalid credentials. Try again.<br />
+                   </c:if>
                </form>
            </div>
 </jsp:attribute>
