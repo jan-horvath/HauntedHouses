@@ -31,12 +31,24 @@ public class HouseController {
         this.houseFacade = houseFacade;
     }
 
+    /**
+     * Get all houses in the database
+     * curl -i -X GET http://localhost:8080/pa165/rest/api/v1/house
+     * @return List of all houses
+     */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<HouseDTO> getHouses() {
         logger.debug("rest getHouses()");
         return houseFacade.findAllHouses();
     }
 
+    /**
+     * Get house with specified ID
+     * curl -i -X GET http://localhost:8080/pa165/rest/api/v1/house/{id}
+     * @param id ID of the house
+     * @return House with specified ID
+     * @throws Exception House with specified ID does not exist
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final HouseDTO getHouse(@PathVariable("id") long id) throws Exception {
         logger.debug("rest getHouse({})", id);
@@ -47,6 +59,15 @@ public class HouseController {
         return houseDTO;
     }
 
+    /**
+     * Creates new house
+     * curl -X POST -i -H "Content-Type: application/json"
+     * --data '{\"name\":\"nameValue\",\"address\":\"addressValue\",\"history\":\"historyValue\",\"hint\":\"hintValue\",\"hauntedSince\":\"yyyy-MM-dd\"}'
+     * http://localhost:8080/pa165/rest/api/v1/house
+     * @param house New house
+     * @return Newly created house
+     * @throws Exception House already exists
+     */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final HouseDTO createHouse(@Valid @RequestBody HouseCreateDTO house) throws Exception {
@@ -60,6 +81,13 @@ public class HouseController {
         }
     }
 
+    /**
+     * Deletes house with specified ID
+     * curl -i -X DELETE http://localhost:8080/pa165/rest/api/v1/house/{id}
+     * @param id ID of the house
+     * @return String containing information about deleted house
+     * @throws Exception House with specified ID does not exist
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final String deleteHouse(@PathVariable("id") long id) throws Exception {
         logger.debug("rest deleteHouse({})", id);
@@ -71,6 +99,15 @@ public class HouseController {
         }
     }
 
+    /**
+     * Updates house in the database
+     * curl -X PUT -i -H "Content-Type: application/json"
+     * --data '{\"id\":"1",\"name\":\"nameValue\",\"address\":\"addressValue\",\"history\":\"historyValue\",\"hint\":\"hintValue\",\"hauntedSince\":\"yyyy-MM-dd\"}'
+     * http://localhost:8080/pa165/rest/api/v1/house
+     * @param house Updated house
+     * @return Newly updated house
+     * @throws Exception Updated parameters are invalid
+     */
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final HouseDTO updateHouse(@RequestBody HouseDTO house) throws Exception {
