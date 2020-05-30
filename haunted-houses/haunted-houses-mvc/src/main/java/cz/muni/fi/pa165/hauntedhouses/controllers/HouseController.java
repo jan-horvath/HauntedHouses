@@ -80,10 +80,14 @@ public class HouseController {
             Long id = houseFacade.createHouse(formBean);
             redirectAttributes.addFlashAttribute("alert_success", "House " + id + " was created");
             return "redirect:" + uriBuilder.path("/house/view/{id}").buildAndExpand(id).encode().toUriString();
+        } catch (DataAccessException ex) {
+            log.error("House " + formBean.getName() + " cannot be updated!");
+            log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
+            model.addAttribute("address_error", true);
+            return "house/new";
         } catch (Exception ex) {
             log.error("House " + formBean.getName() + " cannot be created!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
-            model.addAttribute("address_error", true);
             return "house/new";
         }
     }
@@ -110,6 +114,11 @@ public class HouseController {
             redirectAttributes.addFlashAttribute("alert_success", "House " + formBean.getName() + " was updated");
             Long id = formBean.getId();
             return "redirect:" + uriBuilder.path("/house/view/{id}").buildAndExpand(id).encode().toUriString();
+        } catch (DataAccessException ex) {
+            log.error("House " + formBean.getName() + " cannot be updated!");
+            log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
+            model.addAttribute("address_error", true);
+            return "house/update";
         } catch (Exception ex) {
             log.error("House " + formBean.getName() + " cannot be updated!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
