@@ -6,7 +6,6 @@ import cz.muni.fi.pa165.hauntedhouses.facade.GameFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.GameInstanceFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.HouseFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.PlayerFacade;
-import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
@@ -84,11 +83,11 @@ public class GameControllerTest {
     }
 
     private void setupMocks() {
-        when(playerFacade.findPlayerByEmail(playerWithGameEmail)).thenReturn(playerWithGame);
-        when(playerFacade.findPlayerByEmail(playerWithoutGameEmail)).thenReturn(playerWithoutGame);
-        when(gameInstanceFacade.findGameInstanceByPlayerId(playerWithGameId)).thenReturn(gameInstanceDTO);
-        when(gameInstanceFacade.findGameInstanceByPlayerId(playerWithoutGameId)).thenReturn(null);
-        when(houseFacade.findAllHouses()).thenReturn(houses);
+        when(playerFacade.getPlayerByEmail(playerWithGameEmail)).thenReturn(playerWithGame);
+        when(playerFacade.getPlayerByEmail(playerWithoutGameEmail)).thenReturn(playerWithoutGame);
+        when(gameInstanceFacade.getGameInstanceByPlayerId(playerWithGameId)).thenReturn(gameInstanceDTO);
+        when(gameInstanceFacade.getGameInstanceByPlayerId(playerWithoutGameId)).thenReturn(null);
+        when(houseFacade.getAllHouses()).thenReturn(houses);
         when(gameFacade.banishSpecter(successfulBanish)).thenReturn(true);
         when(gameFacade.banishSpecter(failedBanish)).thenReturn(false);
     }

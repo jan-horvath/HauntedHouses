@@ -40,7 +40,7 @@ public class HouseController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<HouseDTO> getHouses() {
         logger.debug("rest getHouses()");
-        return houseFacade.findAllHouses();
+        return houseFacade.getAllHouses();
     }
 
     /**

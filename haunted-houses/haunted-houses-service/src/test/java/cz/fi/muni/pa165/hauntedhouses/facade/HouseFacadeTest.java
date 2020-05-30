@@ -110,15 +110,15 @@ public class HouseFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findHouseByIdTest() {
-        assertEquals(houseDTO, houseFacade.findHouseById(house.getId()));
+        assertEquals(houseDTO, houseFacade.getHouseById(house.getId()));
         verify(houseService).getHouseById(house.getId());
 
-        assertNull(houseFacade.findHouseById(2L));
+        assertNull(houseFacade.getHouseById(2L));
     }
 
     @Test
     public void findAllHousesTest() {
-        assertEquals(housesDTO, houseFacade.findAllHouses());
+        assertEquals(housesDTO, houseFacade.getAllHouses());
         verify(houseService).getAllHouses();
     }
 
@@ -138,7 +138,7 @@ public class HouseFacadeTest extends AbstractTestNGSpringContextTests {
     public void updateHouseTest() {
         houseDTO.setName("new name");
         houseFacade.updateHouse(houseDTO);
-        assertEquals(houseDTO, houseFacade.findHouseById(house.getId()));
+        assertEquals(houseDTO, houseFacade.getHouseById(house.getId()));
         verify(houseService).updateHouse(house);
     }
 }

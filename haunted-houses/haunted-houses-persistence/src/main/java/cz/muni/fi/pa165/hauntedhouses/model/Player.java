@@ -27,7 +27,7 @@ public class Player implements Serializable {
     @Column
     private boolean admin;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "player")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "player")
     private GameInstance gameInstance;
 
     public Player() {

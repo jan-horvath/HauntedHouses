@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.dozer.Mapper;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Jan Horvath
  */
 
-@ComponentScan(basePackageClasses = {MappingServiceImpl.class})
+@Service
 public interface MappingService {
 
     public  <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass);

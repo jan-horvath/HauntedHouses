@@ -31,13 +31,13 @@ public class HouseFacadeImpl implements HouseFacade {
     }
 
     @Override
-    public HouseDTO findHouseById(Long id) {
+    public HouseDTO getHouseById(Long id) {
         House houseById = houseService.getHouseById(id);
         return (houseById == null) ? null : mappingService.mapTo(houseById, HouseDTO.class);
     }
 
     @Override
-    public List<HouseDTO> findAllHouses() {
+    public List<HouseDTO> getAllHouses() {
         return mappingService.mapTo(houseService.getAllHouses(), HouseDTO.class);
     }
 

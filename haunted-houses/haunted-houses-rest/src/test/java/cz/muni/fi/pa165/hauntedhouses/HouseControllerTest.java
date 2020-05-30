@@ -87,7 +87,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
     public void getAllHouses() throws Exception {
 
         doReturn(Collections.unmodifiableList(houses)).when(
-                houseFacade).findAllHouses();
+                houseFacade).getAllHouses();
 
         mockMvc.perform(get("/api/v1/house"))
                 .andExpect(status().isOk())
@@ -102,8 +102,8 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getHouse() throws Exception {
-        doReturn(houseOne).when(houseFacade).findHouseById(1L);
-        doReturn(houseTwo).when(houseFacade).findHouseById(2L);
+        doReturn(houseOne).when(houseFacade).getHouseById(1L);
+        doReturn(houseTwo).when(houseFacade).getHouseById(2L);
 
         mockMvc.perform(get("/api/v1/house/1"))
                 .andExpect(status().isOk())
@@ -124,7 +124,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getNonexistingHouse() throws Exception {
-        doReturn(null).when(houseFacade).findHouseById(1L);
+        doReturn(null).when(houseFacade).getHouseById(1L);
 
         mockMvc.perform(get("/api/v1/house/1")).andExpect(
                 status().is4xxClientError());

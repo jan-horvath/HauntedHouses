@@ -95,23 +95,23 @@ public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findAbilityByIdTest() {
-        assertEquals(abilityDTO, abilityFacade.findAbilityById(ability.getId()));
+        assertEquals(abilityDTO, abilityFacade.getAbilityById(ability.getId()));
         verify(abilityService).getAbilityById(ability.getId());
 
-        assertNull(abilityFacade.findAbilityById(2L));
+        assertNull(abilityFacade.getAbilityById(2L));
     }
 
     @Test
     public void findAbilityByNameTest() {
-        assertEquals(abilityDTO, abilityFacade.findAbilityByName(ability.getName()));
+        assertEquals(abilityDTO, abilityFacade.getAbilityByName(ability.getName()));
         verify(abilityService).getAbilityByName(ability.getName());
 
-        assertNull(abilityFacade.findAbilityByName("non-existent"));
+        assertNull(abilityFacade.getAbilityByName("non-existent"));
     }
 
     @Test
     public void findAllAbilitiesTest() {
-        assertEquals(abilitiesDTO, abilityFacade.findAllAbilities());
+        assertEquals(abilitiesDTO, abilityFacade.getAllAbilities());
         verify(abilityService).getAllAbilities();
     }
 
@@ -131,7 +131,7 @@ public class AbilityFacadeTest extends AbstractTestNGSpringContextTests {
     public void updateAbilityTest() {
         abilityDTO.setName("new name");
         abilityFacade.updateAbility(abilityDTO);
-        assertEquals(abilityDTO, abilityFacade.findAbilityById(ability.getId()));
+        assertEquals(abilityDTO, abilityFacade.getAbilityById(ability.getId()));
         verify(abilityService).updateAbility(ability);
     }
 }

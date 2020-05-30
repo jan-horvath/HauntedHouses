@@ -15,21 +15,21 @@ public interface AbilityFacade {
      * @param id Ability ID
      * @return found ability if such exists, null otherwise
      */
-    AbilityDTO findAbilityById(Long id);
+    AbilityDTO getAbilityById(Long id);
 
     /**
      * Finds ability based on its name
      * @param name Ability name
      * @return found ability if such exists, null otherwise
      */
-    AbilityDTO findAbilityByName(String name);
+    AbilityDTO getAbilityByName(String name);
 
     /**
      * Returns all abilities in the database
      *
      * @return All abilities in the database
      */
-    List<AbilityDTO> findAllAbilities();
+    List<AbilityDTO> getAllAbilities();
 
     /**
      * Creates new ability in database
