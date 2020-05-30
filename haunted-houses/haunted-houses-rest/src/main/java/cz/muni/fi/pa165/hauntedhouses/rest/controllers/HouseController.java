@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.hauntedhouses.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,7 +55,7 @@ public class HouseController {
         logger.debug("rest getHouse({})", id);
 
         HouseDTO houseDTO = houseFacade.findHouseById(id);
-        if (houseDTO == null) throw new ResourceNotFoundException();
+        if (houseDTO == null) throw new ResourceNotFoundException("House with ID " + id + " does not exist!");
 
         return houseDTO;
     }
@@ -76,8 +77,8 @@ public class HouseController {
         try {
             Long id = houseFacade.createHouse(house);
             return houseFacade.findHouseById(id);
-        } catch (Exception ex) {
-            throw new ResourceAlreadyExistingException();
+        } catch (DataAccessException ex) {
+            throw new ResourceAlreadyExistingException("House with address " + house.getAddress() + " already exists!");
         }
     }
 
@@ -94,8 +95,8 @@ public class HouseController {
         try {
             houseFacade.deleteHouse(id);
             return "House " + id + " was successfully deleted.";
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException();
+        } catch (IllegalArgumentException ex) {
+            throw new ResourceNotFoundException("House with ID " + id + " does not exist!");
         }
     }
 
@@ -110,14 +111,14 @@ public class HouseController {
      */
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final HouseDTO updateHouse(@RequestBody HouseDTO house) throws Exception {
+    public final HouseDTO updateHouse(@Valid @RequestBody HouseDTO house) throws Exception {
         logger.debug("rest updateHouse()");
 
         try {
             houseFacade.updateHouse(house);
             return houseFacade.findHouseById(house.getId());
-        } catch (Exception ex) {
-            throw new InvalidParameterException();
+        } catch (DataAccessException ex) {
+            throw new InvalidParameterException("House with address " + house.getAddress() + " already exists!");
         }
     }
 }

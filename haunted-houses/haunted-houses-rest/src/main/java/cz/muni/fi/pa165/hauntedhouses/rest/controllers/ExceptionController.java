@@ -23,8 +23,11 @@ public class ExceptionController {
     @ResponseBody
     ApiError handleResourceAlreadyExistingException(ResourceAlreadyExistingException ex) {
         ApiError apiError = new ApiError();
-        apiError.setErrors(Arrays.asList("The requested resource already exists."));
-        return apiError;
+        if (ex.getMessage().isEmpty()) {
+            apiError.setErrors(Arrays.asList("The requested resource already exists."));
+        } else {
+            apiError.setErrors(Arrays.asList(ex.getMessage()));
+        }        return apiError;
     }
 
     @ExceptionHandler
@@ -32,7 +35,11 @@ public class ExceptionController {
     @ResponseBody
     ApiError handleInvalidParameterException(InvalidParameterException ex) {
         ApiError apiError = new ApiError();
-        apiError.setErrors(Arrays.asList("The input is invalid."));
+        if (ex.getMessage().isEmpty()) {
+            apiError.setErrors(Arrays.asList("The input is invalid."));
+        } else {
+            apiError.setErrors(Arrays.asList(ex.getMessage()));
+        }
         return apiError;
     }
 
@@ -41,7 +48,11 @@ public class ExceptionController {
     @ResponseBody
     ApiError handleResourceNotFoundException(ResourceNotFoundException ex) {
         ApiError apiError = new ApiError();
-        apiError.setErrors(Arrays.asList("The requested resource was not found."));
+        if (ex.getMessage().isEmpty()) {
+            apiError.setErrors(Arrays.asList("The requested resource was not found."));
+        } else {
+            apiError.setErrors(Arrays.asList(ex.getMessage()));
+        }
         return apiError;
     }
 
