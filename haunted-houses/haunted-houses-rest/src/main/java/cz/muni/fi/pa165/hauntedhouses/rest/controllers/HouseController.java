@@ -54,7 +54,7 @@ public class HouseController {
     public final HouseDTO getHouse(@PathVariable("id") long id) throws Exception {
         logger.debug("rest getHouse({})", id);
 
-        HouseDTO houseDTO = houseFacade.findHouseById(id);
+        HouseDTO houseDTO = houseFacade.getHouseById(id);
         if (houseDTO == null) throw new ResourceNotFoundException("House with ID " + id + " does not exist!");
 
         return houseDTO;
@@ -76,7 +76,7 @@ public class HouseController {
 
         try {
             Long id = houseFacade.createHouse(house);
-            return houseFacade.findHouseById(id);
+            return houseFacade.getHouseById(id);
         } catch (DataAccessException ex) {
             throw new ResourceAlreadyExistingException("House with address " + house.getAddress() + " already exists!");
         }
@@ -116,7 +116,7 @@ public class HouseController {
 
         try {
             houseFacade.updateHouse(house);
-            return houseFacade.findHouseById(house.getId());
+            return houseFacade.getHouseById(house.getId());
         } catch (DataAccessException ex) {
             throw new InvalidParameterException("House with address " + house.getAddress() + " already exists!");
         }
