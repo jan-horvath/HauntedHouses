@@ -23,6 +23,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,13 +36,6 @@ import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.lang.reflect.Method;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
-import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
-import org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod;
 
 /**
  * @author Petr Vitovsky
@@ -57,9 +51,6 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
     @InjectMocks
     private HouseController houseController;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
     private MockMvc mockMvc;
 
     private HouseDTO houseOne;
@@ -69,7 +60,8 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
     @BeforeClass
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = standaloneSetup(houseController).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
+        mockMvc = standaloneSetup(houseController).setMessageConverters(new MappingJackson2HttpMessageConverter())
+                .setControllerAdvice(new ExceptionController()).build();
     }
 
     @BeforeMethod
@@ -89,18 +81,6 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
         houses = new ArrayList<>();
         houses.add(houseOne);
         houses.add(houseTwo);
-    }
-
-    private ExceptionHandlerExceptionResolver createExceptionResolver() {
-        ExceptionHandlerExceptionResolver exceptionResolver = new ExceptionHandlerExceptionResolver() {
-            protected ServletInvocableHandlerMethod getExceptionHandlerMethod(HandlerMethod handlerMethod, Exception exception) {
-                Method method = new ExceptionHandlerMethodResolver(ExceptionController.class).resolveMethod(exception);
-                return new ServletInvocableHandlerMethod(new ExceptionController(), method);
-            }
-        };
-        exceptionResolver.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        exceptionResolver.afterPropertiesSet();
-        return exceptionResolver;
     }
 
     @Test
@@ -172,14 +152,16 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
     @Test
     public void createInvalidHouse() throws Exception {
         HouseCreateDTO houseCreateDTO = new HouseCreateDTO();
+        houseCreateDTO.setName("name");
+        houseCreateDTO.setHint("hint");
 
         doReturn(1L).when(houseFacade).createHouse(
                 any(HouseCreateDTO.class));
 
         String json = this.convertObjectToJsonBytes(houseCreateDTO);
 
-        mockMvc.perform(post("/api/v1/house")).andExpect(
-                status().is4xxClientError());
+        mockMvc.perform(post("/api/v1/house").contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -225,7 +207,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void deleteNonexistingHouse() throws Exception {
-        doThrow(new RuntimeException("the house does not exist")).when(houseFacade).deleteHouse(1L);
+        doThrow(new IllegalArgumentException("the house does not exist")).when(houseFacade).deleteHouse(1L);
 
         mockMvc.perform(delete("/api/v1/house/1"))
                 .andExpect(status().is4xxClientError());

@@ -23,8 +23,11 @@ public class ExceptionController {
     @ResponseBody
     ApiError handleResourceAlreadyExistingException(ResourceAlreadyExistingException ex) {
         ApiError apiError = new ApiError();
-        apiError.setErrors(Arrays.asList("The requested resource already exists."));
-        return apiError;
+        if (ex.getMessage().isEmpty()) {
+            apiError.setErrors(Arrays.asList("The requested resource already exists."));
+        } else {
+            apiError.setErrors(Arrays.asList(ex.getMessage()));
+        }        return apiError;
     }
 
     @ExceptionHandler
@@ -32,16 +35,24 @@ public class ExceptionController {
     @ResponseBody
     ApiError handleInvalidParameterException(InvalidParameterException ex) {
         ApiError apiError = new ApiError();
-        apiError.setErrors(Arrays.asList("The input is invalid."));
+        if (ex.getMessage().isEmpty()) {
+            apiError.setErrors(Arrays.asList("The input is invalid."));
+        } else {
+            apiError.setErrors(Arrays.asList(ex.getMessage()));
+        }
         return apiError;
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     ApiError handleResourceNotFoundException(ResourceNotFoundException ex) {
         ApiError apiError = new ApiError();
-        apiError.setErrors(Arrays.asList("The requested resource was not found."));
+        if (ex.getMessage().isEmpty()) {
+            apiError.setErrors(Arrays.asList("The requested resource was not found."));
+        } else {
+            apiError.setErrors(Arrays.asList(ex.getMessage()));
+        }
         return apiError;
     }
 
@@ -54,6 +65,18 @@ public class ExceptionController {
             String message = error.getDefaultMessage();
             errors.add(message);
         }
+
+        ApiError apiError = new ApiError();
+        apiError.setErrors(errors);
+        return apiError;
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public ApiError handleGeneralException(Exception ex) {
+        List<String> errors = new ArrayList<>();
+        errors.add(ex.getMessage());
 
         ApiError apiError = new ApiError();
         apiError.setErrors(errors);
