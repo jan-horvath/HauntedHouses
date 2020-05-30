@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.Objects;
 
@@ -24,6 +25,7 @@ public class HouseCreateDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd")
+    @PastOrPresent(message = "Given date is in future!")
     private Date hauntedSince;
 
     private String history;

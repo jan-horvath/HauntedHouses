@@ -38,10 +38,8 @@
         <div class="form-group ${hauntedSince_error?'has-error':''}">
             <form:label path="hauntedSince" cssClass="col-sm-2 control-label">Haunted since</form:label>
             <div class="col-sm-10">
-                <form:input path="hauntedSince" type="date" class="input-sm form-control"></form:input>
-                <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"> </span>
-                </div>
+                <form:input path="hauntedSince" type="date" placeholder="yyyy-MM-dd" class="input-sm form-control"></form:input>
+                <form:errors path="hauntedSince" cssClass="help-block"/>
             </div>
         </div>
 

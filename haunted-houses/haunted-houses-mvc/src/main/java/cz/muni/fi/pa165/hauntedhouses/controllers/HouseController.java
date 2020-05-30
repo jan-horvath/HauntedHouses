@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedExceptionUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -88,24 +89,21 @@ public class HouseController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateSubmit(@ModelAttribute("houseUpdate") HouseDTO formBean, RedirectAttributes redirectAttributes,
-                               Model model, UriComponentsBuilder uriBuilder) {
+    public String updateSubmit(@Valid @ModelAttribute("houseUpdate") HouseDTO formBean, BindingResult bindingResult,
+                               Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("update(houseUpdate={})", formBean);
 
-        if (formBean.getName().isEmpty()) {
-            model.addAttribute("name_error", true);
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                log.trace("FieldError: {}", fe);
+            }
             return "house/update";
         }
 
-        if (formBean.getAddress().isEmpty()) {
-            model.addAttribute("address_error", true);
-            return "house/update";
-        }
-
-        if (formBean.getHint().isEmpty()) {
-            model.addAttribute("hint_error", true);
-            return "house/update";
-        }
 
         try {
             houseFacade.updateHouse(formBean);
@@ -115,7 +113,6 @@ public class HouseController {
         } catch (Exception ex) {
             log.error("House " + formBean.getName() + " cannot be updated!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
-            model.addAttribute("address_error", true);
             return "house/update";
         }
     }

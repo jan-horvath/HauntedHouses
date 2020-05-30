@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,16 +17,23 @@ public class HouseDTO {
 
     private Long id;
 
+    @NotNull(message = "Name cannot be null!")
+    @NotEmpty(message = "Name cannot be empty!")
     private String name;
 
+    @NotNull(message = "Address cannot be null!")
+    @NotEmpty(message = "Address cannot be empty!")
     private String address;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd")
+    @PastOrPresent(message = "Given date is in future!")
     private Date hauntedSince;
 
     private String history;
 
+    @NotNull(message = "Hint cannot be null!")
+    @NotEmpty(message = "Hint cannot be empty!")
     private String hint;
 
     public Long getId() {
