@@ -1,13 +1,19 @@
 package cz.muni.fi.pa165.hauntedhouses.controllers;
 
 import cz.muni.fi.pa165.hauntedhouses.dto.*;
-import cz.muni.fi.pa165.hauntedhouses.facade.*;
+import cz.muni.fi.pa165.hauntedhouses.facade.GameFacade;
+import cz.muni.fi.pa165.hauntedhouses.facade.GameInstanceFacade;
+import cz.muni.fi.pa165.hauntedhouses.facade.HouseFacade;
+import cz.muni.fi.pa165.hauntedhouses.facade.PlayerFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -36,6 +42,13 @@ public class GameController {
         this.gameFacade = gameFacade;
     }
 
+    /**
+     * Checks whether the currently logged user has a created game. If he does, he is redirected to /game/play,
+     * otherwise he is redirected to /game/new
+     * @param uriBuilder
+     * @param principal
+     * @return
+     */
     @RequestMapping(value = "/check_game", method = RequestMethod.GET)
     public String toGame(UriComponentsBuilder uriBuilder,
                          Principal principal) {
@@ -49,6 +62,12 @@ public class GameController {
         return "redirect:" + uriBuilder.path("/game/play").toUriString();
     }
 
+    /**
+     * Sets up view for the creation of a new game
+     * @param model
+     * @param principal
+     * @return
+     */
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String newGame(Model model, Principal principal) {
         PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
@@ -58,12 +77,22 @@ public class GameController {
         return "game/new";
     }
 
+    /**
+     * Creates a new game based on the logged user input. If the user input is incorrect, the user is sent back to /game/new
+     * view. Otherwise a new game is created and the logged user is redirected to /game/check_game.
+     * @param createDTO - contains information about the new game
+     * @param redirectAttributes
+     * @param uriBuilder
+     * @param principal
+     * @return
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@ModelAttribute("createDTO") GameInstanceCreateDTO createDTO,
                          RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Principal principal) {
         PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
         log.debug("\"/create\" called for user email {} (player found: {}, banishments: {})",
                 principal.getName(), foundPlayer != null, createDTO.getBanishesRequired());
+
         if (createDTO.getBanishesRequired() <= 0) {
             redirectAttributes.addFlashAttribute("alert_warning", "Please enter a positive number");
             return "/game/new";
@@ -76,6 +105,13 @@ public class GameController {
         return "redirect:" + uriBuilder.path("/game/check_game").toUriString();
     }
 
+    /**
+     * The function retrieves all the necessary information about the logged player's game. This information is used to
+     * create the /game/game view.
+     * @param model
+     * @param principal
+     * @return
+     */
     @RequestMapping(value = "/play", method = RequestMethod.GET)
     public String play(Model model, Principal principal) {
         PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
@@ -94,6 +130,16 @@ public class GameController {
         return "game/game";
     }
 
+    /**
+     * The function processes the player's choice of house. The player is notified whether his/her choice was correct
+     * and is redirected to /game/play. In case of winning, the player is redirected to the view /game/finished.
+     * @param houseId - house chosen by the player
+     * @param uriBuilder
+     * @param redirectAttributes
+     * @param model
+     * @param principal
+     * @return
+     */
     @RequestMapping(value = "/banish", method = RequestMethod.POST)
     public String banish(@RequestParam Long houseId, UriComponentsBuilder uriBuilder,
                            RedirectAttributes redirectAttributes, Model model, Principal principal) {
