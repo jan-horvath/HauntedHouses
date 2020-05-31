@@ -36,7 +36,8 @@
                     </form>
                 </td>
                 <td>
-                    <form method="post" action="${pageContext.request.contextPath}/house/delete/${house.id}">
+                    <form method="post" action="${pageContext.request.contextPath}/house/delete/${house.id}"
+                          onsubmit="return confirm('Are you sure?') ? true : false;">
                         <button type="submit" class="btn btn-primary">Delete</button>
                     </form>
                 </td>

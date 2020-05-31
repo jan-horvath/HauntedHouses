@@ -8,7 +8,8 @@
 <my:pagetemplate title="Ability Administration">
 <jsp:attribute name="body">
 
-    <form method="post" action="${pageContext.request.contextPath}/ability/delete/${ability.id}">
+    <form method="post" action="${pageContext.request.contextPath}/ability/delete/${ability.id}"
+          onsubmit="return confirm('Are you sure?') ? true : false;">
         <button type="submit" class="btn btn-primary">Delete</button>
     </form>
     <form method="post" action="${pageContext.request.contextPath}/ability/update/${ability.id}">
