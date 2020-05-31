@@ -8,7 +8,8 @@
 <my:pagetemplate title="House Administration">
 <jsp:attribute name="body">
 
-    <form method="post" action="${pageContext.request.contextPath}/house/delete/${house.id}">
+    <form method="post" action="${pageContext.request.contextPath}/house/delete/${house.id}"
+          onsubmit="return confirm('Are you sure?') ? true : false;">
         <button type="submit" class="btn btn-primary">Delete</button>
     </form>
     <form method="post" action="${pageContext.request.contextPath}/house/update/${house.id}">
