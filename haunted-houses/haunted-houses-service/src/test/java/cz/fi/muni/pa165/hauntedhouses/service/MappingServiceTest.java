@@ -98,7 +98,6 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
     @Test
     public void GameInstanceCreateDTO_conversionTest() {
         GameInstanceCreateDTO gameInstanceCreateDTO_A = new GameInstanceCreateDTO();
-        gameInstanceCreateDTO_A.setBanishesAttempted(10);
         gameInstanceCreateDTO_A.setBanishesRequired(2);
         gameInstanceCreateDTO_A.setPlayer(null);
         gameInstanceCreateDTO_A.setSpecter(null);
@@ -111,7 +110,6 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertNull(gameInstance.getPlayer());
 
         GameInstanceCreateDTO gameInstanceCreateDTO_B = mappingService.mapTo(gameInstance, GameInstanceCreateDTO.class);
-        Assert.assertEquals(gameInstanceCreateDTO_B.getBanishesAttempted(), 10);
         Assert.assertEquals(gameInstanceCreateDTO_B.getBanishesRequired(), 2);
         Assert.assertNull(gameInstanceCreateDTO_B.getPlayer());
         Assert.assertNull(gameInstanceCreateDTO_B.getSpecter());

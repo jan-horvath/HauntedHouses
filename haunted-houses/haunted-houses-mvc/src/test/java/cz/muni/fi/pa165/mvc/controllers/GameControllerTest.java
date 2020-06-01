@@ -104,7 +104,6 @@ public class GameControllerTest {
         gameInstanceDTO.setBanishesAttempted(3);
         gameInstanceCreateDTO = new GameInstanceCreateDTO();
         gameInstanceCreateDTO.setBanishesRequired(10);
-        gameInstanceCreateDTO.setBanishesAttempted(0);
     }
 
     private void setupSpecterWithAbilities() {

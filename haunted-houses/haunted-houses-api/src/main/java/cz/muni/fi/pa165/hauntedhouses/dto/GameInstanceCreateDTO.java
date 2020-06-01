@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -8,22 +10,14 @@ import java.util.Objects;
  */
 public class GameInstanceCreateDTO {
 
-    private int banishesAttempted;
-
+    @Min(value = 1, message = "Number of banishments should be positive")
+    @Max(value = 20, message = "The maximum number of banishments allowed is 20")
     private int banishesRequired;
 
     @NotNull
     private PlayerDTO player;
 
     private SpecterDTO specter;
-
-    public int getBanishesAttempted() {
-        return banishesAttempted;
-    }
-
-    public void setBanishesAttempted(int banishesAttempted) {
-        this.banishesAttempted = banishesAttempted;
-    }
 
     public int getBanishesRequired() {
         return banishesRequired;
@@ -65,7 +59,6 @@ public class GameInstanceCreateDTO {
     @Override
     public String toString() {
         return "GameInstanceCreateDTO{" +
-                "banishesAttempted=" + banishesAttempted +
                 ", banishesRequired=" + banishesRequired +
                 ", playerDTO_ID=" + ((player == null) ? "playerDTO is null" : player.getId()) +
                 ", specterDTO_ID=" + ((specter == null) ? "specterDTO is null" : specter.getId()) +
