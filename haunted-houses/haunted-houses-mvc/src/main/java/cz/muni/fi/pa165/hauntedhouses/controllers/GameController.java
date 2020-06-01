@@ -1,18 +1,27 @@
 package cz.muni.fi.pa165.hauntedhouses.controllers;
 
 import cz.muni.fi.pa165.hauntedhouses.dto.*;
-import cz.muni.fi.pa165.hauntedhouses.facade.*;
+import cz.muni.fi.pa165.hauntedhouses.facade.GameFacade;
+import cz.muni.fi.pa165.hauntedhouses.facade.GameInstanceFacade;
+import cz.muni.fi.pa165.hauntedhouses.facade.HouseFacade;
+import cz.muni.fi.pa165.hauntedhouses.facade.PlayerFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import java.security.Principal;
 import java.util.List;
 import java.util.Set;
@@ -167,5 +176,16 @@ public class GameController {
         }
 
         return "redirect:" + uriBuilder.path("/game/play").toUriString();
+    }
+
+    @RequestMapping(value = "/end", method = RequestMethod.POST)
+    public String end(Principal principal, UriComponentsBuilder uriBuilder) {
+        PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
+        log.debug("\"/end\" called for user email {} (player found: {})",
+                principal.getName(), foundPlayer != null);
+
+        GameInstanceDTO game = gameInstanceFacade.getGameInstanceByPlayerId(foundPlayer.getId());
+        gameInstanceFacade.deleteGameInstance(game.getId());
+        return "redirect:" + uriBuilder.path("/game/check_game").toUriString();
     }
 }

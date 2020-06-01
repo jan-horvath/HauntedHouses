@@ -72,5 +72,10 @@
         </tbody>
     </table>
 
+    <form method="post" action="${pageContext.request.contextPath}/game/end"
+          onsubmit="return confirm('Are you sure you want to end the game prematurely?') ? true : false;">
+        <button type="submit" class="btn btn-primary">End game</button>
+    </form>
+
 </jsp:attribute>
 </my:pagetemplate>
