@@ -16,6 +16,9 @@
             <div class="col-sm-10">
                 <form:input path="name" cssClass="form-control"/>
                 <form:errors path="name" cssClass="help-block"/>
+                <c:if test="${true == duplicate_name}">
+                    <p style="color:darkred">Ability with this name already exists!</p>
+                </c:if>
             </div>
         </div>
 

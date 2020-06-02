@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.dao.DataAccessException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -84,6 +85,7 @@ public class HouseController {
             log.error("House " + formBean.getName() + " cannot be updated!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
             model.addAttribute("address_error", true);
+            model.addAttribute("duplicate_address", true);
             return "house/new";
         } catch (Exception ex) {
             log.error("House " + formBean.getName() + " cannot be created!");
@@ -118,6 +120,7 @@ public class HouseController {
             log.error("House " + formBean.getName() + " cannot be updated!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
             model.addAttribute("address_error", true);
+            model.addAttribute("duplicate_address", true);
             return "house/update";
         } catch (Exception ex) {
             log.error("House " + formBean.getName() + " cannot be updated!");
@@ -141,6 +144,10 @@ public class HouseController {
         try {
             houseFacade.deleteHouse(id);
             redirectAttributes.addFlashAttribute("alert_success", "House \"" + house.getName() + "\" was deleted.");
+        } catch (JpaSystemException ex) {
+            log.error("House " + id + " cannot be deleted!");
+            log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
+            redirectAttributes.addFlashAttribute("alert_danger", "House \"" + house.getName() + "\" is currently part of a game and cannot be deleted.");
         } catch (Exception ex) {
             log.error("House " + id + " cannot be deleted!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());

@@ -32,6 +32,9 @@
             <div class="col-sm-10">
                 <form:input path="address" cssClass="form-control"/>
                 <form:errors path="address" cssClass="help-block"/>
+                <c:if test="${true == duplicate_address}">
+                    <p style="color:darkred">House with this address already exists!</p>
+                </c:if>
             </div>
         </div>
 

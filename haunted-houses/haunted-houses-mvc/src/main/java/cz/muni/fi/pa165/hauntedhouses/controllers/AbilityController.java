@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.dao.DataAccessException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -86,6 +87,7 @@ public class AbilityController {
             log.error("Ability " + formBean.getName() + " cannot be created!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
             model.addAttribute("name_error", true);
+            model.addAttribute("duplicate_name", true);
             return "ability/new";
         } catch (Exception ex) {
             log.error("Ability " + formBean.getName() + " cannot be created!");
@@ -119,6 +121,7 @@ public class AbilityController {
             log.error("Ability " + formBean.getName() + " cannot be updated!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
             model.addAttribute("name_error", true);
+            model.addAttribute("duplicate_name", true);
             return "ability/update";
         } catch (Exception ex) {
             log.error("Ability " + formBean.getName() + " cannot be updated!");
@@ -142,6 +145,10 @@ public class AbilityController {
         try {
             abilityFacade.deleteAbility(id);
             redirectAttributes.addFlashAttribute("alert_success", "Ability \"" + ability.getName() + "\" was deleted.");
+        } catch (JpaSystemException ex) {
+            log.error("Ability " + id + " cannot be deleted!");
+            log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
+            redirectAttributes.addFlashAttribute("alert_danger", "Ability \"" + ability.getName() + "\" is currently being used by a specter and cannot be deleted.");
         } catch (Exception ex) {
             log.error("Ability " + id + " cannot be deleted!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());

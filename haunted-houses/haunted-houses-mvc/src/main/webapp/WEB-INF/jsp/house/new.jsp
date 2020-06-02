@@ -24,11 +24,14 @@
             <div class="col-sm-10">
                 <form:input path="address" cssClass="form-control"/>
                 <form:errors path="address" cssClass="help-block"/>
+                <c:if test="${true == duplicate_address}">
+                    <p style="color:darkred">House with this address already exists!</p>
+                </c:if>
             </div>
         </div>
 
         <div class="form-group ${hauntedSince_error?'has-error':''}">
-            <form:label path="address" cssClass="col-sm-2 control-label">Haunted since</form:label>
+            <form:label path="hauntedSince" cssClass="col-sm-2 control-label">Haunted since</form:label>
             <div class="col-sm-10">
                 <form:input path="hauntedSince" type="date" placeholder="yyyy-MM-dd" class="input-sm form-control"></form:input>
                 <form:errors path="hauntedSince" cssClass="help-block"/>
