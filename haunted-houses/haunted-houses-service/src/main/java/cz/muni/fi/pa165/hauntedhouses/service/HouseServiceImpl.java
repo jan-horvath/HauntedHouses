@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.hauntedhouses.service;
 
 import cz.muni.fi.pa165.hauntedhouses.dao.HouseDao;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
+import cz.muni.fi.pa165.hauntedhouses.service.exceptions.NoHousesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +50,11 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public House getRandomHouse() {
         List<House> houses = houseDao.getAllHouses();
+
+        if (houses.isEmpty()) {
+            throw new NoHousesException();
+        }
+
         Random rand = new Random();
         return houses.get(rand.nextInt(houses.size()));
     }

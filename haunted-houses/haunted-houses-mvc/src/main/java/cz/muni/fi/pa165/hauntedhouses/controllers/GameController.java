@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.hauntedhouses.facade.GameFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.GameInstanceFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.HouseFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.PlayerFacade;
+import cz.muni.fi.pa165.hauntedhouses.service.exceptions.NoHousesException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.ConstraintViolation;
@@ -111,7 +111,13 @@ public class GameController {
             return "redirect:" + uriBuilder.path("/game/new").toUriString();
         }
 
-        gameInstanceFacade.createGameInstance(createDTO);
+        try {
+            gameInstanceFacade.createGameInstance(createDTO);
+        } catch (NoHousesException nhe) {
+            redirectAttributes.addFlashAttribute("alert_info",
+                    "There are currently no houses in database. Please create more houses.");
+            return "redirect:" + uriBuilder.path("/game/new").toUriString();
+        }
         redirectAttributes.addFlashAttribute("alert_success",
                 gameInstanceFacade.getGameInstanceByPlayerId(foundPlayer.getId()));
         return "redirect:" + uriBuilder.path("/game/check_game").toUriString();
