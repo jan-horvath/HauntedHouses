@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedExceptionUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -79,28 +80,33 @@ public class AbilityController {
 
         try {
             Long id = abilityFacade.createAbility(formBean);
-            redirectAttributes.addFlashAttribute("alert_success", "Ability " + id + " was created");
+            redirectAttributes.addFlashAttribute("alert_success", "Ability " + formBean.getName() + " was created");
             return "redirect:" + uriBuilder.path("/ability/view/{id}").buildAndExpand(id).encode().toUriString();
-        } catch (Exception ex) {
+        } catch (DataAccessException ex) {
             log.error("Ability " + formBean.getName() + " cannot be created!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
             model.addAttribute("name_error", true);
+            return "ability/new";
+        } catch (Exception ex) {
+            log.error("Ability " + formBean.getName() + " cannot be created!");
+            log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
             return "ability/new";
         }
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateSubmit(@ModelAttribute("abilityUpdate") AbilityDTO formBean, RedirectAttributes redirectAttributes,
-                               Model model, UriComponentsBuilder uriBuilder) {
+    public String updateSubmit(@Valid @ModelAttribute("abilityUpdate") AbilityDTO formBean, BindingResult bindingResult,
+                               Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
         log.debug("update(abilityUpdate={})", formBean);
 
-        if (formBean.getName().isEmpty()) {
-            model.addAttribute("name_error", true);
-            return "ability/update";
-        }
-
-        if (formBean.getDescription().isEmpty()) {
-            model.addAttribute("description_error", true);
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+                log.trace("FieldError: {}", fe);
+            }
             return "ability/update";
         }
 
@@ -109,10 +115,14 @@ public class AbilityController {
             redirectAttributes.addFlashAttribute("alert_success", "Ability " + formBean.getName() + " was updated");
             Long id = formBean.getId();
             return "redirect:" + uriBuilder.path("/ability/view/{id}").buildAndExpand(id).encode().toUriString();
-        } catch (Exception ex) {
+        } catch (DataAccessException ex) {
             log.error("Ability " + formBean.getName() + " cannot be updated!");
             log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
             model.addAttribute("name_error", true);
+            return "ability/update";
+        } catch (Exception ex) {
+            log.error("Ability " + formBean.getName() + " cannot be updated!");
+            log.error(NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
             return "ability/update";
         }
     }
