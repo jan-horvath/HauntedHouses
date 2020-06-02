@@ -27,12 +27,26 @@
             </div>
         </div>
 
-        <button class="btn btn-primary" type="submit">Create ability</button>
+        <table class="table" style="table-layout: fixed">
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <button class="btn btn-primary" type="submit">Create ability</button>
+                    </td>
+                    <td style="text-align: center;">
+                    </td>
+                    <td style="text-align: center;">
+                        <my:a href="/ability/list" class="btn btn-primary">
+                            Back
+                        </my:a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     </form:form>
 
-    <my:a href="/ability/list" class="btn btn-primary">
-        Back
-    </my:a>
+
 
 </jsp:attribute>
 </my:pagetemplate>
