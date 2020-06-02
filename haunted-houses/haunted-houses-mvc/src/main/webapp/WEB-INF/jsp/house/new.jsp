@@ -54,12 +54,24 @@
             </div>
         </div>
 
-        <button class="btn btn-primary" type="submit">Create house</button>
-    </form:form>
+        <table class="table" style="table-layout: fixed">
+            <tbody>
+            <tr>
+                <td style="text-align: center;">
+                    <button class="btn btn-primary" type="submit">Create house</button>
+                </td>
+                <td style="text-align: center;">
+                </td>
+                <td style="text-align: center;">
+                    <my:a href="/house/list" class="btn btn-primary">
+                        Back
+                    </my:a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-    <my:a href="/house/list" class="btn btn-primary">
-        Back
-    </my:a>
+    </form:form>
 
 </jsp:attribute>
 </my:pagetemplate>

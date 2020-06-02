@@ -8,14 +8,6 @@
 <my:pagetemplate title="House Administration">
 <jsp:attribute name="body">
 
-    <form method="post" action="${pageContext.request.contextPath}/house/delete/${house.id}"
-          onsubmit="return confirm('Are you sure?') ? true : false;">
-        <button type="submit" class="btn btn-primary">Delete</button>
-    </form>
-    <form method="post" action="${pageContext.request.contextPath}/house/update/${house.id}">
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
-
     <table class="table">
         <thead>
         <tr>
@@ -39,9 +31,28 @@
         </tbody>
     </table>
 
-    <my:a href="/house/list" class="btn btn-primary">
-        Back
-    </my:a>
+    <table class="table" style="table-layout: fixed">
+        <tbody>
+            <tr>
+                <td style="text-align: center;">
+                    <form method="post" action="${pageContext.request.contextPath}/house/update/${house.id}">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </td>
+                <td style="text-align: center;">
+                    <form method="post" action="${pageContext.request.contextPath}/house/delete/${house.id}"
+                          onsubmit="return confirm('Are you sure?') ? true : false;">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
+                </td>
+                <td style="text-align: center;">
+                    <my:a href="/house/list" class="btn btn-primary">
+                        Back
+                    </my:a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 </jsp:attribute>
 </my:pagetemplate>
