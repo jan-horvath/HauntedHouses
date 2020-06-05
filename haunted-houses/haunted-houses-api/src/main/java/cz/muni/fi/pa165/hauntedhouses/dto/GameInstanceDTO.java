@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,6 +18,8 @@ public class GameInstanceDTO {
     private PlayerDTO player;
 
     private SpecterDTO specter;
+
+    private List<HouseDTO> houses;
 
     public Long getId() {
         return id;
@@ -55,6 +59,17 @@ public class GameInstanceDTO {
 
     public void setSpecter(SpecterDTO specter) {
         this.specter = specter;
+    }
+
+    public List<HouseDTO> getHouses() {
+        if (houses != null) {
+            Collections.shuffle(houses);
+        }
+        return houses;
+    }
+
+    public void setHouses(List<HouseDTO> houses) {
+        this.houses = houses;
     }
 
     @Override
