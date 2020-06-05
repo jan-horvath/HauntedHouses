@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.hauntedhouses.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author David Hofman
@@ -25,6 +26,9 @@ public class GameInstance implements Serializable {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "gameInstance")
     private Specter specter;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<House> houses;
 
     public GameInstance() { }
 
@@ -66,6 +70,14 @@ public class GameInstance implements Serializable {
 
     public void setSpecter(Specter specter) {
         this.specter = specter;
+    }
+
+    public Set<House> getHouses() {
+        return houses;
+    }
+
+    public void setHouses(Set<House> houses) {
+        this.houses = houses;
     }
 
     @Override

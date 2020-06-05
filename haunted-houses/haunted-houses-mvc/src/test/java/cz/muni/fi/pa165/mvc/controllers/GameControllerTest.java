@@ -203,7 +203,6 @@ public class GameControllerTest {
         this.mockMvc.perform(get("/game/play")
                 .accept(MediaType.parseMediaType("text/html;charset=UTF-8"))
                 .principal(new PrincipalImpl(playerWithGameEmail)))
-                .andExpect(model().attribute("allHouses", houses))
                 .andExpect(model().attribute("specter", specterDTO))
                 .andExpect(model().attribute("abilities", abilities))
                 .andExpect(model().attribute("hint", house1.getHint()))

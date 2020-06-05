@@ -5,7 +5,7 @@ import cz.muni.fi.pa165.hauntedhouses.facade.GameFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.GameInstanceFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.HouseFacade;
 import cz.muni.fi.pa165.hauntedhouses.facade.PlayerFacade;
-import cz.muni.fi.pa165.hauntedhouses.service.exceptions.NoHousesException;
+import cz.muni.fi.pa165.hauntedhouses.service.exceptions.NotEnoughHousesException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 import java.security.Principal;
-import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -113,9 +112,9 @@ public class GameController {
 
         try {
             gameInstanceFacade.createGameInstance(createDTO);
-        } catch (NoHousesException nhe) {
-            redirectAttributes.addFlashAttribute("alert_info",
-                    "There are currently no houses in database. Please create more houses.");
+        } catch (NotEnoughHousesException nehe) {
+            redirectAttributes.addFlashAttribute("alert_warning",
+                    "There are currently not enough houses in the database. Please create more houses first.");
             return "redirect:" + uriBuilder.path("/game/new").toUriString();
         }
         redirectAttributes.addFlashAttribute("alert_success",
@@ -136,10 +135,9 @@ public class GameController {
         log.debug("\"/play\" called for user email {} (player found: {})", principal.getName(), foundPlayer != null);
         GameInstanceDTO gameInstance = gameInstanceFacade.getGameInstanceByPlayerId(foundPlayer.getId());
 
-        List<HouseDTO> allHouses = houseFacade.getAllHouses();
         SpecterDTO specter = gameInstance.getSpecter();
 
-        model.addAttribute("allHouses", allHouses);
+        model.addAttribute("housesSubset", gameInstance.getHouses());
         model.addAttribute("specter", specter);
         model.addAttribute("abilities", specter.getAbilities());
         model.addAttribute("hint", specter.getHouse().getHint());
@@ -168,6 +166,7 @@ public class GameController {
         banishSpecterDTO.setHouseId(houseId);
         GameInstanceDTO game = gameInstanceFacade.getGameInstanceByPlayerId(foundPlayer.getId());
         banishSpecterDTO.setGameInstanceId(game.getId());
+
         boolean success = gameFacade.banishSpecter(banishSpecterDTO);
 
         if (success) {

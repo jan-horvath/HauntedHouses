@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.hauntedhouses.service;
 
 import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
+import cz.muni.fi.pa165.hauntedhouses.service.exceptions.NotEnoughHousesException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public interface GameInstanceService {
     /**
      * Creates a GameInstance in the database
      * @param gameInstance GameInstance to be created
+     * @throws NotEnoughHousesException if there are too few houses in the database
+     * @throws org.springframework.dao.DataAccessException if database constraints are violated
      */
     void createGameInstance(GameInstance gameInstance);
 
@@ -40,6 +43,7 @@ public interface GameInstanceService {
      * Creates a GameInstance with randomly generated Specter
      * @param gameInstance GameInstance to be created
      * @throws org.springframework.dao.DataAccessException if database constraints are violated
+     * @throws NotEnoughHousesException if there are too few houses in the database
      */
     void createGameInstanceWithRandomSpecter(GameInstance gameInstance);
 

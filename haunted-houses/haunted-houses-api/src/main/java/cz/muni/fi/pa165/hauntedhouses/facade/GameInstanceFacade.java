@@ -3,8 +3,6 @@ package cz.muni.fi.pa165.hauntedhouses.facade;
 import cz.muni.fi.pa165.hauntedhouses.dto.GameInstanceCreateDTO;
 import cz.muni.fi.pa165.hauntedhouses.dto.GameInstanceDTO;
 
-import java.util.List;
-
 /**
  * @author Zoltan Fridrich
  */
@@ -19,8 +17,9 @@ public interface GameInstanceFacade {
     /**
      * Creates new GameInstance
      * @param gameInstance DTO containing all information that is required for creating new GameInstance
-     * @throws org.springframework.dao.DataAccessException if constraints are violated
      * @return ID of the GameInstance
+     * @throws NoHousesException if there are currently no houses in the database
+     * @throws org.springframework.dao.DataAccessException if constraints are violated
      */
     Long createGameInstance(GameInstanceCreateDTO gameInstance);
 

@@ -57,7 +57,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${allHouses}" var="house">
+        <c:forEach var="house" items="${housesSubset}">
             <tr>
                 <td><c:out value="${house.name}"/></td>
                 <td><c:out value="${house.address}"/></td>

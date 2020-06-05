@@ -5,6 +5,9 @@ import cz.muni.fi.pa165.hauntedhouses.model.House;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Petr Vitovsky
  */
@@ -33,6 +36,8 @@ public class GameServiceImpl implements GameService {
 
         instance.setBanishesRequired(instance.getBanishesRequired() - 1);
         instance.getSpecter().setHouse(houseService.getRandomHouse());
+        instance.setHouses(new HashSet<>(
+                houseService.getSubsetWithSpecificHouse(instance.getSpecter().getHouse().getId())));
         return true;
     }
 }

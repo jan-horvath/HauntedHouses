@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -50,7 +51,9 @@ public class GameInstanceServiceImpl implements GameInstanceService {
 
     @Override
     public void createGameInstance(GameInstance gameInstance) {
-        gameInstance.getSpecter().setHouse(houseService.getRandomHouse());
+        Specter specter = gameInstance.getSpecter();
+        specter.setHouse(houseService.getRandomHouse());
+        gameInstance.setHouses(new HashSet<>(houseService.getSubsetWithSpecificHouse(specter.getHouse().getId())));
         gameInstanceDao.createGameInstance(gameInstance);
     }
 
@@ -60,6 +63,7 @@ public class GameInstanceServiceImpl implements GameInstanceService {
         gameInstance.setSpecter(specter);
         specter.setGameInstance(gameInstance);
         specter.setHouse(houseService.getRandomHouse());
+        gameInstance.setHouses(new HashSet<>(houseService.getSubsetWithSpecificHouse(specter.getHouse().getId())));
         gameInstanceDao.createGameInstance(gameInstance);
     }
 
