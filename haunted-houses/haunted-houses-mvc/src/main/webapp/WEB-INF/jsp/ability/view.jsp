@@ -8,22 +8,13 @@
 <my:pagetemplate title="Ability Administration">
 <jsp:attribute name="body">
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>${ability.id}</td>
-            <td><c:out value="${ability.name}"/></td>
-            <td><c:out value="${ability.description}"/></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>ID: </b>${ability.id}</li>
+            <li class="list-group-item"><b>Name: </b><c:out value="${ability.name}"/></li>
+            <li class="list-group-item"><b>Description: </b><c:out value="${ability.description}"/></li>
+        </ul>
+    </div>
 
     <table class="table" style="table-layout: fixed">
         <tbody>
