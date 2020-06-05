@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.hauntedhouses.model.House;
 import cz.muni.fi.pa165.hauntedhouses.service.HouseService;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -49,11 +50,13 @@ public class HouseFacadeImpl implements HouseFacade {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteHouse(Long id) {
         houseService.deleteHouse(houseService.getHouseById(id));
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateHouse(HouseDTO house) {
         House houseToUpdate = mappingService.mapTo(house, House.class);
         houseService.updateHouse(houseToUpdate);

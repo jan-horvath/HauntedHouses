@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.hauntedhouses.model.Ability;
 import cz.muni.fi.pa165.hauntedhouses.service.AbilityService;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -55,11 +56,13 @@ public class AbilityFacadeImpl implements AbilityFacade {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteAbility(Long id) {
         abilityService.deleteAbility(abilityService.getAbilityById(id));
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateAbility(AbilityDTO ability) {
         Ability abilityToUpdate = mappingService.mapTo(ability, Ability.class);
         abilityService.updateAbility(abilityToUpdate);

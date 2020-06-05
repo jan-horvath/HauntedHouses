@@ -98,6 +98,42 @@ public class InitialDataFacadeImpl implements InitialDataFacade {
         house5.setHint("The UK prime minister lives there.");
         house5.setHauntedSince(cal.getTime());
         houseService.createHouse(house5);
+
+        House house6 = new House();
+        house6.setName("Berghof");
+        house6.setAddress("Berchtesgaden, Bavaria, Germany");
+        house6.setHistory("The Berghof began as a much smaller chalet called Haus Wachenfeld, " +
+                "a holiday home built in 1916 (or 1917) by Kommerzienrat Otto Winter.");
+        house6.setHint("This house was Hitler's home in the Bavarian Alps");
+        house6.setHauntedSince(cal.getTime());
+        houseService.createHouse(house6);
+
+        House house7 = new House();
+        house7.setName("Palace of Versailles");
+        house7.setAddress("Place d'Armes, 78000 Versailles, France");
+        house7.setHistory("It was the principal royal residence of France from 1682, " +
+                "until the start of the French Revolution in 1789");
+        house7.setHint("The Sun King lived there.");
+        house7.setHauntedSince(cal.getTime());
+        houseService.createHouse(house7);
+
+        House house8 = new House();
+        house8.setName("Hagenauerhaus");
+        house8.setAddress("Getreidegasse 9, 5020 Salzburg, Austria");
+        house8.setHistory("The house was built in the 12th century on ground which had been part of the garden" +
+                " belonging to the Benedictine monks of St Peter's, Salzburg.");
+        house8.setHint("Mozart was born in this house.");
+        house8.setHauntedSince(cal.getTime());
+        houseService.createHouse(house8);
+
+        House house9 = new House();
+        house9.setName("Villa Tugendhat");
+        house9.setAddress("Černopolní 45, 613 00 Brno");
+        house9.setHistory("The construction company of Artur and Mořic Eisler began construction in the summer " +
+                "of 1929 and finished it in 14 months.");
+        house9.setHint("A famous building in modern architectural style designed by Ludwig Mies van der Rohe and Lilly Reich");
+        house9.setHauntedSince(cal.getTime());
+        houseService.createHouse(house9);
     }
 
     private void loadPlayers() {

@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.hauntedhouses.model.GameInstance;
 import cz.muni.fi.pa165.hauntedhouses.service.GameInstanceService;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,7 @@ public class GameInstanceFacadeImpl implements GameInstanceFacade {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public Long createGameInstance(GameInstanceCreateDTO gameInstance) {
         GameInstance gameInstanceEntity = mappingService.mapTo(gameInstance, GameInstance.class);
         if (gameInstance.getSpecter() == null) {
@@ -47,6 +49,7 @@ public class GameInstanceFacadeImpl implements GameInstanceFacade {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public void deleteGameInstance(Long id) {
         System.err.println("Deleting GI through FACADE");
         GameInstance gameInstance = gameInstanceService.getGameInstanceById(id);

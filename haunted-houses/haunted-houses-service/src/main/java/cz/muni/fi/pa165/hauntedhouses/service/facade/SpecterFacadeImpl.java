@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.hauntedhouses.model.Specter;
 import cz.muni.fi.pa165.hauntedhouses.service.MappingService;
 import cz.muni.fi.pa165.hauntedhouses.service.SpecterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,7 @@ public class SpecterFacadeImpl implements SpecterFacade {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteSpecter(Long id) {
         Specter specter = specterService.getBySpecterId(id);
         specterService.deleteSpecter(specter);

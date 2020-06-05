@@ -23,7 +23,7 @@
                        </tr>
                    </table>
                    <c:if test="${ param.error ne null}">
-                       Invalid credentials. Try again.<br />
+                       <span style="background: #ee5f62"> Invalid credentials. Try again. </span>
                    </c:if>
                </form>
            </div>
