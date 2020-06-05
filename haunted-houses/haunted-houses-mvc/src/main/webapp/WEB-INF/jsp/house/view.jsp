@@ -8,28 +8,16 @@
 <my:pagetemplate title="House Administration">
 <jsp:attribute name="body">
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Haunted since</th>
-            <th>History</th>
-            <th>Hint</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>${house.id}</td>
-            <td><c:out value="${house.name}"/></td>
-            <td><c:out value="${house.address}"/></td>
-            <td><fmt:formatDate value="${house.hauntedSince}" pattern="yyyy-MM-dd"/></td>
-            <td><c:out value="${house.history}"/></td>
-            <td><c:out value="${house.hint}"/></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="card">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>ID: </b>${house.id}</li>
+            <li class="list-group-item"><b>Name: </b><c:out value="${house.name}"/></li>
+            <li class="list-group-item"><b>Address: </b><c:out value="${house.address}"/></li>
+            <li class="list-group-item"><b>Haunted since: </b><fmt:formatDate value="${house.hauntedSince}" pattern="yyyy-MM-dd"/></li>
+            <li class="list-group-item"><b>History: </b><c:out value="${house.history}"/></li>
+            <li class="list-group-item"><b>Hint: </b><c:out value="${house.hint}"/></li>
+        </ul>
+    </div>
 
     <table class="table" style="table-layout: fixed">
         <tbody>
