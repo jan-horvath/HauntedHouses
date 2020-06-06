@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
@@ -19,12 +18,10 @@ public class HouseDTO {
     private Long id;
 
     @NotNull(message = "Name cannot be null!")
-    @NotEmpty(message = "Name cannot be empty!")
     @NotBlank(message = "Name cannot be empty!")
     private String name;
 
     @NotNull(message = "Address cannot be null!")
-    @NotEmpty(message = "Address cannot be empty!")
     @NotBlank(message = "Address cannot be empty!")
     private String address;
 
@@ -36,7 +33,6 @@ public class HouseDTO {
     private String history;
 
     @NotNull(message = "Clue cannot be null!")
-    @NotEmpty(message = "Clue cannot be empty!")
     @NotBlank(message = "Clue cannot be empty!")
     private String clue;
 

@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.hauntedhouses.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -11,12 +10,10 @@ import java.util.Objects;
 public class AbilityCreateDTO {
 
     @NotNull(message = "Name cannot be null!")
-    @NotEmpty(message = "Name cannot be empty!")
     @NotBlank(message = "Name cannot be empty!")
     private String name;
 
     @NotNull(message = "Description cannot be null!")
-    @NotEmpty(message = "Description cannot be empty!")
     @NotBlank(message = "Description cannot be empty!")
     private String description;
 
