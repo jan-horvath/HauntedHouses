@@ -30,7 +30,7 @@ public class House implements Serializable {
     private String history;
 
     @Column(nullable = false)
-    private String hint;
+    private String clue;
 
     public Long getId() {
         return this.id;
@@ -72,12 +72,12 @@ public class House implements Serializable {
         this.hauntedSince = hauntedSince;
     }
 
-    public String getHint() {
-        return this.hint;
+    public String getClue() {
+        return this.clue;
     }
 
-    public void setHint(String hint) {
-        this.hint = hint;
+    public void setClue(String clue) {
+        this.clue = clue;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class House implements Serializable {
                 ", address='" + address + '\'' +
                 ", hauntedSince=" + hauntedSince +
                 ", history='" + history + '\'' +
-                ", hint='" + hint + '\'' +
+                ", clue='" + clue + '\'' +
                 '}';
     }
 }

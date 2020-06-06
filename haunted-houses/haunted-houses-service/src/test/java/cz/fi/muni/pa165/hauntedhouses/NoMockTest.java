@@ -38,7 +38,7 @@ public class NoMockTest extends AbstractTestNGSpringContextTests {
     public void deleteGameInstanceTest() {
         PlayerDTO player = new PlayerDTO("name", "email", true);
         playerFacade.registerPlayer(player, "pass");
-        houseFacade.createHouse(new HouseCreateDTO("house1", "address1", "hint1"));
+        houseFacade.createHouse(new HouseCreateDTO("house1", "address1", "clue1"));
 
         GameInstanceCreateDTO gameInstanceCreateDTO = new GameInstanceCreateDTO();
         gameInstanceCreateDTO.setPlayer(player);

@@ -140,7 +140,7 @@ public class GameController {
         model.addAttribute("housesSubset", gameInstance.getHouses());
         model.addAttribute("specter", specter);
         model.addAttribute("abilities", specter.getAbilities());
-        model.addAttribute("hint", specter.getHouse().getHint());
+        model.addAttribute("clue", specter.getHouse().getClue());
         model.addAttribute("game", gameInstance);
 
         return "game/game";

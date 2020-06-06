@@ -32,9 +32,9 @@ public class HouseDTO {
 
     private String history;
 
-    @NotNull(message = "Hint cannot be null!")
-    @NotEmpty(message = "Hint cannot be empty!")
-    private String hint;
+    @NotNull(message = "Clue cannot be null!")
+    @NotEmpty(message = "Clue cannot be empty!")
+    private String clue;
 
     public Long getId() {
         return this.id;
@@ -76,12 +76,12 @@ public class HouseDTO {
         this.hauntedSince = hauntedSince;
     }
 
-    public String getHint() {
-        return this.hint;
+    public String getClue() {
+        return this.clue;
     }
 
-    public void setHint(String hint) {
-        this.hint = hint;
+    public void setClue(String clue) {
+        this.clue = clue;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class HouseDTO {
                 ", address='" + address + '\'' +
                 ", hauntedSince=" + hauntedSince +
                 ", history='" + history + '\'' +
-                ", hint='" + hint + '\'' +
+                ", clue='" + clue + '\'' +
                 '}';
     }
 }

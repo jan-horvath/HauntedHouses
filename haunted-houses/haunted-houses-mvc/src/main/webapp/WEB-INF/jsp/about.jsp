@@ -21,7 +21,7 @@
     <h2>Gameplay</h2>
     <p class="lead">
         Once the game has been created a unique specter will haunt one of the houses in the selection.
-        Your task is to find the haunted house based on the hint you are given.
+        Your task is to find the haunted house based on the clue you are given.
         Once you find the haunted house, the specter is banished and flees into another house losing life in a process.
         After you banish the specter enough times the specter is defeated and you win the game.
     </p>

@@ -30,16 +30,16 @@ public class HouseCreateDTO {
 
     private String history;
 
-    @NotNull(message = "Hint cannot be null!")
-    @NotEmpty(message = "Hint cannot be empty!")
-    private String hint;
+    @NotNull(message = "Clue cannot be null!")
+    @NotEmpty(message = "Clue cannot be empty!")
+    private String clue;
 
     public HouseCreateDTO() {}
 
-    public HouseCreateDTO(String name, String address, String hint) {
+    public HouseCreateDTO(String name, String address, String clue) {
         this.name = name;
         this.address = address;
-        this.hint = hint;
+        this.clue = clue;
     }
 
     public String getName() {
@@ -74,12 +74,12 @@ public class HouseCreateDTO {
         this.hauntedSince = hauntedSince;
     }
 
-    public String getHint() {
-        return this.hint;
+    public String getClue() {
+        return this.clue;
     }
 
-    public void setHint(String hint) {
-        this.hint = hint;
+    public void setClue(String clue) {
+        this.clue = clue;
     }
 
     @Override
@@ -102,7 +102,7 @@ public class HouseCreateDTO {
                 ", address='" + address + '\'' +
                 ", hauntedSince=" + hauntedSince +
                 ", history='" + history + '\'' +
-                ", hint='" + hint + '\'' +
+                ", clue='" + clue + '\'' +
                 '}';
     }
 }

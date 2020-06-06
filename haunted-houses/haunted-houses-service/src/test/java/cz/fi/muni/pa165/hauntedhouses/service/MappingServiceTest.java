@@ -126,7 +126,7 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
         houseCreateDTO_A.setName("name");
         houseCreateDTO_A.setAddress("address");
         houseCreateDTO_A.setHauntedSince(cal.getTime());
-        houseCreateDTO_A.setHint("hint");
+        houseCreateDTO_A.setClue("clue");
         houseCreateDTO_A.setHistory("history");
 
         House house = mappingService.mapTo(houseCreateDTO_A, House.class);
@@ -134,14 +134,14 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(house.getName(), "name");
         Assert.assertEquals(house.getAddress(), "address");
         Assert.assertEquals(house.getHauntedSince(), cal.getTime());
-        Assert.assertEquals(house.getHint(), "hint");
+        Assert.assertEquals(house.getClue(), "clue");
         Assert.assertEquals(house.getHistory(), "history");
 
         HouseCreateDTO houseCreateDTO_B = mappingService.mapTo(house, HouseCreateDTO.class);
         Assert.assertEquals(houseCreateDTO_B.getName(), "name");
         Assert.assertEquals(houseCreateDTO_B.getAddress(), "address");
         Assert.assertEquals(houseCreateDTO_B.getHauntedSince(), cal.getTime());
-        Assert.assertEquals(houseCreateDTO_B.getHint(), "hint");
+        Assert.assertEquals(houseCreateDTO_B.getClue(), "clue");
         Assert.assertEquals(houseCreateDTO_B.getHistory(), "history");
     }
 
@@ -157,7 +157,7 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
         houseDTO_A.setName("name");
         houseDTO_A.setAddress("address");
         houseDTO_A.setHauntedSince(cal.getTime());
-        houseDTO_A.setHint("hint");
+        houseDTO_A.setClue("clue");
         houseDTO_A.setHistory("history");
 
         House house = mappingService.mapTo(houseDTO_A, House.class);
@@ -165,7 +165,7 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(house.getName(), "name");
         Assert.assertEquals(house.getAddress(), "address");
         Assert.assertEquals(house.getHauntedSince(), cal.getTime());
-        Assert.assertEquals(house.getHint(), "hint");
+        Assert.assertEquals(house.getClue(), "clue");
         Assert.assertEquals(house.getHistory(), "history");
 
         HouseDTO houseDTO_B = mappingService.mapTo(house, HouseDTO.class);
@@ -173,7 +173,7 @@ public class MappingServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(houseDTO_B.getName(), "name");
         Assert.assertEquals(houseDTO_B.getAddress(), "address");
         Assert.assertEquals(houseDTO_B.getHauntedSince(), cal.getTime());
-        Assert.assertEquals(houseDTO_B.getHint(), "hint");
+        Assert.assertEquals(houseDTO_B.getClue(), "clue");
         Assert.assertEquals(houseDTO_B.getHistory(), "history");
     }
 

@@ -63,7 +63,7 @@ public class HouseController {
     /**
      * Creates new house
      * curl -X POST -i -H "Content-Type: application/json"
-     * --data '{\"name\":\"nameValue\",\"address\":\"addressValue\",\"history\":\"historyValue\",\"hint\":\"hintValue\",\"hauntedSince\":\"yyyy-MM-dd\"}'
+     * --data '{\"name\":\"nameValue\",\"address\":\"addressValue\",\"history\":\"historyValue\",\"clue\":\"clueValue\",\"hauntedSince\":\"yyyy-MM-dd\"}'
      * http://localhost:8080/pa165/rest/api/v1/house
      * @param house New house
      * @return Newly created house
@@ -103,7 +103,7 @@ public class HouseController {
     /**
      * Updates house in the database
      * curl -X PUT -i -H "Content-Type: application/json"
-     * --data '{\"id\":"1",\"name\":\"nameValue\",\"address\":\"addressValue\",\"history\":\"historyValue\",\"hint\":\"hintValue\",\"hauntedSince\":\"yyyy-MM-dd\"}'
+     * --data '{\"id\":"1",\"name\":\"nameValue\",\"address\":\"addressValue\",\"history\":\"historyValue\",\"clue\":\"clueValue\",\"hauntedSince\":\"yyyy-MM-dd\"}'
      * http://localhost:8080/pa165/rest/api/v1/house
      * @param house Updated house
      * @return Newly updated house

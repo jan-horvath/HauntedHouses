@@ -15,7 +15,7 @@
             <li class="list-group-item"><b>Address: </b><c:out value="${house.address}"/></li>
             <li class="list-group-item"><b>Haunted since: </b><fmt:formatDate value="${house.hauntedSince}" pattern="yyyy-MM-dd"/></li>
             <li class="list-group-item"><b>History: </b><c:out value="${house.history}"/></li>
-            <li class="list-group-item"><b>Hint: </b><c:out value="${house.hint}"/></li>
+            <li class="list-group-item"><b>Clue: </b><c:out value="${house.clue}"/></li>
         </ul>
     </div>
 

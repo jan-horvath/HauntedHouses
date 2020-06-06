@@ -40,7 +40,7 @@ public class InitialDataFacadeImpl implements InitialDataFacade {
         loadAbilities();
     }
 
-    private void createHouse(String name, String address, String history, String hint, int day, int month, int year) {
+    private void createHouse(String name, String address, String history, String clue, int day, int month, int year) {
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
@@ -49,7 +49,7 @@ public class InitialDataFacadeImpl implements InitialDataFacade {
         house.setName(name);
         house.setAddress(address);
         house.setHistory(history);
-        house.setHint(hint);
+        house.setClue(clue);
         house.setHauntedSince(calendar.getTime());
 
         houseService.createHouse(house);
