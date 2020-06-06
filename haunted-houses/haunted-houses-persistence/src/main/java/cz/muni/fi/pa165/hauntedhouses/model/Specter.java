@@ -12,6 +12,7 @@ import javax.persistence.*;
  * @author Zoltan Fridrich
  */
 @Entity
+@Table(name = "specters")
 public class Specter implements Serializable {
 
     @Id

@@ -7,8 +7,8 @@ import java.util.Objects;
 /**
  * @author Jan Horvath
  */
-
 @Entity
+@Table(name = "players")
 public class Player implements Serializable {
 
     @Id
