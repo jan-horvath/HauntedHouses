@@ -39,7 +39,7 @@
     <table style="border: 3px solid black; font-size: large; margin-left: auto; margin-right: auto;
         background-color: #BBBBBB; margin-bottom: 0.5cm;">
         <tr><td>Successful banishments required: ${game.banishesRequired}</td></tr>
-        <tr><td>Banshments attempted: ${game.banishesAttempted}</td></tr>
+        <tr><td>Banishments attempted: ${game.banishesAttempted}</td></tr>
     </table>
     <div style="text-align: center; margin-bottom: 1cm; font-size: large;">
         <span><b>Guess the house where the specter is hiding!</b></span>

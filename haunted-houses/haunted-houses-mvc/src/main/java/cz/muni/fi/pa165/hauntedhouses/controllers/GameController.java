@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -94,8 +97,21 @@ public class GameController {
      * @return
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@ModelAttribute("createDTO") GameInstanceCreateDTO createDTO, RedirectAttributes redirectAttributes,
-                         UriComponentsBuilder uriBuilder, Principal principal) {
+    public String create(@ModelAttribute("createDTO") GameInstanceCreateDTO createDTO, BindingResult bindingResult,
+            RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Principal principal) {
+
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                log.trace("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                log.trace("FieldError: {}", fe);
+            }
+            redirectAttributes.addFlashAttribute("alert_warning",
+                    "Invalid input for banishes required! Enter a whole number between 1 and 20!");
+            return "redirect:" + uriBuilder.path("/game/new").toUriString();
+        }
+
         PlayerDTO foundPlayer = playerFacade.getPlayerByEmail(principal.getName());
         log.debug("\"/create\" called for user email {} (player found: {}, banishments: {})",
                 principal.getName(), foundPlayer != null, createDTO.getBanishesRequired());
