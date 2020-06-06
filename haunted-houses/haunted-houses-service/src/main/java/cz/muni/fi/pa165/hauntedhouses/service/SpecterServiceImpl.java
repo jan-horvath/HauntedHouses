@@ -48,10 +48,13 @@ public class SpecterServiceImpl implements SpecterService {
         Faker faker = new Faker();
         Random random = new Random();
 
+        int randomHour = random.nextInt(24);
+        int differentRandomHour = (random.nextInt(23) + randomHour + 1) % 24;
+
         Specter specter = new Specter();
         specter.setName(faker.witcher().monster());
-        specter.setStartOfHaunting(LocalTime.of(random.nextInt(24), 0));
-        specter.setEndOfHaunting(LocalTime.of(random.nextInt(24), 0));
+        specter.setStartOfHaunting(LocalTime.of(randomHour, random.nextInt(4) * 15 ));
+        specter.setEndOfHaunting(LocalTime.of(differentRandomHour, random.nextInt(4) * 15));
         specter.setDescription(descriptions.get(random.nextInt(descriptions.size())));
 
         List<Ability> allAbilities = abilityService.getAllAbilities();

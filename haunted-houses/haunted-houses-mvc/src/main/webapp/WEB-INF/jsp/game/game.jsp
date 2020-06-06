@@ -44,8 +44,8 @@
     <div style="text-align: center; margin-bottom: 1cm; font-size: large;">
         <span><b>Guess the house where the specter is hiding!</b></span>
         <br>
-        <span style="border: 3px solid #EE1111; background: #EE1111">Clue: </span>
-        <span style="border: 3px solid #EE1111">${clue}</span>
+        <span style="border: 3px solid #6495ed; background: #6495ed">Clue: </span>
+        <span style="border: 3px solid #6495ed">${clue}</span>
     </div>
 
     <table class="table">
