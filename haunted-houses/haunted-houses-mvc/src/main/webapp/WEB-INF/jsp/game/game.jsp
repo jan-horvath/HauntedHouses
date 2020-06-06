@@ -8,7 +8,19 @@
 <my:pagetemplate>
 <jsp:attribute name="body">
 
-    <table style="font-size: large; border-collapse: separate; margin-left: auto; margin-right: auto;
+    <script type="text/javascript">
+        function toggleInfo(id) {
+            var e = document.getElementById(id);
+            if(e.style.display == 'block')
+                e.style.display = 'none';
+            else
+                e.style.display = 'block';
+        }
+    </script>
+
+    <button onclick="toggleInfo('specter-info')">Show/Hide specter information</button>
+
+    <table id="specter-info" style="display:none; font-size: large; border-collapse: separate; margin-left: auto; margin-right: auto;
         table-layout: fixed; border-spacing: 1cm"><tr><td>
     <table style="border-collapse: separate; border-spacing: 10px">
         <caption>Specter info</caption>
