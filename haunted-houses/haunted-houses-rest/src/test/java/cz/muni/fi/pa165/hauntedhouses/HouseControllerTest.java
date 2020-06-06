@@ -23,7 +23,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
@@ -69,13 +68,13 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
         houseOne = new HouseDTO();
         houseOne.setId(1L);
         houseOne.setAddress("addressOne");
-        houseOne.setHint("hintOne");
+        houseOne.setClue("clueOne");
         houseOne.setName("nameOne");
 
         houseTwo = new HouseDTO();
         houseTwo.setId(2L);
         houseTwo.setAddress("addressTwo");
-        houseTwo.setHint("hintTwo");
+        houseTwo.setClue("clueTwo");
         houseTwo.setName("nameTwo");
 
         houses = new ArrayList<>();
@@ -94,10 +93,10 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.[?(@.id==1)].name").value("nameOne"))
                 .andExpect(jsonPath("$.[?(@.id==1)].address").value("addressOne"))
-                .andExpect(jsonPath("$.[?(@.id==1)].hint").value("hintOne"))
+                .andExpect(jsonPath("$.[?(@.id==1)].clue").value("clueOne"))
                 .andExpect(jsonPath("$.[?(@.id==2)].name").value("nameTwo"))
                 .andExpect(jsonPath("$.[?(@.id==2)].address").value("addressTwo"))
-                .andExpect(jsonPath("$.[?(@.id==2)].hint").value("hintTwo"));
+                .andExpect(jsonPath("$.[?(@.id==2)].clue").value("clueTwo"));
     }
 
     @Test
@@ -111,7 +110,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
                         content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.name").value("nameOne"))
                 .andExpect(jsonPath("$.address").value("addressOne"))
-                .andExpect(jsonPath("$.hint").value("hintOne"));
+                .andExpect(jsonPath("$.clue").value("clueOne"));
 
         mockMvc.perform(get("/api/v1/house/2"))
                 .andExpect(status().isOk())
@@ -119,7 +118,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
                         content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.name").value("nameTwo"))
                 .andExpect(jsonPath("$.address").value("addressTwo"))
-                .andExpect(jsonPath("$.hint").value("hintTwo"));
+                .andExpect(jsonPath("$.clue").value("clueTwo"));
     }
 
     @Test
@@ -134,7 +133,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
     public void createHouse() throws Exception {
         HouseCreateDTO houseCreateDTO = new HouseCreateDTO();
         houseCreateDTO.setAddress("addressOne");
-        houseCreateDTO.setHint("hintOne");
+        houseCreateDTO.setClue("clueOne");
         houseCreateDTO.setName("nameOne");
 
         doReturn(1L).when(houseFacade).createHouse(
@@ -153,7 +152,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
     public void createInvalidHouse() throws Exception {
         HouseCreateDTO houseCreateDTO = new HouseCreateDTO();
         houseCreateDTO.setName("name");
-        houseCreateDTO.setHint("hint");
+        houseCreateDTO.setClue("clue");
 
         doReturn(1L).when(houseFacade).createHouse(
                 any(HouseCreateDTO.class));
@@ -169,7 +168,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
         HouseDTO houseDTO = new HouseDTO();
         houseDTO.setId(1L);
         houseDTO.setAddress("addressOne");
-        houseDTO.setHint("hintOne");
+        houseDTO.setClue("clueOne");
         houseDTO.setName("nameOne");
 
         String json = this.convertObjectToJsonBytes(houseDTO);
@@ -186,7 +185,7 @@ public class HouseControllerTest extends AbstractTestNGSpringContextTests {
         HouseDTO houseDTO = new HouseDTO();
         houseDTO.setId(1L);
         houseDTO.setAddress(null);
-        houseDTO.setHint("hintOne");
+        houseDTO.setClue("clueOne");
         houseDTO.setName("nameOne");
 
         String json = this.convertObjectToJsonBytes(houseDTO);

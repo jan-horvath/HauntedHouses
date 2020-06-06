@@ -134,7 +134,7 @@ public class GameControllerTest {
         house1 = new HouseDTO();
         house1.setId(1L);
         house1.setAddress("address1");
-        house1.setHint("hint1");
+        house1.setClue("clue1");
         HouseDTO house2 = new HouseDTO();
         house2.setId(2L);
         house2.setAddress("address2");
@@ -205,7 +205,7 @@ public class GameControllerTest {
                 .principal(new PrincipalImpl(playerWithGameEmail)))
                 .andExpect(model().attribute("specter", specterDTO))
                 .andExpect(model().attribute("abilities", abilities))
-                .andExpect(model().attribute("hint", house1.getHint()))
+                .andExpect(model().attribute("clue", house1.getClue()))
                 .andExpect(model().attribute("game", gameInstanceDTO))
                 .andExpect(forwardedUrl("game/game"));
     }

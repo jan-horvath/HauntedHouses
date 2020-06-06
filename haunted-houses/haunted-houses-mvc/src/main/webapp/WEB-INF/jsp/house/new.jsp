@@ -46,11 +46,11 @@
             </div>
         </div>
 
-        <div class="form-group ${hint_error?'has-error':''}">
-            <form:label path="hint" cssClass="col-sm-2 control-label">Hint</form:label>
+        <div class="form-group ${clue_error?'has-error':''}">
+            <form:label path="clue" cssClass="col-sm-2 control-label">Clue</form:label>
             <div class="col-sm-10">
-                <form:input path="hint" cssClass="form-control"/>
-                <form:errors path="hint" cssClass="help-block"/>
+                <form:input path="clue" cssClass="form-control"/>
+                <form:errors path="clue" cssClass="help-block"/>
             </div>
         </div>
 

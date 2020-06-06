@@ -74,7 +74,7 @@ public class HouseFacadeTest extends AbstractTestNGSpringContextTests {
         house.setAddress("address");
         house.setHauntedSince(cal.getTime());
         house.setHistory("history");
-        house.setHint("hint");
+        house.setClue("clue");
 
         houseDTO = new HouseDTO();
         houseDTO.setId(house.getId());
@@ -82,14 +82,14 @@ public class HouseFacadeTest extends AbstractTestNGSpringContextTests {
         houseDTO.setAddress(house.getAddress());
         houseDTO.setHauntedSince(house.getHauntedSince());
         houseDTO.setHistory(house.getHistory());
-        houseDTO.setHint(house.getHint());
+        houseDTO.setClue(house.getClue());
 
         houseCreateDTO = new HouseCreateDTO();
         houseCreateDTO.setName(house.getName());
         houseCreateDTO.setAddress(house.getAddress());
         houseCreateDTO.setHauntedSince(house.getHauntedSince());
         houseCreateDTO.setHistory(house.getHistory());
-        houseCreateDTO.setHint(house.getHint());
+        houseCreateDTO.setClue(house.getClue());
 
         List<House> houses = new ArrayList<>();
         houses.add(house);

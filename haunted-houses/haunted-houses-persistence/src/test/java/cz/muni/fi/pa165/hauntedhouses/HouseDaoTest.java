@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.hauntedhouses;
 import cz.muni.fi.pa165.hauntedhouses.dao.HouseDao;
 import cz.muni.fi.pa165.hauntedhouses.model.House;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 
 import javax.persistence.PersistenceException;
@@ -46,7 +45,7 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
         h1.setAddress("address1");
         h1.setHistory("history1");
         h1.setHauntedSince(cal.getTime());
-        h1.setHint("hint1");
+        h1.setClue("clue1");
 
         cal.set(Calendar.YEAR, 2012);
         cal.set(Calendar.MONTH, Calendar.DECEMBER);
@@ -57,14 +56,14 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
         h2.setAddress("address2");
         h2.setHistory("history2");
         h2.setHauntedSince(cal.getTime());
-        h2.setHint("hint2");
+        h2.setClue("clue2");
 
         h3 = new House();
         h3.setName(h1.getName());
         h3.setAddress(h1.getAddress());
         h3.setHistory(h1.getHistory());
         h3.setHauntedSince(h1.getHauntedSince());
-        h3.setHint(h1.getHint());
+        h3.setClue(h1.getClue());
     }
 
     @Test
@@ -77,7 +76,7 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
         Assert.assertEquals(h1.getAddress(), found.getAddress());
         Assert.assertEquals(h1.getHistory(), found.getHistory());
         Assert.assertEquals(h1.getHauntedSince(), found.getHauntedSince());
-        Assert.assertEquals(h1.getHint(), found.getHint());
+        Assert.assertEquals(h1.getClue(), found.getClue());
     }
 
     @Test
@@ -98,7 +97,7 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
         Assert.assertEquals(h1.getAddress(), found.getAddress());
         Assert.assertEquals(h1.getHistory(), found.getHistory());
         Assert.assertEquals(h1.getHauntedSince(), found.getHauntedSince());
-        Assert.assertEquals(h1.getHint(), found.getHint());
+        Assert.assertEquals(h1.getClue(), found.getClue());
     }
 
     @Test public void getByAddressNonexistingHouseTest() {
@@ -129,7 +128,7 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
         Assert.assertEquals(h1.getAddress(), found.getAddress());
         Assert.assertEquals(h1.getHistory(), found.getHistory());
         Assert.assertEquals(h1.getHauntedSince(), found.getHauntedSince());
-        Assert.assertEquals(h1.getHint(), found.getHint());
+        Assert.assertEquals(h1.getClue(), found.getClue());
     }
 
     @Test
@@ -142,7 +141,7 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
         Assert.assertEquals(h1.getAddress(), found.getAddress());
         Assert.assertEquals(h1.getHistory(), found.getHistory());
         Assert.assertEquals(h1.getHauntedSince(), found.getHauntedSince());
-        Assert.assertEquals(h1.getHint(), found.getHint());
+        Assert.assertEquals(h1.getClue(), found.getClue());
 
         houseDao.deleteHouse(h1);
         found = houseDao.getHouseByAddress(h1.getAddress());
@@ -159,7 +158,7 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
         Assert.assertEquals(h1.getAddress(), found.getAddress());
         Assert.assertEquals(h1.getHistory(), found.getHistory());
         Assert.assertEquals(h1.getHauntedSince(), found.getHauntedSince());
-        Assert.assertEquals(h1.getHint(), found.getHint());
+        Assert.assertEquals(h1.getClue(), found.getClue());
 
         h1.setAddress("changed");
         houseDao.updateHouse(h1);
@@ -182,8 +181,8 @@ public class HouseDaoTest extends AbstractTransactionalTestNGSpringContextTests 
     }
 
     @Test(expectedExceptions = PersistenceException.class)
-    public void createHouseWithNullHintTest() {
-        h1.setHint(null);
+    public void createHouseWithNullClueTest() {
+        h1.setClue(null);
         houseDao.createHouse(h1);
         houseDao.getAllHouses();
     }

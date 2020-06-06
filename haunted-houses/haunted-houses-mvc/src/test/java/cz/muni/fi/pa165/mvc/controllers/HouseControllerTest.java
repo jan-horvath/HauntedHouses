@@ -48,7 +48,7 @@ public class HouseControllerTest {
         houseDTO.setId(1L);
         houseDTO.setName("name");
         houseDTO.setAddress("address");
-        houseDTO.setHint("hint");
+        houseDTO.setClue("clue");
     }
 
     @Test
@@ -82,7 +82,7 @@ public class HouseControllerTest {
         HouseCreateDTO houseCreateDTO = new HouseCreateDTO();
         houseCreateDTO.setName("name");
         houseCreateDTO.setAddress("address");
-        houseCreateDTO.setHint("hint");
+        houseCreateDTO.setClue("clue");
 
         when(houseFacade.createHouse(houseCreateDTO)).thenReturn(1L);
 
@@ -90,7 +90,7 @@ public class HouseControllerTest {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("name", "name")
                 .param("address", "address")
-                .param("hint", "hint"))
+                .param("clue", "clue"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("http://localhost/house/view/1"));
     }
@@ -100,7 +100,7 @@ public class HouseControllerTest {
         HouseCreateDTO houseCreateDTO = new HouseCreateDTO();
         houseCreateDTO.setName("name");
         houseCreateDTO.setAddress("address");
-        houseCreateDTO.setHint("hint");
+        houseCreateDTO.setClue("clue");
 
         when(houseFacade.createHouse(houseCreateDTO)).thenReturn(1L);
 
@@ -118,7 +118,7 @@ public class HouseControllerTest {
                 .param("id", "1")
                 .param("name", "name")
                 .param("address", "address")
-                .param("hint", "hint"))
+                .param("clue", "clue"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("http://localhost/house/view/1"));
     }
@@ -129,7 +129,7 @@ public class HouseControllerTest {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("name", "name")
                 .param("address", "address")
-                .param("hint", ""))
+                .param("clue", ""))
                 .andExpect(forwardedUrl("house/update"));
     }
 
