@@ -1,10 +1,6 @@
 package cz.muni.fi.pa165.hauntedhouses.model;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -12,6 +8,7 @@ import java.util.Objects;
  * @author David Hofman
  */
 @Entity
+@Table(name = "abilities")
 public class Ability implements Serializable {
     @Id
     @GeneratedValue(generator = "pooled_generator")

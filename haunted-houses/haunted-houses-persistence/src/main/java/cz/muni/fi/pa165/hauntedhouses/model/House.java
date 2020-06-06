@@ -9,8 +9,8 @@ import java.util.Date;
 /**
  * @author Petr Vitovsky
  */
-
 @Entity
+@Table(name = "houses")
 public class House implements Serializable {
 
     @Id

@@ -9,6 +9,7 @@ import java.util.Set;
  * @author David Hofman
  */
 @Entity
+@Table(name = "game_instances")
 public class GameInstance implements Serializable {
     @Id
     @GeneratedValue(generator = "pooled_generator")
