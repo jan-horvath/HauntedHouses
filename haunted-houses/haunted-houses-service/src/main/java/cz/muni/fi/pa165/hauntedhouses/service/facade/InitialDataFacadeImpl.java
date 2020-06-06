@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
-import java.util.Date;
 
 @Component
 @Transactional
@@ -118,6 +117,13 @@ public class InitialDataFacadeImpl implements InitialDataFacade {
                 "In 2011 Taipei 101 received a Platinum rating under the LEED certification system to become the " +
                         "largest green building in the world.",
                 "Tallest building between 2004 and 2010", 10, Calendar.SEPTEMBER, 2012);
+        createHouse("Bran Castle", "Str. G-ral Traian Mosoiu, nr.24, Bran",
+                "The first documented mentioning of Bran Castle is the act issued by Louis I" +
+                        " of Hungary on 19 November 1377.",
+                "Home of count Dracula", 24, Calendar.DECEMBER, 1212);
+        createHouse("Neverland", "5225 Figueroa Mountain Road, Los Olivos, California, United States",
+                "The estate was originally known as the Zaca Laderas Ranch.",
+                "Residence of Michael Jackson", 25, Calendar.JUNE, 2009);
     }
 
     private void loadPlayers() {
